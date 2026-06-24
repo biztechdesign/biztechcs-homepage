@@ -1,0 +1,25 @@
+{
+  "_note": "Archive of pages produced by page-orchestrator (Phase 6). Do not edit manually.",
+  "last_updated": "2026-06-19",
+  "total_published": 1,
+  "pages": [
+    {
+      "id": "biztech-homepage",
+      "title": "BiztechCS Homepage",
+      "page_type": "homepage",
+      "url": "/",
+      "target_keyword": "enterprise software development company",
+      "published_at": "2026-06-19",
+      "word_count": 980,
+      "seo_score": 92,
+      "humanization_pass_status": "clean",
+      "schema_type": "Organization + WebSite + FAQPage",
+      "primary_cta": "Book a 30-min Call",
+      "output_file": "output/biztech-homepage_final.md",
+      "meta_title": "Enterprise Software Development, Delivered With US & EU Accountability | BiztechCS",
+      "meta_description": "Custom enterprise software since 2006 — AI, ERP, ecommerce and cloud. 1,200+ projects, 98% client retention, ISO 27001/9001, IP you fully own. Book a 30-min call.",
+      "internal_links": ["#work", "#cta", "#services", "#why"],
+      "competitor_analysis_inputs_used": false
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "_note": "Written by labelwala-auditor agent in Phase 0. Do not edit manually.",
+  "audited_at": "",
+  "url": "https://labelwala.store",
+  "seo": {
+    "homepage_title": "",
+    "homepage_meta_description": "",
+    "homepage_h1": "",
+    "hero_tagline": "",
+    "primary_cta": "",
+    "trust_signals": [],
+    "headings_collected": [],
+    "keywords_in_copy": [],
+    "has_schema_markup": false
+  },
+  "products": {
+    "categories": [],
+    "product_types": [],
+    "materials": [],
+    "customization_options": [],
+    "MOQ": "",
+    "price_range": "",
+    "bulk_discount_available": false,
+    "shipping_policy": "",
+    "turnaround_days": ""
+  },
+  "content": {
+    "blog_exists": false,
+    "total_posts_estimate": 0,
+    "post_titles": [],
+    "topics_covered": [],
+    "most_recent_post": "",
+    "posting_frequency": ""
+  },
+  "gaps": {
+    "missing_products": [],
+    "missing_content_topics": [],
+    "missing_seo_elements": [],
+    "missing_trust_signals": []
+  }
+}

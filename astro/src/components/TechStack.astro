@@ -1,0 +1,229 @@
+---
+const DI = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons'
+const SI = 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons'
+const SI11 = 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons' // older marks dropped from v13
+const MS = 'https://raw.githubusercontent.com/microsoft/PowerBI-Icons/main/SVG'
+const GH = 'https://raw.githubusercontent.com/microsoft/semantic-kernel/main/docs/images'
+const AI = 'https://www.biztechcs.com/wp-content/uploads/2025/09'
+// Full technology stack mirrored from biztechcs.com. `logo` = colour image; a few
+// Microsoft/CRM marks aren't available as logos, so they render as text chips.
+const STACK = [
+  { cat: 'AI Technologies', items: [
+    { n: 'LangChain', logo: `${AI}/ai_logo2.png` },
+    { n: 'LangGraph', logo: `${AI}/ai_logo3.png` },
+    { n: 'CrewAI', logo: `${AI}/ai_logo1.png` },
+    { n: 'AutoGen', logo: `${AI}/ai_logo4.png` },
+    { n: 'OpenAI Agents', logo: `${AI}/ai_logo8.png` },
+    { n: 'n8n', logo: `${AI}/ai_logo6.png` },
+    { n: 'Semantic Kernel', logo: `${GH}/sk_logo.png` },
+    { n: 'Power Automate', logo: `${SI11}/powerautomate.svg` },
+  ] },
+  { cat: 'Frontend', items: [
+    { n: 'Next.js', logo: `${DI}/nextjs/nextjs-original.svg` },
+    { n: 'Angular', logo: `${DI}/angularjs/angularjs-original.svg` },
+    { n: 'React', logo: `${DI}/react/react-original.svg` },
+    { n: 'Vue.js', logo: `${DI}/vuejs/vuejs-original.svg` },
+    { n: 'Svelte', logo: `${DI}/svelte/svelte-original.svg` },
+    { n: 'TypeScript', logo: `${DI}/typescript/typescript-original.svg` },
+    { n: 'JavaScript', logo: `${DI}/javascript/javascript-original.svg` },
+    { n: 'Tailwind', logo: `${DI}/tailwindcss/tailwindcss-original.svg` },
+    { n: 'Bootstrap', logo: `${DI}/bootstrap/bootstrap-original.svg` },
+    { n: 'Redux', logo: `${DI}/redux/redux-original.svg` },
+    { n: 'HTML5', logo: `${DI}/html5/html5-original.svg` },
+    { n: 'CSS3', logo: `${DI}/css3/css3-original.svg` },
+    { n: 'jQuery', logo: `${DI}/jquery/jquery-original.svg` },
+  ] },
+  { cat: 'Backend', items: [
+    { n: 'Node.js', logo: `${DI}/nodejs/nodejs-original.svg` },
+    { n: 'Laravel', logo: `${DI}/laravel/laravel-original.svg` },
+    { n: 'Python', logo: `${DI}/python/python-original.svg` },
+    { n: 'PHP', logo: `${DI}/php/php-original.svg` },
+    { n: 'Express', logo: `${DI}/express/express-original.svg` },
+    { n: 'NestJS', logo: `${DI}/nestjs/nestjs-original.svg` },
+    { n: 'Django', logo: `${DI}/django/django-plain.svg` },
+    { n: 'Flask', logo: `${DI}/flask/flask-original.svg` },
+    { n: 'Spring', logo: `${DI}/spring/spring-original.svg` },
+    { n: 'Java', logo: `${DI}/java/java-original.svg` },
+    { n: 'Go', logo: `${DI}/go/go-original-wordmark.svg` },
+    { n: 'Ruby on Rails', logo: `${DI}/rails/rails-original-wordmark.svg` },
+    { n: 'GraphQL', logo: `${DI}/graphql/graphql-plain.svg` },
+    { n: 'CodeIgniter', logo: `${DI}/codeigniter/codeigniter-plain.svg` },
+    { n: 'Symfony', logo: `${DI}/symfony/symfony-original.svg` },
+    { n: 'WordPress', logo: `${DI}/wordpress/wordpress-plain.svg` },
+  ] },
+  { cat: 'Cloud & DevOps', items: [
+    { n: 'AWS', logo: `${DI}/amazonwebservices/amazonwebservices-original-wordmark.svg` },
+    { n: 'Google Cloud', logo: `${DI}/googlecloud/googlecloud-original.svg` },
+    { n: 'Docker', logo: `${DI}/docker/docker-original.svg` },
+    { n: 'Kubernetes', logo: `${DI}/kubernetes/kubernetes-plain.svg` },
+    { n: 'Jenkins', logo: `${DI}/jenkins/jenkins-original.svg` },
+    { n: 'GitHub Actions', logo: `${DI}/githubactions/githubactions-original.svg` },
+    { n: 'GitLab', logo: `${DI}/gitlab/gitlab-original.svg` },
+    { n: 'Terraform', logo: `${DI}/terraform/terraform-original.svg` },
+    { n: 'Nginx', logo: `${DI}/nginx/nginx-original.svg` },
+  ] },
+  { cat: 'CRM & ERP', items: [
+    { n: 'Odoo', logo: `${SI}/odoo.svg` },
+    { n: 'Salesforce', logo: `${DI}/salesforce/salesforce-original.svg` },
+  ] },
+  { cat: 'Ecommerce', items: [
+    { n: 'Magento', logo: `${DI}/magento/magento-original.svg` },
+    { n: 'Shopify', logo: `${SI}/shopify.svg` },
+  ] },
+  { cat: 'Mobile', items: [
+    { n: 'Flutter', logo: `${DI}/flutter/flutter-original.svg` },
+    { n: 'React Native', logo: `${DI}/react/react-original.svg` },
+    { n: 'Ionic', logo: `${DI}/ionic/ionic-original.svg` },
+    { n: 'Kotlin', logo: `${DI}/kotlin/kotlin-original.svg` },
+    { n: 'Swift', logo: `${DI}/swift/swift-original.svg` },
+    { n: 'Xamarin', logo: `${DI}/xamarin/xamarin-original.svg` },
+    { n: '.NET MAUI', logo: `${SI}/dotnet.svg` },
+    { n: 'Android', logo: `${DI}/android/android-original.svg` },
+    { n: 'iOS', logo: `${DI}/apple/apple-original.svg` },
+  ] },
+  { cat: 'Microsoft Stack', items: [
+    { n: 'ASP.NET', logo: `${DI}/dot-net/dot-net-original.svg` },
+    { n: '.NET Core', logo: `${DI}/dotnetcore/dotnetcore-original.svg` },
+    { n: 'C#', logo: `${DI}/csharp/csharp-original.svg` },
+    { n: 'Blazor', logo: `${DI}/blazor/blazor-original.svg` },
+    { n: 'Azure', logo: `${DI}/azure/azure-original.svg` },
+    { n: 'Power BI', logo: `${MS}/Power-BI.svg` },
+    { n: 'Dynamics 365', logo: `${SI11}/dynamics365.svg` },
+    { n: 'Entity Framework', logo: `${SI}/dotnet.svg` },
+  ] },
+  { cat: 'Graphic Design', items: [
+    { n: 'Illustrator', logo: `${DI}/illustrator/illustrator-plain.svg` },
+    { n: 'Photoshop', logo: `${DI}/photoshop/photoshop-plain.svg` },
+    { n: 'After Effects', logo: `${DI}/aftereffects/aftereffects-original.svg` },
+    { n: 'Adobe XD', logo: `${DI}/xd/xd-plain.svg` },
+    { n: 'Figma', logo: `${DI}/figma/figma-original.svg` },
+    { n: 'Blender', logo: `${DI}/blender/blender-original.svg` },
+  ] },
+  { cat: 'Integrations', items: [
+    { n: 'HubSpot', logo: `${SI}/hubspot.svg` },
+    { n: 'Twilio', logo: `${DI}/twilio/twilio-original.svg` },
+    { n: 'Stripe', logo: `${SI}/stripe.svg` },
+    { n: 'PayPal', logo: `${SI}/paypal.svg` },
+    { n: 'Google', logo: `${SI}/google.svg` },
+  ] },
+  { cat: 'Database', items: [
+    { n: 'MongoDB', logo: `${DI}/mongodb/mongodb-original.svg` },
+    { n: 'MySQL', logo: `${DI}/mysql/mysql-original.svg` },
+    { n: 'MSSQL', logo: `${DI}/microsoftsqlserver/microsoftsqlserver-plain.svg` },
+    { n: 'PostgreSQL', logo: `${DI}/postgresql/postgresql-original.svg` },
+    { n: 'Redis', logo: `${DI}/redis/redis-original.svg` },
+    { n: 'Firebase', logo: `${DI}/firebase/firebase-plain.svg` },
+    { n: 'Elasticsearch', logo: `${DI}/elasticsearch/elasticsearch-original.svg` },
+    { n: 'SQLite', logo: `${DI}/sqlite/sqlite-original.svg` },
+  ] },
+  { cat: 'Testing & Automation', items: [
+    { n: 'Selenium', logo: `${DI}/selenium/selenium-original.svg` },
+    { n: 'JMeter', logo: `${SI}/apachejmeter.svg` },
+    { n: 'Cypress', logo: `${DI}/cypressio/cypressio-original.svg` },
+    { n: 'Playwright', logo: `${DI}/playwright/playwright-original.svg` },
+    { n: 'Postman', logo: `${DI}/postman/postman-original.svg` },
+  ] },
+  { cat: 'Tools', items: [
+    { n: 'Git', logo: `${DI}/git/git-original.svg` },
+    { n: 'GitHub', logo: `${SI}/github.svg` },
+    { n: 'Jira', logo: `${DI}/jira/jira-original.svg` },
+    { n: 'Bitbucket', logo: `${DI}/bitbucket/bitbucket-original.svg` },
+    { n: 'Slack', logo: `${DI}/slack/slack-original.svg` },
+  ] },
+]
+// flatten into one wall, de-duped, each item tagged with its category for filtering
+const seen = new Set()
+const ALL = STACK.flatMap((s) => s.items.map((it) => ({ ...it, cat: s.cat }))).filter((t) => {
+  if (seen.has(t.n)) return false
+  seen.add(t.n)
+  return true
+})
+const total = ALL.length
+const slug = (c) => c.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+---
+<section id="tech" class="py-[var(--section-y)]">
+  <div class="wrap">
+    <div class="flex flex-wrap items-end justify-between gap-7 mb-[clamp(28px,3vw,40px)]">
+      <div class="max-w-[640px]">
+        <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
+          <i class="fi fi-rr-apps text-teal"></i> Technologies
+        </span>
+        <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(30px,4vw,52px)] font-black tracking-[-0.04em] leading-[1.04]">
+          The <span class="accent">technology stack</span> behind your software.
+        </h2>
+      </div>
+      <p data-reveal style="--d:.12s" class="text-[14px] font-semibold text-muted whitespace-nowrap">
+        <span class="text-ink font-black text-[18px]">{total}+</span> technologies · {STACK.length} domains
+      </p>
+    </div>
+
+    <!-- category filter chips (top) -->
+    <div data-reveal class="tech-filters flex flex-wrap gap-2.5 mb-[clamp(28px,3vw,40px)]" data-tech-filters>
+      <button class="tfilter is-active" data-cat="all">All</button>
+      {STACK.map((s) => (
+        <button class="tfilter" data-cat={slug(s.cat)}>{s.cat}</button>
+      ))}
+    </div>
+
+    <!-- one compact wall -->
+    <div data-reveal class="tech-wall grid gap-x-[clamp(16px,2.4vw,32px)] gap-y-7" data-tech-wall>
+      {ALL.map((t) => (
+        t.logo ? (
+          <div class="titem tlogo group flex flex-col items-center gap-2" data-cat={slug(t.cat)}>
+            <img src={t.logo} alt={t.n} title={t.n} loading="lazy" class="logo-img h-[clamp(28px,3vw,36px)] w-auto max-w-[44px] object-contain" />
+            <span class="text-[10.5px] font-semibold text-muted leading-none text-center transition-colors duration-300 group-hover:text-ink">{t.n}</span>
+          </div>
+        ) : (
+          <div class="titem tchip-wrap flex items-center justify-center" data-cat={slug(t.cat)}>
+            <span class="tchip">{t.n}</span>
+          </div>
+        )
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  .tech-wall { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+  @media (max-width: 1100px) { .tech-wall { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
+  @media (max-width: 760px) { .tech-wall { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+  @media (max-width: 480px) { .tech-wall { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+  .logo-img { opacity: 0.85; transition: opacity 0.3s ease, transform 0.3s ease; }
+  .tlogo:hover .logo-img { opacity: 1; transform: translateY(-4px); }
+  @media (prefers-reduced-motion: reduce) { .logo-img { transition: none; } .tlogo:hover .logo-img { transform: none; } }
+</style>
+
+<script>
+  const sec = document.querySelector('#tech')
+  if (sec) {
+    const wall = sec.querySelector('[data-tech-wall]')
+    const filters = Array.from(sec.querySelectorAll('.tfilter'))
+    const items = Array.from(sec.querySelectorAll('.titem'))
+    let locked = 'all' // clicked category
+
+    const apply = (cat) => {
+      if (cat === 'all') {
+        wall.classList.remove('has-filter')
+        items.forEach((it) => it.classList.remove('match'))
+        return
+      }
+      wall.classList.add('has-filter')
+      items.forEach((it) => it.classList.toggle('match', it.dataset.cat === cat))
+    }
+
+    filters.forEach((f) => {
+      // click locks the filter
+      f.addEventListener('click', () => {
+        locked = f.dataset.cat
+        filters.forEach((x) => x.classList.toggle('is-active', x === f))
+        apply(locked)
+      })
+      // hover previews (only when not overriding a lock to 'all')
+      f.addEventListener('mouseenter', () => { if (f.dataset.cat !== 'all') apply(f.dataset.cat) })
+      f.addEventListener('mouseleave', () => apply(locked))
+    })
+  }
+</script>

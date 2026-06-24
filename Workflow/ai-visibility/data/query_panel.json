@@ -1,0 +1,27 @@
+{
+  "_note": "AI-visibility query panel for Labelwala.store. These are real buyer questions used to test how AI assistants (Google AI Overviews, Perplexity, ChatGPT, Gemini, Copilot) answer — and whether Labelwala is named/cited. Labelwala makes custom FABRIC/GARMENT labels (woven, printed, care, heat-transfer); see D:\\01_AI\\Workflow\\BUSINESS.md. Status lifecycle: queued -> in_progress -> done | failed (never left in_progress).",
+  "last_updated": "2026-06-19",
+  "engines_tracked": ["google_ai_overviews", "perplexity", "chatgpt", "gemini", "copilot"],
+  "engine_access": {
+    "google_ai_overviews": "live via WebSearch (approximates AI Overview + SERP consensus)",
+    "perplexity": "paste answer into data/inputs/perplexity.md",
+    "chatgpt": "paste answer into data/inputs/chatgpt.md",
+    "gemini": "paste answer into data/inputs/gemini.md",
+    "copilot": "paste answer into data/inputs/copilot.md"
+  },
+  "competitors_to_track": [
+    "the brands named in competitor-analysis/data/competitor_profiles.json (if present); else discover from the AI answers"
+  ],
+  "queries": [
+    { "id": "best-woven-label-mfr-india", "query": "best custom woven label manufacturer in India", "intent": "commercial", "target_page": "/custom-woven-labels", "priority": 1, "status": "queued" },
+    { "id": "where-order-clothing-labels-india", "query": "where to order custom clothing labels online in India", "intent": "transactional", "target_page": "/", "priority": 2, "status": "queued" },
+    { "id": "woven-vs-printed-which-better", "query": "woven vs printed labels which is better for clothing", "intent": "informational", "target_page": "/blog/woven-vs-printed-labels", "priority": 3, "status": "queued" },
+    { "id": "care-label-supplier-india", "query": "custom care label supplier India fiber content wash symbols", "intent": "commercial", "target_page": "/segments/labels-for-school-corporate-uniforms", "priority": 4, "status": "queued" },
+    { "id": "clothing-label-moq-india", "query": "minimum order quantity for custom clothing labels India", "intent": "informational", "target_page": "/custom-woven-labels", "priority": 5, "status": "queued" },
+    { "id": "school-uniform-labels-supplier", "query": "school uniform woven labels and name tapes supplier India", "intent": "commercial", "target_page": "/segments/school-uniform-logo", "priority": 6, "status": "queued" },
+    { "id": "heat-transfer-tagless-mfr", "query": "heat transfer tagless labels manufacturer India activewear", "intent": "commercial", "target_page": "/", "priority": 7, "status": "queued" },
+    { "id": "satin-brand-labels-india", "query": "satin brand labels for clothing manufacturer India", "intent": "commercial", "target_page": "/custom-woven-labels", "priority": 8, "status": "queued" },
+    { "id": "streetwear-label-supplier", "query": "best label supplier for streetwear brands India", "intent": "commercial", "target_page": "/segments/labels-for-streetwear-urban", "priority": 9, "status": "queued" },
+    { "id": "free-label-samples-india", "query": "clothing label manufacturer with free samples India", "intent": "transactional", "target_page": "/free-sample-kit", "priority": 10, "status": "queued" }
+  ]
+}

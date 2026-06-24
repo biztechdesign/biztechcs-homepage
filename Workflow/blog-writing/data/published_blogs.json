@@ -1,0 +1,89 @@
+{
+  "_note": "Archive of blogs. Entries with source 'existing-pre-workflow' were already live on labelwala.store before this workflow existed — cataloged 2026-06-19 from search-indexed content (site blocks direct fetch, so seo_score/word_count are AUDIT ESTIMATES, not workflow-generated). Entries with source 'workflow' are produced by blog-orchestrator Phase 7.",
+  "last_updated": "2026-06-19",
+  "total_published": 3,
+  "blogs": [
+    {
+      "id": "label-size-guide-all-types",
+      "title": "Label Size Guide: Standard Dimensions for Every Type of Clothing Label",
+      "url": "https://labelwala.store/blog/label-size-guide-all-types",
+      "target_keyword": "clothing label size guide",
+      "published_at": "2026-05",
+      "word_count": 0,
+      "seo_score": 86,
+      "seo_score_basis": "audit-estimate",
+      "humanization_pass_status": "clean",
+      "source": "existing-pre-workflow",
+      "output_file": "",
+      "meta_title": "Label Size Guide: Standard Dimensions for Every Type of Clothing Label",
+      "meta_description": "Standard sizes for neck labels, care labels, size tabs, hem tags, woven/printed patches, ribbons, name tapes and school crests — in mm, calibrated for Indian garment tolerances.",
+      "internal_links_suggested": [],
+      "topics_covered": [
+        "neck/brand label dimensions",
+        "care label sizes",
+        "size tabs",
+        "hem tags",
+        "woven and printed patches",
+        "ribbons",
+        "name & number tapes",
+        "school crests",
+        "heat-press transfers"
+      ],
+      "audience_segment": "clothing-brands",
+      "audit_note": "Strongest existing post. Specific mm dimensions with practical reasoning (e.g. sub-12x18mm hard to grip during stitching). This is the quality bar for new posts. Clean URL under /blog/."
+    },
+    {
+      "id": "printed-fabric-label-at-best-price-in-india",
+      "title": "Printed Fabric Label At Best Price In India",
+      "url": "https://labelwala.store/printed-fabric-label-at-best-price-in-india/",
+      "target_keyword": "printed fabric label price India",
+      "published_at": "2026-05",
+      "word_count": 0,
+      "seo_score": 76,
+      "seo_score_basis": "audit-estimate",
+      "humanization_pass_status": "moderate",
+      "source": "existing-pre-workflow",
+      "output_file": "",
+      "meta_title": "Printed Fabric Label At Best Price In India",
+      "meta_description": "India-first guide to printed fabric labels: materials, print methods, sizes, compliance, pricing, MOQs and artwork setup to get the best price without losing durability.",
+      "internal_links_suggested": [],
+      "topics_covered": [
+        "printed label materials (satin, cotton, polyester, blends)",
+        "print methods",
+        "sizes",
+        "compliance (GST/HSN, fiber content)",
+        "pricing and price breaks",
+        "MOQs (100-1000)",
+        "artwork setup",
+        "sourcing strategy"
+      ],
+      "audience_segment": "garment-manufacturers",
+      "audit_note": "Thorough content but title 'At Best Price In India' is a keyword-forced/dated pattern (humanizer would rewrite). URL is root-level, NOT under /blog/ — inconsistent structure. Recommend 301 to /blog/ and a more natural title."
+    },
+    {
+      "id": "stop-losing-clothes-in-hostel-laundry",
+      "title": "Stop Losing Clothes In Hostel Laundry With Name Labels",
+      "url": "https://labelwala.store/stop-losing-clothes-in-hostel-laundry/",
+      "target_keyword": "name labels for hostel students",
+      "published_at": "2026-05",
+      "word_count": 0,
+      "seo_score": 74,
+      "seo_score_basis": "audit-estimate",
+      "humanization_pass_status": "clean",
+      "source": "existing-pre-workflow",
+      "output_file": "",
+      "meta_title": "Stop Losing Clothes In Hostel Laundry With Name Labels",
+      "meta_description": "How many name labels a hostel student needs (40-60), which label types last 100+ washes, and where to place them on uniforms, towels and bedding.",
+      "internal_links_suggested": [],
+      "topics_covered": [
+        "name labels for hostel students",
+        "how many labels per student (40-60)",
+        "sew-on vs iron-on",
+        "label placement (collars, waistbands, side seams, fabric corners)",
+        "wash durability"
+      ],
+      "audience_segment": "institutions",
+      "audit_note": "Problem-led title (good, human voice). Pairs with /student-number-label-sgvp/ and /name-number-labels product pages. Root-level URL — same /blog/ consistency note as blog 2."
+    }
+  ]
+}

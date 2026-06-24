@@ -1,0 +1,62 @@
+---
+const COMPANY = [
+  ['About Us', '#about'], ['Our Ventures', '#'], ['Our Team', '#about'], ['Partnerships', '#'],
+  ['Our Engagement Model', '#engagement'], ['Success Stories', '#work'], ['Career', '#'], ['Contact Us', '#cta'],
+]
+const SERVICES = [
+  ['Software Product Engineering', '#services'], ['Application Development', '#services'], ['Ecommerce Development', '#services'],
+  ['AI/ML Development', '#services'], ['DevOps Automation', '#services'], ['Odoo Development', '#services'],
+  ['ERP Services', '#services'], ['CRM Services', '#services'],
+]
+const SOLUTIONS = [
+  ['Web To Print', '#services'], ['Portal', '#services'],
+]
+const HIRE = [
+  ['Hire Magento Developers', '#'], ['Hire Shopify Developers', '#'], ['Hire Javascript Developers', '#'],
+  ['Hire iOS App Developers', '#'], ['Hire Android Developers', '#'], ['Hire Flutter Developers', '#'],
+  ['Hire ReactJS Developers', '#'], ['Hire AngularJS Developers', '#'], ['Hire Vue.JS Developers', '#'],
+  ['Hire Node.JS Developer', '#'], ['Hire Laravel Developers', '#'], ['Hire .Net Developers', '#'],
+  ['Hire PHP Developers', '#'], ['Hire CakePHP developers', '#'], ['Hire Salesforce Developers', '#'],
+  ['Hire Odoo Developers', '#'],
+]
+const LEGAL = [
+  ['Disclaimer', '#'], ['Intermediary Compliance', '#'], ['Terms of Use', '#'], ['Privacy Policy', '#'],
+]
+---
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-cols">
+        <div><h4>Company</h4><ul>{COMPANY.map(([t, h]) => <li><a href={h}>{t}</a></li>)}</ul></div>
+        <div><h4>Services</h4><ul>{SERVICES.map(([t, h]) => <li><a href={h}>{t}</a></li>)}</ul></div>
+        <div>
+          <h4>Solutions</h4><ul>{SOLUTIONS.map(([t, h]) => <li><a href={h}>{t}</a></li>)}</ul>
+        </div>
+        <div class="foot-hire"><h4>Hire Developers</h4><ul>{HIRE.map(([t, h]) => <li><a href={h}>{t}</a></li>)}</ul></div>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <div>© Copyright 2006-2026. Biztech® IT Consultancy Pvt. Ltd.</div>
+      <div class="foot-legal">{LEGAL.map(([t, h]) => <a href={h}>{t}</a>)}</div>
+    </div>
+
+    <!-- big centered wordmark -->
+    <div class="foot-bigmark">
+      <img src="/assets/biztech-tagline-white.svg" alt="BiztechCS" />
+    </div>
+  </div>
+</footer>
+<style>
+  .foot-cols { display: grid; grid-template-columns: 1fr 1fr 1fr 1.6fr; gap: 40px; }
+  @media (max-width: 1024px) { .foot-cols { grid-template-columns: 1fr 1fr; gap: 32px 28px; } }
+  @media (max-width: 520px) { .foot-cols { grid-template-columns: 1fr; } }
+
+  .foot-bigmark { margin-top: clamp(40px, 5vw, 64px); display: flex; justify-content: center; }
+  .foot-bigmark img { height: clamp(70px, 13vw, 150px); width: auto; opacity: .95; }
+  /* Hire Developers has 16 links — split into two columns so it doesn't run tall */
+  .foot-hire ul { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 22px; }
+  @media (max-width: 1024px) { .foot-hire { grid-column: 1 / -1; } }
+  @media (max-width: 520px) { .foot-hire ul { grid-template-columns: 1fr; } }
+  .foot-legal { display: flex; flex-wrap: wrap; }
+</style>

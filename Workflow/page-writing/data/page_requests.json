@@ -1,0 +1,23 @@
+{
+  "_note": "Page request queue for the BiztechCS page-writing workflow. ONE flexible workflow handles ANY page_type (segment | service | product | landing | homepage | about | category | comparison). BiztechCS is an enterprise software development & IT consulting firm (since 2006) — see Workflow\\BUSINESS.md. Orchestrator picks the next 'queued' entry by priority. Status lifecycle: queued -> in_progress -> published | failed (never left in_progress).",
+  "last_updated": "2026-06-19",
+  "pages": [
+    {
+      "id": "biztech-homepage",
+      "title": "BiztechCS Homepage",
+      "page_type": "homepage",
+      "target_url": "/",
+      "target_keyword": "enterprise software development company",
+      "audience_segment": "enterprise",
+      "primary_goal": "Convince an out-of-India decision-maker (US/EU CTO, VP Eng, founder) that BiztechCS is the low-risk choice and get them to book a 30-min call",
+      "primary_cta": "Book a 30-min Call",
+      "priority": 1,
+      "status": "published",
+      "added_date": "2026-06-19",
+      "started_at": "2026-06-19",
+      "published_at": "2026-06-19",
+      "output_file": "output/biztech-homepage_final.md",
+      "notes": "Wired into the live React app (app/src). Section blueprint mirrors REDESIGN-PLAN.md §6: Hero (outcome-led + dual CTA + trust strip) -> Logo wall + outcome proof bar -> Services (6 cards) -> Featured work (3 cases w/ metrics) -> Why Biztech/Trust (de-risk the offshore concern) -> Industries -> Process (de-risk delivery) -> Testimonials (Clutch/Google) -> Tech stack -> Resources/Blog -> Final CTA band -> FAQ -> Footer. Schema: Organization + WebSite + FAQPage. Lead with proof, not 'Global Leader'."
+    }
+  ]
+}

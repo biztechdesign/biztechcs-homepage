@@ -1,0 +1,33 @@
+# Labelwala
+
+> {{ONE_LINE_SUMMARY}}
+> (e.g. "Custom fabric & garment label manufacturer in Ahmedabad, India — woven, printed, care and heat-transfer labels for clothing brands, garment manufacturers and uniform buyers.")
+
+Labelwala makes custom textile labels that are sewn or heat-pressed into clothing and uniforms. Serving India and 15+ countries. MOQ 100 pieces, free woven sample kit, free delivery above Rs 5,000.
+
+## Products
+- [Custom Woven Labels]({{URL_WOVEN}}): {{DESC_WOVEN}}
+- [Printed Fabric Labels]({{URL_PRINTED}}): {{DESC_PRINTED}}
+- [Care Labels]({{URL_CARE}}): fiber content + wash-symbol labels, compliance-ready
+- [Heat-Transfer / Tagless Labels]({{URL_TAGLESS}}): no-stitch, itch-free for activewear/innerwear
+- [Name & Number Tapes]({{URL_NAME}}): for schools, hostels, uniforms
+
+## Guides
+- [Label Size Guide]({{URL_SIZE_GUIDE}}): standard mm dimensions for every clothing label type
+- [Woven vs Printed Labels]({{URL_WOVEN_VS_PRINTED}}): which to use by garment and use case
+- [Printed Fabric Label Pricing in India]({{URL_PRICING}}): materials, MOQ, price breaks
+
+## Segments served
+- Clothing brands (D2C, boutique, streetwear)
+- Garment manufacturers & exporters
+- Schools, corporate & catering uniform buyers
+
+## Key facts
+- Materials: woven/damask, satin, cotton, polyester, blends, heat-transfer film
+- MOQ: 100 pieces; price ~Rs 0.25-4 per piece by material/method
+- Lead time: digital mockup 1-3 days; physical sample 3-5 days; production 5-10 working days
+- Based in Ahmedabad, India; ships India + 15 countries
+
+## Contact
+- Website: https://labelwala.store
+- {{CONTACT_LINE}}

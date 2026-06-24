@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+**/node_modules/
+
+# build output
+dist/
+**/dist/
+.astro/
+**/.astro/
+
+# logs / env
+*.log
+npm-debug.log*
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Claude / local agent state
+.claude/
+.playwright-mcp/
+**/.playwright-mcp/
+
+# temp screenshots & scratch artifacts at repo root
+/*.png
+/font-review.html
+/REDESIGN-PLAN.md

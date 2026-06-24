@@ -1,0 +1,15 @@
+{
+  "_note": "Written by ai-sov-checker agent in Phase 5. Measures how often Labelwala appears in AI-generated search answers vs. competitors.",
+  "checked_at": "",
+  "target": "labelwala.store",
+  "queries_tested": 10,
+  "labelwala_mentions": 0,
+  "total_brand_mentions": 0,
+  "sov_score_percent": 0,
+  "sov_interpretation": "",
+  "competitor_mentions": {},
+  "queries_labelwala_appeared_in": [],
+  "queries_labelwala_absent_from": [],
+  "top_competitor_in_ai_results": "",
+  "improvement_recommendations": []
+}

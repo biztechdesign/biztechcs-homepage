@@ -1,0 +1,42 @@
+---
+const MODELS = [
+  { ic: 'fi-rr-users-alt', title: 'Dedicated team', desc: 'A full squad that runs as an extension of yours — for ongoing product work.' },
+  { ic: 'fi-rr-bullseye-arrow', title: 'Fixed-scope project', desc: 'Defined deliverables, a transparent estimate and a fixed outcome.' },
+  { ic: 'fi-rr-user-add', title: 'Staff augmentation', desc: 'Plug senior engineers into your existing team to close specific gaps.' },
+]
+---
+<section id="engagement" class="surface-tint py-[var(--section-y)]">
+  <div class="wrap">
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-[clamp(36px,4vw,52px)]">
+      <div class="max-w-[640px]">
+        <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
+          <i class="fi fi-rr-handshake text-teal"></i> Engagement models
+        </span>
+        <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,52px)] font-black tracking-[-0.04em] leading-[1.04] whitespace-nowrap max-[680px]:whitespace-normal">
+          Three ways to <span class="accent">work with us.</span>
+        </h2>
+      </div>
+      <p data-reveal style="--d:.12s" class="text-[14px] font-semibold text-muted max-w-[300px] max-[680px]:max-w-none">
+        Every model runs on Agile delivery with transparent estimates — no cost overruns.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-3 gap-[18px] max-[760px]:grid-cols-1">
+      {MODELS.map((m, i) => (
+        <div data-reveal style={`--d:${(0.1 + i * 0.07).toFixed(2)}s`} class="emodel group flex flex-col rounded-3xl bg-white border border-line p-8 transition duration-300 hover:-translate-y-1.5 hover:border-teal/40">
+          <span class="grid place-items-center w-14 h-14 rounded-2xl bg-teal/10 border border-teal/20 text-teal text-[24px] transition duration-300 group-hover:bg-teal group-hover:text-white group-hover:border-transparent group-hover:-rotate-6">
+            <i class={`fi ${m.ic}`}></i>
+          </span>
+          <h3 class="mt-6 text-[19px] font-extrabold tracking-[-0.02em] text-ink">{m.title}</h3>
+          <p class="mt-2 text-[14px] leading-[1.55] text-muted flex-1">{m.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .emodel { box-shadow: 0 10px 30px -20px rgba(35, 38, 46, 0.22); }
+  .emodel:hover { box-shadow: 0 24px 56px -28px rgba(14, 165, 233, 0.3); }
+</style>

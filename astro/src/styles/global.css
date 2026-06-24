@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+/* Brand design tokens exposed to Tailwind v4 utilities (bg-ink, text-teal, …)
+   so sections can be incrementally converted from site.css to Tailwind. */
+@theme {
+  --color-ink: #0f172a;
+  --color-ink-2: #1e293b;
+  --color-paper: #f8fafc;
+  --color-paper-2: #eef2f7;
+  --color-teal: #0ea5e9;
+  --color-teal-dk: #0369a1;
+  --color-muted: #475569;
+  --color-line: #e2e8f0;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Scroll-reveal for pure-Astro sections (replaces framer-motion whileInView).
+   Elements with [data-reveal] fade+rise in when scrolled into view; --d staggers. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--d, 0s);
+  }
+  [data-reveal].in { opacity: 1; transform: none; }
+}
+
+/* Center Flaticon glyphs within their box (the <i> is inline by default, which
+   leaves a baseline offset that looks off-center inside place-items-center tiles). */
+i.fi { display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+i.fi::before { display: block; line-height: 1; }
+
+/* Tech-stack filter chips + category highlight — kept global so Astro scoped-style
+   drops can't break them. */
+#tech .titem { transition: opacity .3s ease, filter .3s ease, transform .3s ease; }
+#tech .tech-wall.has-filter .titem:not(.match) { opacity: 0.25; filter: grayscale(1); }
+#tech .tech-wall.has-filter .titem.match { transform: translateY(-3px); }
+#tech .tchip-wrap { grid-column: span 2; }
+#tech .tchip {
+  display: inline-flex; align-items: center; height: 30px; padding: 0 13px; border-radius: 999px;
+  background: #fff; border: 1px solid var(--line); font-size: 12px; font-weight: 700; color: var(--ink); white-space: nowrap;
+}
+#tech .tfilter {
+  padding: 8px 15px; border-radius: 999px; font-size: 12.5px; font-weight: 700; cursor: pointer;
+  background: #fff; border: 1px solid var(--line); color: var(--muted);
+  transition: background .25s, color .25s, border-color .25s;
+}
+#tech .tfilter:hover { color: var(--teal-dk); border-color: rgba(14,165,233,.4); }
+#tech .tfilter.is-active { background: var(--ink); color: #fff; border-color: transparent; }
+
+/* WhyBiztech tilted floating-card carousel (labs.google style) — kept global so
+   Astro/Lightning-CSS scoping quirks can't drop it. */
+#why .rcarousel { overflow: hidden; padding: 26px 0 34px; }
+#why .rtrack {
+  display: flex; gap: 22px; align-items: stretch;
+  transform: translateX(var(--rx, 0px));
+  transition: transform .5s cubic-bezier(.16,1,.3,1);
+}
+/* cards fill the container: 4 per view on desktop (gap 22px), fewer on smaller screens */
+#why .rcard {
+  flex: 0 0 calc((100% - 3 * 22px) / 4);
+  display: flex; flex-direction: column; padding: 30px; border-radius: 26px;
+  background: #fff; border: 1px solid var(--line);
+  transform: rotate(var(--tilt, 0deg));
+  box-shadow: 0 18px 44px -26px rgba(15, 23, 42, 0.28);
+  transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s, border-color .3s;
+}
+@media (max-width: 1100px) { #why .rcard { flex-basis: calc((100% - 22px) / 2); } }
+@media (max-width: 680px) { #why .rcard { flex-basis: 100%; } }
+#why .rcard:hover {
+  transform: rotate(0deg) translateY(-8px) scale(1.02);
+  box-shadow: 0 34px 70px -28px rgba(14, 165, 233, 0.4);
+  border-color: rgba(14, 165, 233, 0.35); z-index: 2;
+}
+#why .ricon {
+  width: 52px; height: 52px; border-radius: 16px;
+  background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.2);
+  color: var(--teal);
+  transition: background .3s, color .3s, border-color .3s, transform .3s;
+}
+#why .rcard:hover .ricon { background: var(--teal); border-color: transparent; color: #fff; transform: rotate(-6deg); }
+#why .ricon i { color: inherit; }
+#why .rnav {
+  display: grid; place-items: center; width: 50px; height: 50px; border-radius: 999px;
+  background: #fff; border: 1px solid var(--line); color: var(--ink); cursor: pointer;
+  box-shadow: 0 10px 28px -16px rgba(15,23,42,.3); transition: transform .25s, background .25s, color .25s;
+}
+#why .rnav i { font-size: 16px; }
+#why .rnav:hover { background: var(--teal); color: #fff; border-color: transparent; transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { #why .rcard { transform: none; } #why .rtrack { scroll-behavior: auto; } }

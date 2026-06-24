@@ -1,0 +1,57 @@
+---
+const ITEMS = [
+  { ic: 'fi-rr-laptop-code', title: 'Enterprise Software', desc: 'Custom web & mobile apps, product engineering and AI-powered platforms — architected to scale.' },
+  { ic: 'fi-rr-exchange', title: 'System & API Integration', desc: 'Connect ERPs, CRMs and third-party services into one reliable, real-time flow.' },
+  { ic: 'fi-rr-shopping-cart', title: 'Ecommerce', desc: 'Magento, Shopify and headless commerce that converts and scales across markets.' },
+  { ic: 'fi-rr-building', title: 'Enterprise & ERP', desc: 'Odoo, Dynamics 365 and Salesforce — implemented, customized and integrated.' },
+  { ic: 'fi-rr-cloud', title: 'Cloud & Legacy Modernization', desc: 'Cloud-native on AWS & Azure, and aging systems re-architected without the risk.' },
+  { ic: 'fi-rr-shield-check', title: 'Quality Engineering', desc: 'Manual & automated testing in every sprint, so you ship fast without shipping bugs.' },
+]
+---
+<section id="what-we-do" class="py-[var(--section-y)]">
+  <div class="wrap">
+    <!-- header -->
+    <div class="flex flex-wrap items-end justify-between gap-9 mb-[clamp(36px,4vw,56px)]">
+      <div>
+        <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
+          <i class="fi fi-rr-apps text-teal"></i> What we do
+        </span>
+        <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(30px,4vw,52px)] font-black tracking-[-0.04em] leading-[1.04] max-w-[760px]">
+          Everything to <span class="accent">build, scale and run</span> your software.
+        </h2>
+      </div>
+      <a data-reveal style="--d:.12s" href="#cta" class="seeall inline-flex items-center gap-2 text-[14.5px] font-bold text-ink whitespace-nowrap">
+        Talk to an expert <i class="fi fi-rr-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- cards -->
+    <div class="grid grid-cols-3 gap-[18px] max-[900px]:grid-cols-2 max-[520px]:grid-cols-1">
+      {ITEMS.map((it, i) => (
+        <a href="#cta" data-reveal style={`--d:${(0.1 + i * 0.07).toFixed(2)}s`} class="wwd group relative flex flex-col rounded-3xl bg-white border border-line p-8 max-[680px]:p-7 no-underline text-inherit transition duration-300 hover:-translate-y-1.5 hover:border-teal/40 overflow-hidden">
+          <span class="wwd-glow"></span>
+          <span class="relative grid place-items-center w-14 h-14 rounded-2xl bg-teal/10 border border-teal/20 text-teal text-[24px] transition duration-300 group-hover:bg-teal group-hover:text-white group-hover:border-transparent group-hover:-rotate-6">
+            <i class={`fi ${it.ic}`}></i>
+          </span>
+          <h3 class="relative mt-6 text-[19px] font-extrabold tracking-[-0.02em] text-ink">{it.title}</h3>
+          <p class="relative mt-2 text-[14px] leading-[1.55] text-muted flex-1">{it.desc}</p>
+          <span class="wwd-link relative mt-6 inline-flex items-center gap-2 text-[13.5px] font-bold text-teal-dk">
+            Learn more <i class="fi fi-rr-arrow-right transition-transform duration-300 group-hover:translate-x-1"></i>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .seeall i { transition: transform 0.3s; line-height: 0; }
+  .seeall:hover i { transform: translateX(4px); }
+  .seeall:hover { color: #0369a1; }
+  .wwd { box-shadow: 0 10px 30px -20px rgba(35, 38, 46, 0.25); }
+  .wwd:hover { box-shadow: 0 26px 60px -26px rgba(14, 165, 233, 0.35); }
+  .wwd-glow { position: absolute; right: -30%; top: -45%; width: 75%; height: 150%; border-radius: 50%; background: radial-gradient(circle, rgba(14, 165, 233, 0.16), transparent 70%); opacity: 0; transition: opacity 0.35s; }
+  .wwd:hover .wwd-glow { opacity: 1; }
+  .wwd-link i { line-height: 0; }
+</style>

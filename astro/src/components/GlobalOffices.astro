@@ -1,0 +1,87 @@
+---
+const OFFICES = [
+  {
+    flag: '🇺🇸', country: 'USA',
+    lines: ['BiztechCS Inc.,', '1207 Delaware Ave, Suite #957,', 'Wilmington, DE, 19806,', 'United States'],
+    tint: '#eef6fc', landmark: 'fi-rr-bank',
+  },
+  {
+    flag: '🇮🇳', country: 'INDIA',
+    lines: ['C/801, Dev Aurum Commercial,', 'Near Anandnagar Cross Roads,', 'Prahlad Nagar, Ahmedabad,', 'Gujarat 380015'],
+    tint: '#f3f0fb', landmark: 'fi-rr-mosque',
+  },
+  {
+    flag: '🇪🇸', country: 'SPAIN',
+    lines: ['Llorens i barba', '8- 10 SAT 2 , 08025'],
+    tint: '#eefaf6', landmark: 'fi-rr-church',
+  },
+  {
+    flag: '🇩🇪', country: 'GERMANY',
+    lines: ['Boxhagener Straße 85', '10245 Berlin — DE'],
+    tint: '#fdeef2', landmark: 'fi-rr-castle',
+  },
+]
+const SOCIALS = [
+  { ic: 'fi-brands-linkedin', href: 'https://www.linkedin.com/company/biztech-consultancy', label: 'LinkedIn' },
+  { x: true, href: 'https://x.com/biztechcs', label: 'X' },
+  { ic: 'fi-brands-facebook', href: '#', label: 'Facebook' },
+  { ic: 'fi-brands-instagram', href: '#', label: 'Instagram' },
+]
+---
+<section id="offices" aria-label="Global offices">
+  <div class="go-grid">
+    <!-- left: contact + socials -->
+    <div class="go-intro">
+      <span class="go-label">Mail Us On</span>
+      <a href="mailto:sales@biztechcs.com" class="go-mail">sales@biztechcs.com</a>
+      <a href="mailto:career@biztechcs.com" class="go-mail">career@biztechcs.com</a>
+      <span class="go-label go-connect">Connect With Us</span>
+      <div class="go-socials">
+        {SOCIALS.map((s) => (
+          <a href={s.href} target="_blank" rel="noopener" aria-label={s.label}>
+            {s.x ? <span class="go-x">𝕏</span> : <i class={`fi ${s.ic}`}></i>}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- country columns -->
+    {OFFICES.map((o) => (
+      <div class="go-office" style={`--tint:${o.tint}`}>
+        <i class={`fi ${o.landmark} go-watermark`} aria-hidden="true"></i>
+        <div class="go-head"><span class="go-flag">{o.flag}</span><b>{o.country}</b></div>
+        <address class="go-addr">
+          {o.lines.map((l) => <span>{l}</span>)}
+        </address>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  #offices { position: relative; z-index: 1; }
+  .go-grid { display: grid; grid-template-columns: 1.1fr 1fr 1fr 1fr 1fr; align-items: stretch; }
+  @media (max-width: 1100px) { .go-grid { grid-template-columns: 1fr 1fr 1fr; } }
+  @media (max-width: 720px) { .go-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .go-grid { grid-template-columns: 1fr; } }
+
+  .go-intro { padding: clamp(28px, 3vw, 44px); background: #fff; display: flex; flex-direction: column; }
+  .go-label { font-size: 14px; font-weight: 600; color: var(--muted); }
+  .go-mail { display: block; margin-top: 12px; font-size: clamp(16px, 1.4vw, 19px); font-weight: 700; color: var(--ink); transition: color .2s; }
+  .go-mail:first-of-type { margin-top: 14px; }
+  .go-mail:hover { color: var(--teal-dk); }
+  .go-connect { margin-top: 22px; }
+  .go-socials { margin-top: 14px; display: flex; gap: 10px; }
+  .go-socials a { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: var(--teal); color: #fff; font-size: 15px; transition: transform .25s, background .25s; }
+  .go-socials a:hover { transform: translateY(-3px); background: var(--teal-dk); }
+  .go-socials i { line-height: 0; }
+  .go-x { font-size: 15px; font-weight: 700; line-height: 1; }
+
+  .go-office { position: relative; overflow: hidden; padding: clamp(28px, 3vw, 44px); background: var(--tint); }
+  .go-watermark { position: absolute; right: -10px; bottom: -14px; font-size: 120px; line-height: 0; color: rgba(15, 23, 42, 0.05); pointer-events: none; }
+  .go-head { position: relative; display: flex; align-items: center; gap: 12px; }
+  .go-flag { font-size: 26px; line-height: 1; }
+  .go-head b { font-size: clamp(18px, 1.6vw, 22px); font-weight: 800; letter-spacing: .02em; color: var(--ink); }
+  .go-addr { position: relative; margin-top: 18px; font-style: normal; display: flex; flex-direction: column; gap: 7px; }
+  .go-addr span { font-size: 14.5px; line-height: 1.4; color: var(--muted); }
+</style>

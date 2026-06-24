@@ -1,0 +1,43 @@
+---
+const STEPS = [
+  { n: '01', ic: 'fi-rr-search', title: 'Requirement analysis', desc: 'We map your goals, scope and constraints into a clear, costed plan before anything begins.' },
+  { n: '02', ic: 'fi-rr-users', title: 'Building the right team', desc: 'Senior engineers matched to your stack and domain — experienced people, not a bench of juniors.' },
+  { n: '03', ic: 'fi-rr-workflow', title: 'Planning & execution', desc: 'Agile sprints with live demos, transparent progress and QA running at every step.' },
+  { n: '04', ic: 'fi-rr-rocket-lunch', title: 'Review & delivery', desc: 'We launch, optimize and support — a senior team that stays with you long term.' },
+]
+---
+<section id="process" class="py-[var(--section-y)]">
+  <div class="wrap">
+    <div class="max-w-[720px] mb-[clamp(40px,5vw,60px)]">
+      <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
+        <i class="fi fi-rr-workflow text-teal"></i> How we work
+      </span>
+      <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(30px,4vw,52px)] font-black tracking-[-0.04em] leading-[1.04] whitespace-nowrap max-[680px]:whitespace-normal">
+        Our <span class="accent">agile development</span> process.
+      </h2>
+      <p data-reveal style="--d:.12s" class="mt-4 text-muted text-[clamp(15px,1.2vw,17px)] leading-[1.6]">
+        Transparent, agile and senior-led — so you always know what's happening and what's next.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-4 gap-[18px] max-[900px]:grid-cols-2 max-[520px]:grid-cols-1">
+      {STEPS.map((s, i) => (
+        <div data-reveal style={`--d:${(0.1 + i * 0.07).toFixed(2)}s`} class="pcard relative rounded-3xl bg-white border border-line p-7 transition duration-300 hover:-translate-y-1.5 hover:border-teal/40">
+          <div class="flex items-center justify-between">
+            <span class="grid place-items-center w-12 h-12 rounded-xl bg-teal/10 border border-teal/20 text-teal text-[20px]"><i class={`fi ${s.ic}`}></i></span>
+            <span class="text-[34px] font-black tracking-[-0.04em] text-line leading-none">{s.n}</span>
+          </div>
+          <h3 class="mt-5 text-[18px] font-extrabold tracking-[-0.02em] text-ink">{s.title}</h3>
+          <p class="mt-2 text-[13.5px] leading-[1.55] text-muted">{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .pcard { box-shadow: 0 10px 30px -20px rgba(35, 38, 46, 0.25); }
+  .pcard:hover { box-shadow: 0 24px 56px -28px rgba(14, 165, 233, 0.32); }
+  .text-line { color: #e2e8f0; }
+</style>

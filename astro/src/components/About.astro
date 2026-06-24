@@ -1,0 +1,121 @@
+---
+const STATS = [
+  { ic: 'fi-rr-medal', n: '19+', label: 'Years of expertise', sub: 'Learning, unlearning, relearning — growing since 2006.' },
+  { ic: 'fi-rr-globe', n: '40+', label: 'Countries served', sub: 'Clients across the US, UK/EU, Australia and the Middle East.' },
+  { ic: 'fi-rr-star', n: '4.9/5', label: 'Rated on Clutch', sub: 'Across 80+ verified client reviews.' },
+]
+// OFFICE TOUR — real biztechcs company/office-tour film (plays inline in the lightbox).
+const tourVideo = 'https://www.biztechcs.com/wp-content/uploads/2023/05/Biztechcs-1.mp4'
+const tourPoster = 'https://www.biztechcs.com/wp-content/uploads/2023/05/Biztech-office-tour_b-1.webp'
+---
+<section id="about" class="relative py-[var(--section-y)]">
+  <div class="mx-auto max-w-[1440px] px-8 max-[680px]:px-5">
+    <div class="about-bento grid grid-cols-3 gap-[18px] auto-rows-auto max-[760px]:grid-cols-1">
+
+      <!-- headline tile (full width) — office tour -->
+      <div data-reveal class="tile col-span-3 max-[760px]:col-span-1 relative overflow-hidden bg-ink rounded-3xl p-10 max-[680px]:p-7">
+        <img class="about-bg" src="https://www.biztechcs.com/wp-content/uploads/2023/05/Biztech-office-tour_b-1.webp" alt="Biztech office" loading="lazy" />
+        <span class="about-shade"></span>
+
+        <!-- office tour play button (curved label, like the reference) -->
+        <button class="tour-btn" data-video={tourVideo} data-poster={tourPoster} aria-label="Play the Biztech company & office tour video">
+          <svg class="tour-text" viewBox="0 0 120 120" aria-hidden="true">
+            <defs><path id="tourArc" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" /></defs>
+            <text><textPath href="#tourArc" startOffset="0">CLICK HERE FOR THE OFFICE TOUR · </textPath></text>
+          </svg>
+          <span class="tour-core"><i class="fi fi-sr-play"></i></span>
+        </button>
+
+        <div class="relative max-w-[600px]">
+          <span class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-[#7dd3fc]">
+            <i class="fi fi-rr-badge-check text-[#38bdf8]"></i> About Biztech
+          </span>
+          <h2 class="mt-4 text-[clamp(26px,3vw,42px)] font-black tracking-[-0.04em] leading-[1.05] text-white whitespace-nowrap max-[680px]:whitespace-normal">
+            A global leader in <span class="accent">IT services</span> &amp; consultation.
+          </h2>
+          <p class="mt-5 text-white/70 text-[15px] leading-[1.6] max-w-[560px]">
+            Our work ethic, methodology and dedication to every project make us who we are. We don't just deliver development solutions — the way we deliver is what sets us apart.
+          </p>
+          <p class="mt-3 text-white font-semibold text-[15px]">Partner with us for the expertise, the experience, and the outcome.</p>
+        </div>
+      </div>
+
+      <!-- stat tiles -->
+      {STATS.map((s, i) => (
+        <div data-reveal style={`--d:${(0.1 + i * 0.07).toFixed(2)}s`} class="stat group bg-white border border-line rounded-3xl p-7 transition duration-300 hover:-translate-y-1.5 hover:border-teal/40">
+          <span class="inline-grid place-items-center w-12 h-12 rounded-xl bg-teal/10 border border-teal/20 text-teal text-[20px] transition group-hover:-rotate-6"><i class={`fi ${s.ic}`}></i></span>
+          <div class="num mt-5 text-[clamp(34px,3.4vw,46px)] font-black tracking-[-0.04em] leading-none">{s.n}</div>
+          <div class="mt-2.5 text-[16px] font-extrabold tracking-[-0.02em] text-ink">{s.label}</div>
+          <p class="mt-1.5 text-[13px] leading-[1.5] text-muted">{s.sub}</p>
+        </div>
+      ))}
+
+    </div>
+  </div>
+
+  <!-- office tour lightbox -->
+  <dialog class="tour-modal" aria-label="Office tour video">
+    <button class="tour-close" aria-label="Close video">&times;</button>
+    <div class="tour-frame"></div>
+  </dialog>
+</section>
+
+<style>
+  .accent { background: linear-gradient(100deg, #38bdf8, #0ea5e9); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stat .num { background: linear-gradient(160deg, #0f172a, #334155); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stat:hover { box-shadow: 0 24px 56px -28px rgba(14, 165, 233, 0.3); }
+
+  .tile { box-shadow: 0 24px 60px -28px rgba(15, 23, 42, 0.5); }
+  .about-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .about-shade { position: absolute; inset: 0; background: linear-gradient(110deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.78) 48%, rgba(15, 23, 42, 0.45) 100%); }
+
+  /* office tour play button — circular, with rotating curved label */
+  .tour-btn {
+    position: absolute; z-index: 2; right: clamp(28px, 5vw, 64px); top: 50%; transform: translateY(-50%);
+    width: 120px; height: 120px; background: transparent; border: 0; cursor: pointer;
+    display: grid; place-items: center;
+  }
+  @media (max-width: 760px) { .tour-btn { right: 50%; top: auto; bottom: 24px; transform: translateX(50%); width: 104px; height: 104px; } }
+  .tour-text { position: absolute; inset: 0; width: 100%; height: 100%; animation: tourSpin 14s linear infinite; }
+  .tour-text text { fill: rgba(255,255,255,0.92); font-family: var(--font-mono); font-size: 9.2px; font-weight: 600; letter-spacing: 1.5px; }
+  .tour-core {
+    position: relative; display: grid; place-items: center; width: 58px; height: 58px; border-radius: 999px;
+    background: rgba(255,255,255,0.14); border: 1.5px solid rgba(255,255,255,0.7); backdrop-filter: blur(4px);
+    color: #fff; transition: background .3s, transform .3s, border-color .3s;
+  }
+  .tour-core i { line-height: 0; font-size: 18px; margin-left: 3px; }
+  .tour-btn:hover .tour-core { background: var(--teal); border-color: transparent; transform: scale(1.08); }
+  @keyframes tourSpin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .tour-text { animation: none; } }
+
+  .tour-modal { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: min(960px, 92vw); max-height: 90vh; border: 0; background: transparent; padding: 0; margin: 0; overflow: visible; }
+  .tour-modal::backdrop { background: rgba(7, 11, 20, 0.86); backdrop-filter: blur(4px); }
+  .tour-frame { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 18px; overflow: hidden; background: #000; }
+  .tour-frame iframe, .tour-frame video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; background: #000; }
+  .tour-close { position: absolute; top: -44px; right: 0; background: transparent; border: 0; color: #fff; font-size: 32px; line-height: 1; cursor: pointer; opacity: .8; }
+  .tour-close:hover { opacity: 1; }
+</style>
+
+<script>
+  const about = document.querySelector('#about')
+  if (about) {
+    const trigger = about.querySelector('.tour-btn')
+    const modal = about.querySelector('.tour-modal')
+    const frame = about.querySelector('.tour-frame')
+    const closeBtn = about.querySelector('.tour-close')
+    if (trigger && modal) {
+      const open = () => {
+        const src = trigger.dataset.video
+        const poster = trigger.dataset.poster || ''
+        frame.innerHTML = `<video src="${src}" poster="${poster}" controls autoplay playsinline preload="metadata"></video>`
+        modal.showModal()
+      }
+      const close = () => { modal.close(); frame.innerHTML = '' }
+      trigger.addEventListener('click', open)
+      closeBtn.addEventListener('click', close)
+      modal.addEventListener('click', (e) => { if (e.target === modal) close() })
+      modal.addEventListener('close', () => { frame.innerHTML = '' })
+    }
+  }
+</script>
