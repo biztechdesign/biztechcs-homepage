@@ -1,0 +1,884 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.astro'
+import Footer from '../../components/Footer.astro'
+import CtaButton from '../../components/CtaButton.astro'
+
+const BASE = import.meta.env.BASE_URL
+
+// real client logos (same set the homepage uses for "Trusted by 200+ companies")
+const CDN = 'https://www.biztechcs.com/wp-content/uploads'
+const CLIENTS = [
+  { name: 'Forbes Marshall', src: `${CDN}/2023/05/forbes-marshall.png` },
+  { name: 'Bonfiglioli', src: `${CDN}/2023/05/bonfiglioli.png` },
+  { name: 'Ovivo', src: `${CDN}/2023/05/Ovivo.svg` },
+  { name: 'Biorbyt', src: `${CDN}/2023/05/Biorbyt.svg` },
+  { name: 'Medguard', src: `${CDN}/2023/05/medguard.png` },
+]
+
+// recognition badges (same set as the homepage TrustBand)
+const BADGES = [
+  { name: 'Clutch', src: `${BASE}/assets/badges/clutch.svg`, h: 30 },
+  { name: 'Google Premier Partner 2024', src: `${BASE}/assets/badges/google-partner.svg`, h: 40 },
+  { name: 'GESIA Member', src: `${BASE}/assets/badges/gesia.svg`, h: 38 },
+  { name: 'Salesforce ISV Partner', src: `${BASE}/assets/badges/salesforce-isv.svg`, h: 28 },
+  { name: 'Top App Development Companies', src: `${BASE}/assets/badges/tadc.svg`, h: 46 },
+  { name: 'SugarCRM ISV Partner', src: `${BASE}/assets/badges/sugarcrm.png`, h: 30 },
+  { name: 'Techimply', src: `${BASE}/assets/badges/techimply.svg`, h: 46 },
+  { name: 'TÜV certified', src: `${BASE}/assets/badges/tuv.svg`, h: 38 },
+  { name: 'Great Place To Work', src: `${BASE}/assets/badges/gptw.svg`, h: 40 },
+  { name: 'Odoo Partner', src: `${BASE}/assets/badges/odoo.svg`, h: 28 },
+]
+
+// orbiting AI capability nodes for the animated hero visual (angle in deg around the core)
+const ORBIT_NODES = [
+  { ic: 'fi-rr-robot', label: 'Agents', angle: -90, ring: 'r1' },
+  { ic: 'fi-rr-sparkles', label: 'GenAI', angle: 18, ring: 'r1' },
+  { ic: 'fi-rr-search', label: 'RAG', angle: 126, ring: 'r1' },
+  { ic: 'fi-rr-brain', label: 'ML', angle: -36, ring: 'r2' },
+  { ic: 'fi-rr-share-square', label: 'Multi-agent', angle: 90, ring: 'r2' },
+  { ic: 'fi-rr-settings', label: 'MLOps', angle: 210, ring: 'r2' },
+]
+
+// ── Multimodal AI systems we build (bento showcase, à la Gemini / Google Labs) ──
+// each card carries a `viz` type → a small AI-themed animation rendered in the card
+const BUILDS = [
+  { ic: 'fi-rr-comment-alt', viz: 'chat', title: 'Conversational AI & Chatbots', desc: 'Chat assistants and copilots that understand context, hold a real conversation and take action across your systems.', big: true },
+  { ic: 'fi-rr-picture', viz: 'image', title: 'Image Generation & Vision', desc: 'Generate, edit and analyse images — product visuals, OCR and defect detection.' },
+  { ic: 'fi-rr-video-camera', viz: 'video', title: 'Video AI', desc: 'Generate, caption, summarise and search video at scale.' },
+  { ic: 'fi-rr-document', viz: 'doc', title: 'Document & PDF Intelligence', desc: 'Extract, classify and answer questions across contracts, forms and reports.' },
+  { ic: 'fi-rr-microphone', viz: 'voice', title: 'Voice & Speech AI', desc: 'Real-time transcription, voice agents and natural speech synthesis.' },
+  { ic: 'fi-rr-search-alt', viz: 'research', title: 'Deep Research Agents', desc: 'Agents that browse, synthesise and cite across hundreds of sources — turning hours of research into minutes.', big: true },
+  { ic: 'fi-rr-terminal', viz: 'code', title: 'Code Generation', desc: 'AI copilots that write, review and refactor code in your stack.' },
+  { ic: 'fi-rr-chart-line-up', viz: 'chart', title: 'Predictive Analytics & ML', desc: 'Forecasting, scoring, recommendations and anomaly detection on your data.' },
+  { ic: 'fi-rr-layers', viz: 'multi', title: 'Multimodal Copilots', desc: 'One assistant that blends text, image, voice and data — grounded in your knowledge, governed end to end.', big: true },
+]
+
+// ── Process ──
+const STEPS = [
+  { n: '01', title: 'Discovery & use-case fit', desc: 'We pressure-test the idea, define success metrics and pick the problems AI can actually solve.' },
+  { n: '02', title: 'Data & prototype', desc: 'Assess your data, build a working prototype, and validate accuracy before you commit to a full build.' },
+  { n: '03', title: 'Productionise', desc: 'Evals, guardrails, observability and cost controls — engineered to ship safely to real users.' },
+  { n: '04', title: 'Monitor & improve', desc: 'Continuous evaluation, retraining and tuning so performance holds up as data and usage evolve.' },
+]
+
+// ── Outcomes / why us ──
+const REASONS = [
+  { ic: 'fi-rr-rocket-lunch', title: 'From pilot to production', desc: 'We specialise in the hard part — taking GenAI past the demo into something safe to run in front of customers.' },
+  { ic: 'fi-rr-shield-check', title: 'Governed & compliant', desc: 'ISO 27001 & 9001 certified, with data privacy, access controls and AI governance built in from day one.' },
+  { ic: 'fi-rr-users-alt', title: 'Senior, US/EU-accountable', desc: 'Senior AI engineers with US & EU project leads, time-zone-aligned delivery, and IP you fully own.' },
+  { ic: 'fi-rr-chart-line-up', title: 'Outcome-focused', desc: 'We measure success in your numbers — automation, accuracy and cost saved — not models shipped.' },
+]
+
+// ── Real-world AI solutions we've shipped (from delivered work) ──
+const SOLUTIONS = [
+  { ic: 'fi-rr-time-check', title: 'Predictive Maintenance', industry: 'Manufacturing', metric: '↓40%', metricLabel: 'unplanned downtime', desc: 'Sensor & machine-log models that flag equipment failure before it happens.' },
+  { ic: 'fi-rr-recycle', title: 'Dynamic Production Scheduling', industry: 'Manufacturing', metric: '↓25%', metricLabel: 'material waste', desc: 'Demand-matched scheduling that cuts over-production and idle capacity.' },
+  { ic: 'fi-rr-shield-exclamation', title: 'Real-Time Fraud Detection', industry: 'Fintech · Insurance', metric: 'Real-time', metricLabel: 'anomaly flagging', desc: 'Transaction & claims models that catch irregular patterns the moment they occur.' },
+  { ic: 'fi-rr-box-open', title: 'Smart Inventory Forecasting', industry: 'Retail · Ecommerce', metric: 'Seasonal', metricLabel: 'demand prediction', desc: 'Forecasts material needs from seasonality and sales patterns to avoid stockouts.' },
+  { ic: 'fi-rr-calculator', title: 'Credit Scoring Automation', industry: 'Finance', metric: 'Alt-data', metricLabel: 'creditworthiness', desc: 'Assesses risk using alternative data — faster, fairer lending decisions.' },
+  { ic: 'fi-rr-comment-alt', title: 'Support & Ops Copilots', industry: 'Cross-industry', metric: '24/7', metricLabel: 'AI assistance', desc: 'RAG-grounded agents that resolve tickets and surface answers from your own docs.' },
+]
+
+// ── Industries we build AI for (Flaticon fi-rr icons) ──
+const INDUSTRIES = [
+  { ic: 'fi-rr-industry-windows', name: 'Manufacturing', desc: 'Predictive maintenance, quality vision & production scheduling.' },
+  { ic: 'fi-rr-coins', name: 'Fintech', desc: 'Fraud detection, credit scoring & real-time risk modelling.' },
+  { ic: 'fi-rr-umbrella', name: 'Insurance', desc: 'Claims automation, fraud flagging & smarter underwriting.' },
+  { ic: 'fi-rr-stethoscope', name: 'Healthcare & Life Sciences', desc: 'Clinical document AI, diagnostics support & compliance.' },
+  { ic: 'fi-rr-shopping-cart', name: 'Retail & Ecommerce', desc: 'Demand forecasting, recommendations & visual search.' },
+  { ic: 'fi-rr-bank', name: 'Finance', desc: 'Forecasting, anomaly detection & reporting automation.' },
+  { ic: 'fi-rr-graduation-cap', name: 'Education', desc: 'Adaptive learning, auto-grading & student-risk prediction.' },
+  { ic: 'fi-rr-home', name: 'Real Estate', desc: 'Valuation models, lead scoring & document parsing.' },
+  { ic: 'fi-rr-plane', name: 'Travel & Hospitality', desc: 'Dynamic pricing, AI concierge & demand forecasting.' },
+  { ic: 'fi-rr-print', name: 'Printing & Web-to-Print', desc: 'Design automation, OCR & order intelligence.' },
+  { ic: 'fi-rr-truck-side', name: 'Logistics', desc: 'Route optimisation, ETA prediction & demand planning.' },
+  { ic: 'fi-rr-laptop-code', name: 'IT & Software', desc: 'Code copilots, support agents & ops automation.' },
+]
+
+// ── Tech stack (incl. real agent frameworks we use) ──
+// official brand marks via Simple Icons CDN (white-tinted for the dark section);
+// items without a clean brand mark fall back to a Flaticon glyph.
+const SIC = 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons'
+const STACK = [
+  { name: 'OpenAI', logo: `${SIC}/openai.svg` },
+  { name: 'Claude', logo: `${SIC}/anthropic.svg` },
+  { name: 'Gemini', logo: `${SIC}/googlegemini.svg` },
+  { name: 'Llama', logo: `${SIC}/meta.svg` },
+  { name: 'Mistral', logo: `${SIC}/mistralai.svg` },
+  { name: 'LangChain', logo: `${SIC}/langchain.svg` },
+  { name: 'LangGraph', logo: `${SIC}/langgraph.svg` },
+  { name: 'CrewAI', logo: `${SIC}/crewai.svg` },
+  { name: 'AutoGen', ic: 'fi-rr-comments' },
+  { name: 'Semantic Kernel', ic: 'fi-rr-share-square' },
+  { name: 'OpenAI Agents SDK', logo: `${SIC}/openai.svg` },
+  { name: 'LlamaIndex', logo: `${SIC}/llamaindex.svg` },
+  { name: 'n8n', logo: `${SIC}/n8n.svg` },
+  { name: 'Power Automate', ic: 'fi-rr-bolt' },
+  { name: 'Pinecone', logo: `${SIC}/pinecone.svg` },
+  { name: 'Weaviate', logo: `${SIC}/weaviate.svg` },
+  { name: 'pgvector', logo: `${SIC}/postgresql.svg` },
+  { name: 'Hugging Face', logo: `${SIC}/huggingface.svg` },
+  { name: 'PyTorch', logo: `${SIC}/pytorch.svg` },
+  { name: 'TensorFlow', logo: `${SIC}/tensorflow.svg` },
+  { name: 'AWS Bedrock', logo: `${SIC}/amazonwebservices.svg` },
+  { name: 'Azure AI', ic: 'fi-rr-cloud' },
+  { name: 'Vertex AI', logo: `${SIC}/googlecloud.svg` },
+  { name: 'Ray', ic: 'fi-rr-microchip' },
+]
+
+// ── Engagement models ──
+const MODELS = [
+  { ic: 'fi-rr-bullseye-arrow', title: 'AI Proof-of-Concept', desc: 'A fixed-scope prototype to validate feasibility and ROI before a full build.', featured: false },
+  { ic: 'fi-rr-users-alt', title: 'Dedicated AI Team', desc: 'A senior squad embedded with yours for ongoing AI product development.', featured: true },
+  { ic: 'fi-rr-user-add', title: 'AI Staff Augmentation', desc: 'Plug ML/LLM specialists into your team to close a specific capability gap.', featured: false },
+]
+
+// ── FAQ ──
+const FAQS = [
+  { q: 'Can you take our GenAI pilot to production?', a: 'Yes — that\'s our specialism. We add evaluations, guardrails, observability, access controls and cost monitoring so a promising demo becomes something you can safely ship to real users.' },
+  { q: 'Do we need a large dataset to start?', a: 'Not always. RAG and foundation-model approaches work with modest data; for custom ML we\'ll assess what you have in discovery and tell you honestly whether it\'s enough — or how to get there.' },
+  { q: 'How do you keep AI accurate and safe?', a: 'Every build includes an evaluation harness, guardrails and human-in-the-loop where needed, plus continuous monitoring so we catch drift and regressions before your users do.' },
+  { q: 'Who owns the models and IP?', a: 'You do. Work-for-hire with full IP transfer on payment, backed by NDAs — including model weights, prompts, pipelines and code.' },
+  { q: 'Which models and clouds do you work with?', a: 'OpenAI, Anthropic Claude, Google Gemini, open-source Llama/Mistral, and managed platforms like AWS Bedrock, Azure AI and Vertex AI — we pick what fits your accuracy, cost and compliance needs.' },
+]
+---
+<Layout>
+  <Header />
+  <div class="page-shell">
+
+    <!-- ───────── HERO (light theme) ───────── -->
+    <section class="svc-hero relative overflow-hidden" id="top">
+      <span class="svc-hero-grid" aria-hidden="true"></span>
+      <span class="svc-hero-glow" aria-hidden="true"></span>
+      <div class="wrap relative">
+        <div class="svc-hero-grid-cols mt-[clamp(28px,4vw,44px)]">
+          <div>
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
+              <i class="fi fi-rr-microchip-ai text-teal"></i> AI / ML Development
+            </span>
+            <h1 data-reveal style="--d:.06s" class="mt-6 text-[clamp(34px,5.2vw,60px)] font-black tracking-[-0.04em] leading-[1.06] text-ink">
+              Build AI systems that <span class="accent">do the work</span> — not just demos.
+            </h1>
+            <p data-reveal style="--d:.12s" class="mt-7 text-[clamp(16px,1.3vw,18px)] leading-[1.65] text-muted max-w-[540px]">
+              From GenAI pilots to production-grade autonomous agents. We design, evaluate and run AI you can trust in front of customers — with US &amp; EU accountability and IP you fully own.
+            </p>
+            <div data-reveal style="--d:.18s" class="mt-9 flex flex-wrap gap-3">
+              <CtaButton href="#cta" label="Scope an AI build" variant="dark" />
+              <a href="#capabilities" class="svc-ghost">See what we build <i class="fi fi-rr-arrow-down"></i></a>
+            </div>
+
+            <!-- trusted-by client logos (homepage style) -->
+            <div data-reveal style="--d:.26s" class="svc-hero-clients">
+              <span class="svc-hc-label">Trusted by <b>200+</b> companies</span>
+              <ul class="svc-hc-logos">
+                {CLIENTS.map((c) => <li><img src={c.src} alt={c.name} loading="lazy" /></li>)}
+              </ul>
+            </div>
+          </div>
+          <!-- animated AI core orbit visual -->
+          <div data-reveal style="--d:.16s" class="svc-orbit" role="img" aria-label="An AI core surrounded by orbiting capabilities — agents, GenAI, RAG, ML, multi-agent and MLOps">
+            <span class="svc-orbit-glow" aria-hidden="true"></span>
+            <span class="svc-ring svc-ring-1" aria-hidden="true"></span>
+            <span class="svc-ring svc-ring-2" aria-hidden="true"></span>
+            <span class="svc-ring svc-ring-3" aria-hidden="true"></span>
+            <!-- pulsing core -->
+            <div class="svc-core">
+              <i class="fi fi-rr-microchip-ai"></i>
+              <span class="svc-core-pulse" aria-hidden="true"></span>
+              <span class="svc-core-pulse svc-core-pulse-2" aria-hidden="true"></span>
+            </div>
+            <!-- orbiting capability nodes -->
+            {ORBIT_NODES.map((n) => (
+              <div class={`svc-node svc-node-${n.ring}`} style={`--a:${n.angle}deg`}>
+                <div class="svc-node-chip" title={n.label}>
+                  <i class={`fi ${n.ic}`}></i>
+                  <span>{n.label}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── TRUST: certified logos + stats/reviews merged in one box ───────── -->
+    <section id="trust" aria-label="Certifications, track record and reviews" class="pt-[clamp(16px,2vw,28px)] pb-[clamp(8px,1vw,16px)]">
+      <div class="wrap">
+        <div data-reveal class="svc-trustbox svc-trustbox-split">
+          <!-- LEFT 50%: recognized & certified — single-line right-to-left marquee -->
+          <div class="svc-tx-left">
+            <span class="svc-tbx-label"><i class="fi fi-rr-shield-check"></i> Recognized<br/>&amp; certified</span>
+            <div class="svc-tx-track">
+              <div class="svc-tx-row">
+                {BADGES.map((b) => <span class="svc-tx-logo"><img src={b.src} alt={b.name} title={b.name} loading="lazy" /></span>)}
+                {BADGES.map((b) => <span class="svc-tx-logo" aria-hidden="true"><img src={b.src} alt="" loading="lazy" /></span>)}
+              </div>
+            </div>
+          </div>
+          <!-- RIGHT 50%: key numbers, single row -->
+          <div class="svc-tx-right">
+            <div class="svc-tb-item"><div class="svc-tn accent">1200+</div><div class="svc-tl">Projects delivered</div></div>
+            <div class="svc-tb-item"><div class="svc-tn accent">98%</div><div class="svc-tl">Client retention</div></div>
+            <div class="svc-tb-item"><div class="svc-tn accent">80%</div><div class="svc-tl">Senior engineers</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── MULTIMODAL AI SHOWCASE (bento) ───────── -->
+    <section id="capabilities" class="py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center mb-[clamp(36px,4vw,52px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-apps text-teal"></i> AI systems we build</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05] max-w-[720px] mx-auto">From chat to vision to video — <span class="accent">one AI partner.</span></h2>
+          <p data-reveal style="--d:.12s" class="mt-5 text-muted text-[clamp(15px,1.2vw,17px)] leading-[1.6] max-w-[560px] mx-auto">Text, image, voice, video, documents and data — we engineer the full spectrum of AI systems, governed and production-ready.</p>
+        </div>
+        <div class="svc-bento">
+          {BUILDS.map((b, i) => (
+            <article data-reveal style={`--d:${(0.08 + i * 0.05).toFixed(2)}s`} class:list={["svc-bcard group", b.big && "svc-bcard-big"]}>
+              <span class="svc-bcard-spot" aria-hidden="true"></span>
+              <div class="svc-bcard-top">
+                <span class="svc-bcard-ic"><i class={`fi ${b.ic}`}></i></span>
+                <span class={`svc-viz svc-viz-${b.viz}`} aria-hidden="true">
+                  {b.viz === 'chat' && <><i></i><i></i><i></i></>}
+                  {b.viz === 'voice' && <><i></i><i></i><i></i><i></i><i></i></>}
+                  {b.viz === 'chart' && <><i></i><i></i><i></i><i></i></>}
+                  {b.viz === 'code' && <><i></i><i></i><i></i></>}
+                  {b.viz === 'research' && <><i></i><i></i><i></i></>}
+                  {b.viz === 'image' && [0,1,2,3,4,5,6,7,8].map(() => <i></i>)}
+                  {b.viz === 'video' && <><i></i><i></i><i></i></>}
+                  {b.viz === 'doc' && <><i></i><i></i><i></i><i></i></>}
+                  {b.viz === 'multi' && <><i></i><i></i><i></i></>}
+                </span>
+              </div>
+              <div class="svc-bcard-body">
+                <h3 class="svc-bcard-title">{b.title}</h3>
+                <p class="svc-bcard-desc">{b.desc}</p>
+              </div>
+              <span class="svc-bcard-arrow"><i class="fi fi-rr-arrow-right"></i></span>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── AI SOLUTIONS (real shipped work, dark showcase) ───────── -->
+    <section id="solutions" class="surface-dark py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="flex flex-wrap items-end justify-between gap-6 mb-[clamp(36px,4vw,52px)]">
+          <div class="max-w-[640px]">
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em]"><i class="fi fi-rr-bulb"></i> AI solutions we've shipped</span>
+            <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05] text-white whitespace-nowrap max-[520px]:whitespace-normal">Real AI, real <span class="accent-l">business outcomes.</span></h2>
+          </div>
+          <p data-reveal style="--d:.12s" class="text-[14px] font-semibold text-white/55 max-w-[300px] max-[680px]:max-w-none">Not lab demos — production AI that moved measurable numbers for real clients.</p>
+        </div>
+        <div class="grid grid-cols-3 gap-[16px] max-[860px]:grid-cols-2 max-[520px]:grid-cols-1">
+          {SOLUTIONS.map((s, i) => (
+            <div data-reveal style={`--d:${(0.1 + i * 0.05).toFixed(2)}s`} class="svc-sol group flex flex-col rounded-3xl p-7 transition duration-300 hover:-translate-y-1.5">
+              <div class="flex items-center justify-between gap-3">
+                <span class="grid place-items-center w-12 h-12 rounded-xl bg-white/8 border border-white/12 text-teal-300 text-[19px] transition group-hover:bg-teal group-hover:text-white group-hover:border-transparent"><i class={`fi ${s.ic}`}></i></span>
+                <span class="svc-sol-ind">{s.industry}</span>
+              </div>
+              <div class="mt-5 flex items-baseline gap-2">
+                <span class="svc-sol-metric accent-l">{s.metric}</span>
+                <span class="text-[12.5px] font-semibold text-white/55">{s.metricLabel}</span>
+              </div>
+              <h3 class="mt-3 text-[17px] font-extrabold tracking-[-0.02em] text-white">{s.title}</h3>
+              <p class="mt-2 text-[13.5px] leading-[1.5] text-white/60">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+        <p data-reveal style="--d:.4s" class="mt-7 text-center text-[13px] text-white/45">Metrics reflect outcomes on delivered projects. <a href="#cta" class="font-bold text-teal-300 underline-offset-4 hover:underline">Ask for the case studies →</a></p>
+      </div>
+    </section>
+
+    <!-- ───────── INDUSTRIES ───────── -->
+    <section class="py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center mb-[clamp(32px,4vw,48px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-building text-teal"></i> Industries we serve</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(26px,3.6vw,44px)] font-black tracking-[-0.04em] leading-[1.05] max-w-[560px] mx-auto">AI built for how your <span class="accent whitespace-nowrap">industry operates.</span></h2>
+        </div>
+        <div class="svc-ind-grid">
+          {INDUSTRIES.map((ind, i) => (
+            <div data-reveal style={`--d:${(0.06 + i * 0.04).toFixed(2)}s`} class="svc-ind-card group">
+              <span class="svc-ind-ic"><i class={`fi ${ind.ic}`}></i></span>
+              <div>
+                <h3 class="svc-ind-name">{ind.name}</h3>
+                <p class="svc-ind-desc">{ind.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── WHY US ───────── -->
+    <section class="surface-tint py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center mb-[clamp(36px,4vw,52px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-badge-check text-teal"></i> Why BiztechCS for AI</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05] max-w-[680px] mx-auto">AI that ships — and <span class="accent">keeps working.</span></h2>
+        </div>
+        <div class="grid grid-cols-4 gap-[16px] max-[900px]:grid-cols-2 max-[480px]:grid-cols-1">
+          {REASONS.map((r, i) => (
+            <div data-reveal style={`--d:${(0.1 + i * 0.06).toFixed(2)}s`} class="rounded-3xl bg-white border border-line p-7">
+              <span class="grid place-items-center w-12 h-12 rounded-xl bg-teal/10 border border-teal/20 text-teal text-[19px]"><i class={`fi ${r.ic}`}></i></span>
+              <h3 class="mt-5 text-[16px] font-extrabold tracking-[-0.02em] text-ink">{r.title}</h3>
+              <p class="mt-2 text-[13.5px] leading-[1.5] text-muted">{r.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── PROCESS ───────── -->
+    <section class="py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="flex flex-wrap items-end justify-between gap-6 mb-[clamp(36px,4vw,52px)]">
+          <div class="max-w-[640px]">
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-workflow text-teal"></i> How we deliver</span>
+            <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05]">A path from idea to <span class="accent">production AI.</span></h2>
+          </div>
+          <p data-reveal style="--d:.12s" class="text-[14px] font-semibold text-muted max-w-[300px] max-[680px]:max-w-none">Senior-led, evaluation-driven delivery — validate before you scale, monitor after you ship.</p>
+        </div>
+        <div class="grid grid-cols-4 gap-[18px] max-[860px]:grid-cols-2 max-[480px]:grid-cols-1">
+          {STEPS.map((s, i) => (
+            <div data-reveal style={`--d:${(0.1 + i * 0.07).toFixed(2)}s`} class="svc-step rounded-3xl bg-white border border-line p-7">
+              <span class="svc-step-n">{s.n}</span>
+              <h3 class="mt-5 text-[17px] font-extrabold tracking-[-0.02em] text-ink">{s.title}</h3>
+              <p class="mt-2 text-[13.5px] leading-[1.5] text-muted">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── TECH STACK (dark band — breaks up the light middle) ───────── -->
+    <section class="surface-dark py-[var(--section-y)]">
+      <div class="wrap text-center">
+        <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em]"><i class="fi fi-rr-layers"></i> Our AI stack</span>
+        <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(26px,3.6vw,44px)] font-black tracking-[-0.04em] leading-[1.05] text-white max-w-[680px] mx-auto">The tools we build <span class="accent-l">production AI</span> with.</h2>
+        <p data-reveal style="--d:.1s" class="mt-5 text-[clamp(15px,1.2vw,17px)] leading-[1.6] text-white/55 max-w-[520px] mx-auto">Best-in-class models, agent frameworks, vector stores and MLOps — chosen for your accuracy, cost and compliance needs.</p>
+        <ul data-reveal style="--d:.14s" class="mt-9 flex flex-wrap items-center justify-center gap-2.5">
+          {STACK.map((s) => (
+            <li class="svc-chip">
+              {s.logo ? <img src={s.logo} alt="" loading="lazy" /> : <i class={`fi ${s.ic}`}></i>}
+              {s.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ───────── PROOF / RESULTS ───────── -->
+    <section class="py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center mb-[clamp(32px,4vw,48px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-comment-quote text-teal"></i> Proof</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05]">Trusted to put AI <span class="accent">into production.</span></h2>
+        </div>
+        <div class="svc-proof-grid">
+          <blockquote data-reveal class="svc-quote rounded-3xl bg-ink text-white p-9 flex flex-col">
+            <i class="fi fi-rr-quote-right text-[28px] text-teal-300"></i>
+            <p class="mt-5 text-[clamp(18px,1.8vw,24px)] font-semibold leading-[1.45]">"Biztech has been a genuine technology partner — they understand the product, not just the tickets, and they own the outcome end to end."</p>
+            <div class="mt-7 flex items-center gap-3">
+              <span class="svc-q-avatar">AH</span>
+              <span class="leading-tight">
+                <b class="block text-[14.5px] font-extrabold">Adam Harvey</b>
+                <span class="block text-[13px] text-white/55">Co-founder &amp; CEO, Proofed Inc</span>
+              </span>
+            </div>
+          </blockquote>
+          <div data-reveal style="--d:.08s" class="grid grid-cols-2 gap-[18px] max-[420px]:grid-cols-1">
+            <div class="svc-stat rounded-3xl bg-white border border-line p-7 flex flex-col justify-center text-center">
+              <div class="svc-stat-n accent">50+</div><div class="mt-2 text-[14px] font-bold text-ink">AI products engineered</div>
+            </div>
+            <div class="svc-stat rounded-3xl bg-white border border-line p-7 flex flex-col justify-center text-center">
+              <div class="svc-stat-n accent">100+</div><div class="mt-2 text-[14px] font-bold text-ink">AI / ML engineers</div>
+            </div>
+            <div class="svc-stat rounded-3xl bg-white border border-line p-7 flex flex-col justify-center text-center">
+              <div class="svc-stat-n accent">500+</div><div class="mt-2 text-[14px] font-bold text-ink">AI consultations</div>
+            </div>
+            <div class="svc-stat rounded-3xl bg-white border border-line p-7 flex flex-col justify-center text-center">
+              <div class="svc-stat-n accent">ISO</div><div class="mt-2 text-[14px] font-bold text-ink">27001 &amp; 9001 certified</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── ENGAGEMENT ───────── -->
+    <section class="surface-tint py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center mb-[clamp(36px,4vw,52px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-handshake text-teal"></i> Ways to engage</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05] max-w-[640px] mx-auto">Start small or scale a team.</h2>
+        </div>
+        <div class="grid grid-cols-3 gap-[18px] max-[860px]:grid-cols-1">
+          {MODELS.map((m, i) => (
+            <div data-reveal style={`--d:${(0.1 + i * 0.07).toFixed(2)}s`} class:list={["svc-model relative flex flex-col rounded-3xl border p-8", m.featured ? "bg-ink text-white border-transparent" : "bg-white border-line"]}>
+              {m.featured && <span class="absolute -top-3 left-8 rounded-full bg-teal px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.08em] text-white">Most popular</span>}
+              <span class:list={["grid place-items-center w-[52px] h-[52px] rounded-2xl text-[22px]", m.featured ? "bg-white/12 border border-white/20 text-white" : "bg-teal/10 border border-teal/20 text-teal"]}><i class={`fi ${m.ic}`}></i></span>
+              <h3 class:list={["mt-5 text-[20px] font-extrabold tracking-[-0.02em]", m.featured ? "text-white" : "text-ink"]}>{m.title}</h3>
+              <p class:list={["mt-2 text-[14px] leading-[1.5] flex-1", m.featured ? "text-white/70" : "text-muted"]}>{m.desc}</p>
+              <CtaButton href="#cta" label="Get started" variant={m.featured ? 'light' : 'dark'} full={true} class="mt-7" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── FAQ ───────── -->
+    <section class="py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="svc-faq-grid">
+          <!-- LEFT — heading -->
+          <div class="svc-faq-head">
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-interrogation text-teal"></i> FAQ</span>
+            <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05]">Questions about AI builds.</h2>
+            <p data-reveal style="--d:.12s" class="mt-5 text-[15px] leading-[1.65] text-muted max-w-[360px]">Still unsure if AI fits your use case? <a href="#cta" class="font-bold text-teal-dk underline underline-offset-2">Talk to our team</a> — we'll give you a straight answer.</p>
+          </div>
+          <!-- RIGHT — accordion -->
+          <div class="flex flex-col gap-3">
+            {FAQS.map((f, i) => (
+              <details data-reveal style={`--d:${(0.06 + i * 0.05).toFixed(2)}s`} class="svc-faq rounded-2xl bg-white border border-line">
+                <summary class="flex items-center justify-between gap-4 cursor-pointer px-6 py-5">
+                  <span class="text-[16px] font-extrabold text-ink">{f.q}</span>
+                  <i class="fi fi-rr-plus-small text-teal-dk text-[20px] shrink-0"></i>
+                </summary>
+                <p class="px-6 pb-5 text-[14.5px] leading-[1.6] text-muted">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── CTA ───────── -->
+    <section id="cta" class="surface-dark py-[clamp(64px,8vw,110px)]">
+      <div class="wrap">
+        <div data-reveal class="cta-card relative mx-auto max-w-[1100px] rounded-[28px] px-[clamp(28px,6vw,96px)] py-[clamp(40px,5vw,72px)] text-center">
+          <span class="cta-orb" aria-hidden="true"></span>
+
+          <span data-reveal style="--d:.04s" class="relative inline-flex items-center gap-2 rounded-full border border-sky-300/25 bg-sky-300/10 px-3.5 py-1.5 text-[12px] font-extrabold uppercase tracking-[0.14em] text-sky-300">
+            <span class="cta-dot"></span> Free strategy call
+          </span>
+
+          <h2 data-reveal style="--d:.08s" class="relative mt-5 text-[clamp(30px,4.4vw,56px)] font-black tracking-[-0.04em] leading-[1.04] text-white max-w-[760px] mx-auto">Have an AI idea? Let's pressure-test it <span class="accent-l">— free.</span></h2>
+
+          <p data-reveal style="--d:.12s" class="relative mt-5 text-[clamp(15px,1.2vw,18px)] text-white/65 max-w-[520px] mx-auto">Book a 30-minute call with a senior AI engineer. We'll tell you honestly what's feasible, what it takes, and where the ROI is.</p>
+
+          <div data-reveal style="--d:.16s" class="relative mt-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+            <CtaButton href={`${BASE}/#cta`} label="Book a 30-min call" variant="light" />
+            <a href="mailto:sales@biztechcs.com" class="cta-mail inline-flex items-center gap-2 text-[14px] font-bold text-white/75 transition-colors hover:text-white">
+              <i class="fi fi-rr-envelope text-sky-300"></i> or email us
+            </a>
+          </div>
+
+          <ul data-reveal style="--d:.22s" class="relative mt-9 flex flex-wrap items-center justify-center gap-2.5 list-none p-0">
+            {[
+              ['fi-rr-gift', '100% free'],
+              ['fi-rr-comment-check', 'No sales pressure'],
+              ['fi-rr-shield-check', 'Fixed-scope, no overruns'],
+            ].map(([ic, label]) => (
+              <li class="cta-chip inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[12.5px] font-bold text-white/80">
+                <i class={`fi ${ic} text-sky-300 text-[13px]`}></i> {label}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <Footer />
+</Layout>
+
+<style>
+  .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .accent-l { background: linear-gradient(100deg, #7dd3fc, #38bdf8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* seamless transition into the dark footer — end gradient on footer's top color (#0B1220),
+     not the lighter #111B2E, so no hairline shows at the seam */
+  #cta.surface-dark { background: linear-gradient(180deg, #0B1220, #0F172A 55%, #0B1220); }
+
+  /* ===== final CTA — glow panel ===== */
+  .cta-card { isolation: isolate;
+    background: linear-gradient(165deg, rgba(125,211,252,.10), rgba(15,23,42,.30) 55%, rgba(11,18,32,.20));
+    border: 1px solid rgba(125,211,252,.18);
+    box-shadow: 0 40px 90px -50px rgba(2,8,23,.9), inset 0 1px 0 rgba(255,255,255,.06);
+    overflow: hidden; }
+  .cta-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background-image: linear-gradient(rgba(125,211,252,.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(125,211,252,.05) 1px, transparent 1px);
+    background-size: 38px 38px;
+    -webkit-mask-image: radial-gradient(120% 90% at 50% 0%, #000 35%, transparent 75%);
+            mask-image: radial-gradient(120% 90% at 50% 0%, #000 35%, transparent 75%); }
+  .cta-card::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; z-index: 1;
+    background: linear-gradient(90deg, transparent, rgba(125,211,252,.65), transparent); }
+  .cta-orb { position: absolute; z-index: 0; left: 50%; top: -40%; width: 620px; max-width: 120%; aspect-ratio: 1;
+    transform: translateX(-50%); pointer-events: none;
+    background: radial-gradient(circle, rgba(14,165,233,.30), rgba(56,189,248,.10) 45%, transparent 70%);
+    filter: blur(8px); animation: ctaGlow 7s ease-in-out infinite; }
+  .cta-dot { width: 7px; height: 7px; border-radius: 999px; background: #7dd3fc; box-shadow: 0 0 0 0 rgba(125,211,252,.6);
+    animation: ctaPulse 2s ease-out infinite; }
+  .cta-chip { background: rgba(255,255,255,.05); border: 1px solid rgba(125,211,252,.16);
+    backdrop-filter: blur(6px); transition: border-color .25s, background .25s, transform .25s; }
+  .cta-chip:hover { border-color: rgba(125,211,252,.4); background: rgba(125,211,252,.10); transform: translateY(-2px); }
+  @keyframes ctaPulse { 0% { box-shadow: 0 0 0 0 rgba(125,211,252,.55); } 70% { box-shadow: 0 0 0 9px rgba(125,211,252,0); } 100% { box-shadow: 0 0 0 0 rgba(125,211,252,0); } }
+  @keyframes ctaGlow { 0%, 100% { opacity: .85; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.08); } }
+  @media (prefers-reduced-motion: reduce) { .cta-orb, .cta-dot { animation: none; } .cta-chip { transition: none; } }
+
+  /* hero two-column grid (raw CSS — Tailwind v4 doesn't emit grid-cols-[1.1fr_0.9fr]) */
+  .svc-hero-grid-cols { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  @media (max-width: 900px) { .svc-hero-grid-cols { grid-template-columns: 1fr; } }
+  .svc-proof-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 18px; align-items: stretch; }
+  @media (max-width: 820px) { .svc-proof-grid { grid-template-columns: 1fr; } }
+
+  /* ===== merged trust box: 50/50 — certs (left) + numbers/reviews (right) ===== */
+  .svc-trustbox { border-radius: 24px; background: #fff; border: 1px solid var(--line);
+    box-shadow: 0 18px 48px -30px rgba(35,38,46,.26); overflow: hidden; }
+  .svc-trustbox-split { display: grid; grid-template-columns: 60fr 40fr; align-items: stretch; }
+  @media (max-width: 860px) { .svc-trustbox-split { grid-template-columns: 1fr; } }
+
+  /* left: cert logos — single-line right-to-left marquee (compact, matches homepage box height) */
+  .svc-tx-left { display: flex; align-items: center; gap: clamp(16px,2vw,28px);
+    padding: clamp(14px,1.6vw,20px) clamp(20px,2.4vw,32px); position: relative; min-width: 0; }
+  .svc-tx-left::after { content: ""; position: absolute; right: 0; top: 16px; bottom: 16px; width: 1px; background: var(--line); }
+  @media (max-width: 860px) { .svc-tx-left::after { right: 22px; left: 22px; top: auto; bottom: 0; width: auto; height: 1px; } }
+  .svc-tbx-label { flex: none; display: inline-flex; align-items: center; gap: 8px; max-width: 130px;
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; line-height: 1.35; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted); }
+  .svc-tbx-label i { color: var(--teal); font-size: 14px; line-height: 0; flex: none; }
+  .svc-tx-track { flex: 1; min-width: 0; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .svc-tx-row { display: flex; align-items: center; gap: clamp(26px,3vw,46px); width: max-content; }
+  .svc-tx-logo { display: inline-flex; align-items: center; flex: none; }
+  .svc-tx-logo img { width: auto; max-height: 40px; object-fit: contain; opacity: .8; filter: saturate(.92); }
+  @media (prefers-reduced-motion: no-preference) {
+    .svc-tx-row { animation: svcMarquee 40s linear infinite; }
+    .svc-tx-track:hover .svc-tx-row { animation-play-state: paused; }
+  }
+  @keyframes svcMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* right: key numbers, single row */
+  .svc-tx-right { display: grid; grid-template-columns: repeat(3, 1fr); align-items: stretch; }
+  .svc-tb-item { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    gap: 4px; padding: clamp(14px,1.6vw,20px) 10px; position: relative; }
+  .svc-tx-right .svc-tb-item + .svc-tb-item::before { content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 1px; background: var(--line); }
+  .svc-tn { font-size: clamp(22px,2.3vw,30px); font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+  .svc-tl { font-size: 11.5px; font-weight: 700; color: var(--muted); }
+  @media (max-width: 520px) {
+    .svc-tx-right .svc-tb-item:nth-child(3n+1)::before { display: none; }
+    .svc-tx-right .svc-tb-item:nth-child(n+4) { border-top: 1px solid var(--line); } }
+
+  /* ===== multimodal AI bento ===== */
+  .svc-bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 980px) { .svc-bento { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .svc-bento { grid-template-columns: 1fr; } }
+
+  .svc-bcard { --mx: 50%; --my: 50%; position: relative; display: flex; flex-direction: column; overflow: hidden;
+    border-radius: 22px; background: #fff; border: 1px solid var(--line); padding: 26px;
+    box-shadow: 0 10px 30px -22px rgba(35,38,46,.22);
+    transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s, border-color .35s; }
+  .svc-bcard:hover { transform: translateY(-4px); border-color: rgba(14,165,233,.4); box-shadow: 0 26px 56px -28px rgba(14,165,233,.32); }
+  /* spotlight glow that follows the cursor (same as homepage AI-Native cards) */
+  .svc-bcard-spot { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .35s;
+    background: radial-gradient(300px circle at var(--mx) var(--my), rgba(56,189,248,.18), transparent 60%); }
+  .svc-bcard:hover .svc-bcard-spot { opacity: 1; }
+  /* bright reactive border that lights up near the cursor */
+  .svc-bcard::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none; z-index: 1;
+    background: radial-gradient(220px circle at var(--mx) var(--my), rgba(14,165,233,.85), transparent 60%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    opacity: 0; transition: opacity .35s; }
+  .svc-bcard:hover::before { opacity: 1; }
+  /* big featured cards span 2 cols — white like the rest, just wider */
+  .svc-bcard-big { grid-column: span 2; background: #fff; }
+  @media (max-width: 520px) { .svc-bcard-big { grid-column: span 1; } }
+
+  .svc-bcard-top { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .svc-bcard-ic { display: grid; place-items: center; width: 50px; height: 50px;
+    border-radius: 14px; font-size: 21px; line-height: 0; flex: none;
+    background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.2); color: var(--teal-dk);
+    transition: background .3s, color .3s, border-color .3s, transform .3s; }
+  .svc-bcard:hover .svc-bcard-ic { background: var(--teal); color: #fff; border-color: transparent; transform: rotate(-6deg); }
+  .svc-bcard-big .svc-bcard-ic { background: rgba(14,165,233,.12); border-color: rgba(14,165,233,.25); color: var(--teal-dk); }
+  .svc-bcard-big:hover .svc-bcard-ic { background: var(--teal); color: #fff; border-color: transparent; }
+
+  /* ===== per-card AI micro-animations (Gemini-style) ===== */
+  .svc-viz { --c: #0ea5e9; position: relative; width: 56px; height: 34px; flex: none;
+    display: flex; align-items: center; justify-content: center; gap: 4px; opacity: .9; }
+  @media (prefers-reduced-motion: reduce) { .svc-viz i { animation: none !important; } }
+
+  /* chat — typing dots */
+  .svc-viz-chat i { width: 7px; height: 7px; border-radius: 50%; background: var(--c); animation: vChat 1.3s ease-in-out infinite; }
+  .svc-viz-chat i:nth-child(2) { animation-delay: .18s; } .svc-viz-chat i:nth-child(3) { animation-delay: .36s; }
+  @keyframes vChat { 0%,60%,100% { transform: translateY(0); opacity: .35; } 30% { transform: translateY(-6px); opacity: 1; } }
+
+  /* voice — waveform bars */
+  .svc-viz-voice { align-items: center; gap: 3px; }
+  .svc-viz-voice i { width: 3px; height: 8px; border-radius: 2px; background: var(--c); animation: vWave 1s ease-in-out infinite; }
+  .svc-viz-voice i:nth-child(2){animation-delay:.15s} .svc-viz-voice i:nth-child(3){animation-delay:.3s} .svc-viz-voice i:nth-child(4){animation-delay:.45s} .svc-viz-voice i:nth-child(5){animation-delay:.6s}
+  @keyframes vWave { 0%,100% { height: 7px; } 50% { height: 24px; } }
+
+  /* chart — rising bars */
+  .svc-viz-chart { align-items: flex-end; gap: 4px; height: 30px; }
+  .svc-viz-chart i { width: 6px; border-radius: 3px 3px 0 0; background: var(--c); height: 30%; animation: vBar 2.2s ease-in-out infinite; }
+  .svc-viz-chart i:nth-child(2){animation-delay:.3s} .svc-viz-chart i:nth-child(3){animation-delay:.6s} .svc-viz-chart i:nth-child(4){animation-delay:.9s}
+  @keyframes vBar { 0%,100% { height: 25%; } 50% { height: 100%; } }
+
+  /* code — typing lines + cursor */
+  .svc-viz-code { flex-direction: column; align-items: flex-start; justify-content: center; gap: 5px; }
+  .svc-viz-code i { height: 4px; border-radius: 2px; background: var(--c); width: 70%; animation: vCode 2.4s ease-in-out infinite; }
+  .svc-viz-code i { transform-origin: left; }
+  .svc-viz-code i:nth-child(1){width:90%;animation-delay:0s} .svc-viz-code i:nth-child(2){width:60%;animation-delay:.4s} .svc-viz-code i:nth-child(3){width:78%;animation-delay:.8s}
+  @keyframes vCode { 0%,100% { transform: scaleX(.3); opacity: .4; } 50% { transform: scaleX(1); opacity: 1; } }
+
+  /* research — radar pulse rings */
+  .svc-viz-research i { position: absolute; width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--c); animation: vRadar 2.4s ease-out infinite; }
+  .svc-viz-research i:nth-child(2){animation-delay:.8s} .svc-viz-research i:nth-child(3){animation-delay:1.6s}
+  @keyframes vRadar { 0% { transform: scale(.4); opacity: .9; } 100% { transform: scale(2.6); opacity: 0; } }
+
+  /* image — pixel shimmer grid */
+  .svc-viz-image { display: grid; grid-template-columns: repeat(3,1fr); gap: 3px; width: 30px; height: 30px; }
+  .svc-viz-image i { border-radius: 2px; background: var(--c); opacity: .25; animation: vPix 2s ease-in-out infinite; }
+  .svc-viz-image i:nth-child(1){animation-delay:0s}.svc-viz-image i:nth-child(2){animation-delay:.15s}.svc-viz-image i:nth-child(3){animation-delay:.3s}.svc-viz-image i:nth-child(4){animation-delay:.45s}.svc-viz-image i:nth-child(5){animation-delay:.6s}.svc-viz-image i:nth-child(6){animation-delay:.75s}.svc-viz-image i:nth-child(7){animation-delay:.9s}.svc-viz-image i:nth-child(8){animation-delay:1.05s}.svc-viz-image i:nth-child(9){animation-delay:1.2s}
+  @keyframes vPix { 0%,100% { opacity: .22; } 50% { opacity: 1; } }
+
+  /* video — scanning frames */
+  .svc-viz-video { gap: 3px; }
+  .svc-viz-video i { width: 6px; height: 18px; border-radius: 2px; background: var(--c); opacity: .3; animation: vScan 1.4s ease-in-out infinite; }
+  .svc-viz-video i:nth-child(2){animation-delay:.25s} .svc-viz-video i:nth-child(3){animation-delay:.5s}
+  @keyframes vScan { 0%,100% { opacity: .25; transform: scaleY(.7); } 50% { opacity: 1; transform: scaleY(1.15); } }
+
+  /* doc — lines with scanning highlight */
+  .svc-viz-doc { flex-direction: column; align-items: flex-start; justify-content: center; gap: 4px; overflow: hidden; }
+  .svc-viz-doc i { height: 3px; border-radius: 2px; background: var(--c); opacity: .3; width: 100%; }
+  .svc-viz-doc i:nth-child(1){width:80%}.svc-viz-doc i:nth-child(2){width:100%}.svc-viz-doc i:nth-child(3){width:65%}.svc-viz-doc i:nth-child(4){width:90%}
+  .svc-viz-doc i { animation: vDoc 2.4s linear infinite; }
+  .svc-viz-doc i:nth-child(2){animation-delay:.3s}.svc-viz-doc i:nth-child(3){animation-delay:.6s}.svc-viz-doc i:nth-child(4){animation-delay:.9s}
+  @keyframes vDoc { 0%,80%,100% { opacity: .25; } 40% { opacity: 1; } }
+
+  /* multi — pulsing modality dots */
+  .svc-viz-multi i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); opacity: .35; animation: vMulti 1.8s ease-in-out infinite; }
+  .svc-viz-multi i:nth-child(2){animation-delay:.3s}.svc-viz-multi i:nth-child(3){animation-delay:.6s}
+  @keyframes vMulti { 0%,100% { transform: scale(.7); opacity: .35; } 50% { transform: scale(1.15); opacity: 1; } }
+
+  .svc-bcard-body { position: relative; z-index: 1; margin-top: 18px; flex: 1; }
+  .svc-bcard-title { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+  .svc-bcard-big .svc-bcard-title { font-size: clamp(20px,2vw,24px); color: var(--ink); }
+  .svc-bcard-desc { margin-top: 8px; font-size: 14px; line-height: 1.55; color: var(--muted); }
+  .svc-bcard-big .svc-bcard-desc { font-size: 14.5px; color: var(--muted); max-width: 88%; }
+
+  .svc-bcard-arrow { position: relative; z-index: 1; margin-top: 18px; display: inline-flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; border-radius: 50%; background: rgba(14,165,233,.1); color: var(--teal-dk); line-height: 0; font-size: 13px;
+    opacity: 0; transform: translateX(-6px); transition: opacity .3s, transform .3s; }
+  .svc-bcard:hover .svc-bcard-arrow { opacity: 1; transform: translateX(0); }
+  .svc-bcard-big .svc-bcard-arrow { background: rgba(14,165,233,.12); color: var(--teal-dk); }
+
+  /* AI solutions cards (dark) */
+  .svc-sol { background: rgba(255,255,255,.04); border: 1px solid rgba(125,211,252,.14); }
+  .svc-sol:hover { border-color: rgba(125,211,252,.4); background: rgba(125,211,252,.06); box-shadow: 0 24px 56px -30px rgba(56,189,248,.4); }
+  .svc-sol-ind { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: rgba(255,255,255,.5); text-align: right; }
+  .svc-sol-metric { font-size: clamp(22px,2.4vw,28px); font-weight: 900; letter-spacing: -0.03em; line-height: 1; }
+
+  /* industries cards */
+  .svc-ind-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 960px) { .svc-ind-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .svc-ind-grid { grid-template-columns: 1fr; } }
+  .svc-ind-card { display: flex; align-items: flex-start; gap: 14px; padding: 20px;
+    border-radius: 18px; background: #fff; border: 1px solid var(--line);
+    box-shadow: 0 10px 28px -22px rgba(35,38,46,.2);
+    transition: transform .3s cubic-bezier(.16,1,.3,1), border-color .3s, box-shadow .3s; }
+  .svc-ind-card:hover { transform: translateY(-4px); border-color: rgba(14,165,233,.4); box-shadow: 0 22px 46px -26px rgba(14,165,233,.3); }
+  .svc-ind-ic { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.2); color: var(--teal-dk); font-size: 18px; line-height: 0;
+    transition: background .3s, color .3s, border-color .3s, transform .3s; }
+  .svc-ind-card:hover .svc-ind-ic { background: var(--teal); color: #fff; border-color: transparent; transform: rotate(-6deg); }
+  .svc-ind-name { font-size: 15.5px; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); line-height: 1.2; }
+  .svc-ind-desc { margin-top: 5px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+
+  /* hero — light theme */
+  .svc-hero { padding-top: clamp(118px, 11vw, 156px); padding-bottom: clamp(36px, 4vw, 56px); background:
+      radial-gradient(70% 60% at 12% -10%, rgba(117,209,249,.16), transparent 60%),
+      radial-gradient(60% 55% at 100% 0%, rgba(61,101,255,.07), transparent 58%),
+      linear-gradient(180deg, #F4F8FD, #EEF3F9); }
+  .svc-hero-grid { position: absolute; inset: 0; pointer-events: none; opacity: .5;
+    background-image: linear-gradient(rgba(15,23,42,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,.04) 1px, transparent 1px);
+    background-size: 46px 46px; -webkit-mask-image: radial-gradient(70% 60% at 50% 30%, #000, transparent 80%); mask-image: radial-gradient(70% 60% at 50% 30%, #000, transparent 80%); }
+  .svc-hero-glow { position: absolute; right: -8%; top: -20%; width: 55%; height: 120%; border-radius: 50%;
+    background: radial-gradient(circle, rgba(56,189,248,.16), transparent 65%); pointer-events: none; }
+  .svc-crumbs { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--muted); }
+  .svc-crumbs a { color: var(--muted); transition: color .2s; }
+  .svc-crumbs a:hover { color: var(--teal-dk); }
+  .svc-crumbs b { color: var(--ink); font-weight: 700; }
+  .svc-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 16px 24px; border-radius: 999px;
+    border: 1px solid var(--line); background: #fff; color: var(--ink); font-weight: 600; font-size: 15px; transition: background .25s, border-color .25s, transform .25s; }
+  .svc-ghost:hover { border-color: rgba(14,165,233,.5); transform: translateY(-1px); }
+  .svc-ghost i { line-height: 0; }
+
+  /* hero "trusted by" client logos (homepage style) */
+  .svc-hero-clients { margin-top: clamp(28px,3vw,40px); display: flex; flex-direction: column; gap: 12px; }
+  .svc-hc-label { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono);
+    font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+  .svc-hc-label b { color: var(--ink); font-weight: 700; }
+  .svc-hc-logos { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 26px; list-style: none; margin: 0; padding: 0; }
+  .svc-hc-logos li { display: inline-flex; align-items: center; }
+  .svc-hc-logos img { height: 24px; width: auto; max-width: 96px; object-fit: contain; filter: grayscale(1); opacity: .58; transition: filter .3s, opacity .3s; }
+  .svc-hc-logos li:hover img { filter: grayscale(0); opacity: 1; }
+  .svc-hero-card { display: flex; flex-direction: column; gap: 12px; padding: 26px; border-radius: 24px;
+    background: #fff; border: 1px solid var(--line); box-shadow: 0 24px 60px -34px rgba(15,23,42,.28); }
+  .svc-hc-row { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .svc-hero-card .svc-hc-row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .svc-hc-n { font-size: 17px; font-weight: 800; color: var(--teal-dk); white-space: nowrap; }
+  .svc-hc-l { font-size: 13px; font-weight: 600; color: var(--muted); text-align: right; }
+
+  /* ===== animated AI core orbit (right side) ===== */
+  .svc-orbit { position: relative; width: min(440px, 100%); aspect-ratio: 1; margin-inline: auto; --r1: 148px; --r2: 208px; }
+  @media (max-width: 1100px) { .svc-orbit { --r1: 30vw; --r2: 42vw; } }
+  @media (max-width: 900px) { .svc-orbit { --r1: 150px; --r2: 210px; } }
+  @media (max-width: 420px) { .svc-orbit { --r1: 34vw; --r2: 46vw; } }
+  .svc-orbit-glow { position: absolute; inset: 14%; border-radius: 50%;
+    background: radial-gradient(circle, rgba(14,165,233,.22), transparent 68%); filter: blur(8px); }
+  @media (prefers-reduced-motion: no-preference) { .svc-orbit-glow { animation: svcGlow 4s ease-in-out infinite; } }
+  @keyframes svcGlow { 0%,100% { opacity:.6; transform:scale(.96); } 50% { opacity:1; transform:scale(1.04); } }
+
+  .svc-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(14,165,233,.2); }
+  .svc-ring-1 { inset: 17%; }
+  .svc-ring-2 { inset: 3%; border-style: dashed; border-color: rgba(14,165,233,.18); }
+  .svc-ring-3 { inset: 30%; border-color: rgba(14,165,233,.12); }
+  @media (prefers-reduced-motion: no-preference) {
+    .svc-ring-2 { animation: svcSpin 26s linear infinite; }
+    .svc-ring-3 { animation: svcSpin 18s linear infinite reverse; }
+  }
+  @keyframes svcSpin { to { transform: rotate(360deg); } }
+
+  /* central core */
+  .svc-core { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 27%; aspect-ratio: 1; border-radius: 26px; display: grid; place-items: center; z-index: 3;
+    background: linear-gradient(150deg, #0ea5e9, #0369a1); color: #fff;
+    box-shadow: 0 24px 60px -22px rgba(14,165,233,.7); }
+  .svc-core > i { font-size: 34px; line-height: 0; position: relative; z-index: 2; }
+  @media (prefers-reduced-motion: no-preference) { .svc-core { animation: svcFloat 5s ease-in-out infinite; } }
+  @keyframes svcFloat { 0%,100% { transform: translate(-50%,-50%); } 50% { transform: translate(-50%,calc(-50% - 8px)); } }
+  .svc-core-pulse { position: absolute; inset: 0; border-radius: inherit; border: 1.5px solid rgba(14,165,233,.5); }
+  @media (prefers-reduced-motion: no-preference) {
+    .svc-core-pulse { animation: svcCorePulse 2.6s ease-out infinite; }
+    .svc-core-pulse-2 { animation-delay: 1.3s; }
+  }
+  @keyframes svcCorePulse { 0% { transform: scale(1); opacity:.7; } 80%,100% { transform: scale(1.7); opacity:0; } }
+
+  /* orbiting capability nodes — placed at angle --a on the chosen ring radius */
+  .svc-node { position: absolute; left: 50%; top: 50%; width: 0; height: 0; z-index: 2;
+    transform: rotate(var(--a)) translateX(var(--r1)) rotate(calc(-1 * var(--a))); }
+  .svc-node-r2 { transform: rotate(var(--a)) translateX(var(--r2)) rotate(calc(-1 * var(--a))); }
+  .svc-node-chip { transform: translate(-50%,-50%); display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 13px 8px 10px; border-radius: 999px; background: #fff; border: 1px solid var(--line);
+    box-shadow: 0 14px 34px -18px rgba(35,38,46,.4); white-space: nowrap; }
+  .svc-node-chip i { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 7px;
+    background: rgba(14,165,233,.12); color: var(--teal-dk); font-size: 13px; line-height: 0; flex: none; }
+  .svc-node-chip span { font-size: 13px; font-weight: 700; color: var(--ink); }
+  /* whole constellation rotates; the node's inner counter-rotation keeps each chip upright */
+  @media (prefers-reduced-motion: no-preference) {
+    .svc-node-r1 { animation: svcOrbit1 34s linear infinite; }
+    .svc-node-r2 { animation: svcOrbit2 46s linear infinite reverse; }
+  }
+  @keyframes svcOrbit1 { to { transform: rotate(calc(var(--a) + 360deg)) translateX(var(--r1)) rotate(calc(-1 * var(--a) - 360deg)); } }
+  @keyframes svcOrbit2 { to { transform: rotate(calc(var(--a) + 360deg)) translateX(var(--r2)) rotate(calc(-1 * var(--a) - 360deg)); } }
+  @media (max-width: 560px) { .svc-node-chip span { display: none; } .svc-node-chip { padding: 8px; } }
+
+  /* right column stack + "popular builds" panel to balance the tall left column */
+  .svc-hero-right { display: flex; flex-direction: column; gap: 16px; }
+  .svc-hero-uses { padding: 22px 24px; border-radius: 22px; background: rgba(14,165,233,.06); border: 1px solid rgba(14,165,233,.18); }
+  .svc-uses-label { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 11px;
+    font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--teal-dk); }
+  .svc-uses-label i { line-height: 0; font-size: 13px; }
+  .svc-uses-chips { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .svc-uses-chips span { display: inline-flex; align-items: center; padding: 7px 13px; border-radius: 999px;
+    font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; border: 1px solid var(--line);
+    transition: border-color .2s, transform .2s; }
+  .svc-uses-chips span:hover { border-color: rgba(14,165,233,.45); transform: translateY(-2px); }
+
+  /* hero trust strip */
+  .svc-hero-trust { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 24px;
+    padding-top: clamp(28px,3vw,40px); border-top: 1px solid var(--line); }
+  .svc-ht-label { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--muted); }
+  .svc-ht-items { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 18px; }
+  .svc-ht-item { display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 700; color: var(--ink); }
+  .svc-ht-item i { color: var(--teal-dk); font-size: 14px; line-height: 0; }
+  .svc-ht-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(15,23,42,.2); }
+  @media (max-width: 620px) { .svc-ht-dot { display: none; } }
+
+  .svc-card { box-shadow: 0 10px 30px -20px rgba(35,38,46,.22); }
+  .svc-card:hover { box-shadow: 0 24px 56px -28px rgba(14,165,233,.3); }
+
+  .svc-step { box-shadow: 0 10px 30px -20px rgba(35,38,46,.18); }
+  .svc-step-n { display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-mono);
+    font-size: 14px; font-weight: 700; width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.22); color: var(--teal-dk); }
+
+  /* tech-stack chips on the dark band — glassy, logos rendered white for visibility */
+  .svc-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 15px; border-radius: 999px;
+    font-size: 13px; font-weight: 600; color: rgba(255,255,255,.78);
+    background: rgba(255,255,255,.05); border: 1px solid rgba(125,211,252,.16);
+    transition: color .25s, background .25s, border-color .25s, transform .25s; }
+  .svc-chip img { width: 16px; height: 16px; object-fit: contain; filter: brightness(0) invert(1); opacity: .85; transition: opacity .25s; }
+  .svc-chip i { font-size: 15px; color: #7dd3fc; line-height: 0; }
+  .svc-chip:hover { color: #fff; background: rgba(125,211,252,.14); border-color: rgba(125,211,252,.45); transform: translateY(-2px); }
+  .svc-chip:hover img { opacity: 1; }
+
+  .svc-quote { box-shadow: 0 24px 60px -30px rgba(15,23,42,.5); }
+  .svc-q-avatar { flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(150deg, #0ea5e9, #0369a1); color: #fff; font-size: 14px; font-weight: 800; letter-spacing: .02em; }
+
+  /* real client logos row */
+  .svc-clients { margin-top: clamp(28px,3vw,40px); display: flex; align-items: center; flex-wrap: wrap; gap: 16px clamp(24px,3vw,44px);
+    padding-top: clamp(24px,2.6vw,34px); border-top: 1px solid var(--line); }
+  .svc-clients-label { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .svc-clients-row { display: flex; align-items: center; flex-wrap: wrap; gap: 14px clamp(22px,3vw,40px); list-style: none; margin: 0; padding: 0; }
+  .svc-clients-row li { display: inline-flex; align-items: center; }
+  .svc-clients-row img { height: 26px; width: auto; max-width: 110px; object-fit: contain; filter: grayscale(1); opacity: .56; transition: filter .3s, opacity .3s; }
+  .svc-clients-row li:hover img { filter: grayscale(0); opacity: 1; }
+  @media (max-width: 640px) { .svc-clients { justify-content: center; } .svc-clients-row { justify-content: center; } }
+  .svc-stat-n { font-size: clamp(26px,3vw,38px); font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+  .svc-model { box-shadow: 0 12px 34px -22px rgba(35,38,46,.26); }
+
+  .svc-faq-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.4fr);
+    gap: clamp(32px,5vw,72px); align-items: start; }
+  .svc-faq-head { position: sticky; top: 110px; }
+  @media (max-width: 860px) {
+    .svc-faq-grid { grid-template-columns: 1fr; gap: clamp(28px,5vw,40px); }
+    .svc-faq-head { position: static; }
+  }
+
+  .svc-faq summary { list-style: none; }
+  .svc-faq summary::-webkit-details-marker { display: none; }
+  .svc-faq summary i { transition: transform .3s; }
+  .svc-faq[open] summary i { transform: rotate(45deg); }
+  .svc-faq[open] { box-shadow: 0 14px 36px -26px rgba(35,38,46,.24); }
+
+  /* bridge the 1px light seam between the dark CTA section and the fixed dark footer
+     (sticky-reveal footer lets the light .page-shell bg peek through at the seam) */
+  #cta::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 6px;
+    background: #0B1220; pointer-events: none; }
+</style>
+
+<script>
+  // spotlight glow: track the cursor inside each bento card (same as homepage AI-Native cards)
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.svc-bcard').forEach((card) => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect()
+        card.style.setProperty('--mx', `${e.clientX - r.left}px`)
+        card.style.setProperty('--my', `${e.clientY - r.top}px`)
+      })
+    })
+  }
+</script>
+

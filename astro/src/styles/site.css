@@ -13,9 +13,9 @@
     --max:1440px;
     --section-y:clamp(64px,7vw,100px);   /* consistent vertical rhythm between sections */
     --head-gap:clamp(40px,4.5vw,60px);   /* gap below a section heading */
-    --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-    --font-head:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-    --font-mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --font-head:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --font-mono:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
 
     /* ===== Semantic theme roles (DARK = default) ===== */
     --page-bg:var(--paper);            /* base page background */
@@ -605,7 +605,7 @@
   }
 
   /* ===== Dark footer ===== */
-  footer{min-height:550px;background:linear-gradient(180deg,#0B1220,#0F172A);color:#9aa4b2;padding:48px 0 36px;border-top:1px solid rgba(255,255,255,.08);overflow:hidden}
+  footer{min-height:550px;background:linear-gradient(180deg,#0B1220,#0F172A);color:#9aa4b2;padding:48px 0 36px;overflow:hidden}
   footer::before{content:"";position:absolute;inset:0;pointer-events:none;
        background:radial-gradient(60% 70% at 12% 0%,rgba(14,165,233,.12),transparent 60%),radial-gradient(50% 60% at 92% 0%,rgba(61,101,255,.1),transparent 62%)}
   footer .wrap{position:relative;z-index:1}
