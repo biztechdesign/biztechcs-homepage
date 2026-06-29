@@ -1,0 +1,693 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import CtaButton from '../components/CtaButton.astro'
+
+const BASE = import.meta.env.BASE_URL
+const CDN = 'https://www.biztechcs.com/wp-content/uploads'
+
+const CLIENTS = [
+  { name: 'Forbes Marshall', src: `${CDN}/2023/05/forbes-marshall.png` },
+  { name: 'Bonfiglioli', src: `${CDN}/2023/05/bonfiglioli.png` },
+  { name: 'Ovivo', src: `${CDN}/2023/05/Ovivo.svg` },
+  { name: 'Biorbyt', src: `${CDN}/2023/05/Biorbyt.svg` },
+  { name: 'Medguard', src: `${CDN}/2023/05/medguard.png` },
+]
+const BADGES = [
+  { name: 'Clutch', src: `${BASE}/assets/badges/clutch.svg` },
+  { name: 'Google Premier Partner 2024', src: `${BASE}/assets/badges/google-partner.svg` },
+  { name: 'GESIA Member', src: `${BASE}/assets/badges/gesia.svg` },
+  { name: 'Salesforce ISV Partner', src: `${BASE}/assets/badges/salesforce-isv.svg` },
+  { name: 'Top App Development Companies', src: `${BASE}/assets/badges/tadc.svg` },
+  { name: 'SugarCRM ISV Partner', src: `${BASE}/assets/badges/sugarcrm.png` },
+  { name: 'Techimply', src: `${BASE}/assets/badges/techimply.svg` },
+  { name: 'TÜV certified', src: `${BASE}/assets/badges/tuv.svg` },
+  { name: 'Great Place To Work', src: `${BASE}/assets/badges/gptw.svg` },
+  { name: 'Odoo Partner', src: `${BASE}/assets/badges/odoo.svg` },
+]
+
+// ── By the numbers ──
+const STATS = [
+  { n: '19+', label: 'Years in business', sub: 'Engineering since 2006' },
+  { n: '1300+', label: 'Projects delivered', sub: 'Across 40+ countries' },
+  { n: '200+', label: 'Team members', sub: 'Engineers, designers & PMs' },
+  { n: '98%', label: 'Client retention', sub: 'Teams that come back' },
+  { n: '55+', label: 'Products built', sub: '10,300+ installations' },
+  { n: '4.9/5', label: 'Rated on Clutch', sub: 'From verified reviews' },
+]
+
+// ── Ventures ──
+const VENTURES = [
+  { ic: 'fi-rr-print', name: 'PrintXpand', tag: 'Web-to-Print', desc: 'End-to-end web-to-print storefronts, design tools and print ERP — powering thousands of print stores.' },
+  { ic: 'fi-rr-comment-user', name: 'CRMJetty', tag: 'Portals & CRM', desc: 'Customer & vendor portals for Salesforce, Dynamics, SuiteCRM and SugarCRM.' },
+  { ic: 'fi-rr-apps-add', name: 'AppJetty', tag: 'Extensions', desc: 'A marketplace of ecommerce and CRM extensions used by businesses worldwide.' },
+  { ic: 'fi-rr-headset', name: 'ServiceXpand', tag: 'Field Service', desc: 'Operations software that streamlines scheduling and delivery for service businesses.' },
+]
+
+// ── Global offices (img = representative city/country stock photo) ──
+const OFFICES = [
+  { code: 'us', name: 'USA', city: 'Wilmington, Delaware', accent: '#0EA5E9', img: 'https://images.unsplash.com/photo-1630848327020-e6666059e587?auto=format&fit=crop&w=600&q=70' },
+  { code: 'in', name: 'India', city: 'Ahmedabad, Gujarat', accent: '#7C3AED', img: 'https://images.unsplash.com/photo-1631589984116-1d60a32f391b?auto=format&fit=crop&w=600&q=70' },
+  { code: 'es', name: 'Spain', city: 'Barcelona', accent: '#10B981', img: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=600&q=70' },
+  { code: 'de', name: 'Germany', city: 'Berlin', accent: '#F43F5E', img: 'https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=600&q=70' },
+]
+
+// ── Life at Biztech (real culture/team photos) ──
+const LIFE_PHOTOS = [
+  { src: `${CDN}/2023/11/life-biztech-11-1.webp`, alt: 'The BiztechCS team together' },
+  { src: `${CDN}/2023/11/life-biztech-3-1-1.webp`, alt: 'Inside the BiztechCS office' },
+  { src: `${CDN}/2025/03/cricket-league-25-1.webp`, alt: 'BiztechCS cricket league' },
+  { src: `${CDN}/2023/11/life-biztech-5-1-2.webp`, alt: 'A learning session at BiztechCS' },
+  { src: `${CDN}/2023/11/life-biztech-4-1-1-1.webp`, alt: 'The BiztechCS game room' },
+]
+
+// ── Leadership ──
+const T = `${BASE}/assets/team`
+const LEADERS = [
+  { name: 'Maulik Shah', role: 'Founder & CEO', img: `${T}/maulik.png` },
+  { name: 'Amit Shah', role: 'Chief Financial Officer', img: `${T}/amit.png` },
+  { name: 'Kinjal Shah', role: 'Chief Human Resources Officer', img: `${T}/kinjal.png` },
+  { name: 'Parth Pandya', role: 'AVP — Marketing', img: `${T}/parth.png` },
+  { name: 'Divyang Sonchhatra', role: 'AVP — Sales', img: `${T}/divyang.webp` },
+  { name: 'Jay Jagani', role: 'Sr. Product Manager', img: `${T}/jay.png` },
+]
+
+// ── Values (5 pillars) ──
+const VALUES = [
+  { ic: 'fi-rr-heart', title: 'Customer first', desc: 'Every decision starts with the outcome for your business, not ours.' },
+  { ic: 'fi-rr-graduation-cap', title: 'Always learning', desc: 'Continuous upskilling so our teams stay ahead of the technology curve.' },
+  { ic: 'fi-rr-microchip', title: 'Advanced by default', desc: 'We adopt the best modern tools and engineering practices — early.' },
+  { ic: 'fi-rr-shield-check', title: 'Quality mindset', desc: 'Quality is built into every process, project and product we ship.' },
+  { ic: 'fi-rr-refresh', title: 'Continual improvement', desc: 'We refine how we work, relentlessly — in people, process and product.' },
+]
+
+// ── Why choose us (competitive advantages) ──
+const WHYUS = [
+  { ic: 'fi-rr-shield-check', title: 'US & EU accountability', desc: 'Senior project leads in your time zone, daily overlap, and clear ownership end to end.' },
+  { ic: 'fi-rr-rocket-lunch', title: 'Real product DNA', desc: 'We build and run our own products — PrintXpand, CRMJetty and more. We engineer for the long haul.' },
+  { ic: 'fi-rr-layers', title: 'Full-stack delivery', desc: 'Strategy, design, engineering, QA, DevOps and support — one accountable team, not handoffs.' },
+  { ic: 'fi-rr-lock', title: 'IP you fully own', desc: 'Work-for-hire with full IP transfer on payment, backed by NDAs from day one.' },
+  { ic: 'fi-rr-diploma', title: 'Certified & secure', desc: 'ISO 27001 & 9001 certified, with security and GDPR-aligned data handling built in.' },
+  { ic: 'fi-rr-chart-line-up', title: 'Proven at scale', desc: '1,300+ projects across 40+ countries since 2006, with 98% client retention.' },
+]
+
+// ── Awards & recognition (titles + the badge logos above) ──
+const AWARDS = [
+  'TÜV ISO 27001 & 9001 certified', 'Google Premier Partner 2024', 'Salesforce ISV Partner',
+  'Great Place To Work certified', 'Clutch — Top B2B (4.9/5)', 'Top App Development Companies',
+  'GESIA IT Association member', 'Techimply — Top eCommerce dev',
+]
+
+// ── Testimonials ──
+const TESTIMONIALS = [
+  { quote: 'Biztech has been a genuine technology partner — they understand the product, not just the tickets.', name: 'Adam Harvey', role: 'Co-founder & CEO, Proofed Inc', av: 'AH' },
+  { quote: 'We can always count on Team Biztech. They feel like an extension of our own team.', name: 'Fernando Delgado', role: 'CIO, El Camino Real Charter High School', av: 'FD' },
+  { quote: 'It was a pleasant journey — I am very happy with the results and the way they delivered.', name: 'Alexander', role: 'BigFoot B.V', av: 'AX' },
+]
+
+// ── Company FAQ ──
+const FAQS = [
+  { q: 'Where are your offices?', a: 'We have offices in the USA (Wilmington, Delaware), Spain (Barcelona), Germany (Berlin) and our engineering core in Ahmedabad, India — so you get local accountability with global scale.' },
+  { q: 'How do you handle time-zone differences?', a: 'We maintain daily working-hour overlap with US and European clients and have local project leads in both regions — real-time collaboration during your day, plus progress overnight.' },
+  { q: 'Is my data and IP safe?', a: 'Yes. We\'re ISO 27001 and 9001 certified, with encryption, strict access controls and GDPR-aligned handling. You own all IP via work-for-hire agreements backed by NDAs.' },
+  { q: 'How big is your team and can you scale?', a: '200+ engineers, designers and project managers across four offices. We scale teams up or down to match your roadmap — from a single specialist to a full multi-pod squad.' },
+  { q: 'How do we start working together?', a: 'Book a free 30-minute call with a senior engineer. We\'ll scope your needs and most engagements begin within 1–2 weeks.' },
+]
+---
+<Layout>
+  <Header />
+  <div class="page-shell">
+
+    <!-- ───────── HERO ───────── -->
+    <section class="co-hero relative overflow-hidden" id="top">
+      <span class="co-hero-grid" aria-hidden="true"></span>
+      <span class="co-hero-glow" aria-hidden="true"></span>
+      <div class="wrap relative">
+        <div class="co-hero-grid-cols">
+          <div>
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
+              <i class="fi fi-rr-building text-teal"></i> About BiztechCS
+            </span>
+            <h1 data-reveal style="--d:.06s" class="mt-6 text-[clamp(34px,5.2vw,60px)] font-black tracking-[-0.04em] leading-[1.06] text-ink">
+              Reinventing success <span class="accent">with digital solutions.</span>
+            </h1>
+            <p data-reveal style="--d:.12s" class="mt-7 text-[clamp(16px,1.3vw,18px)] leading-[1.65] text-muted max-w-[540px]">
+              What began in 2006 as one person's vision is now a 200+ strong team across the US, Europe and India — building enterprise software with craft, accountability and a customers-first mindset.
+            </p>
+            <div data-reveal style="--d:.18s" class="mt-9 flex flex-wrap gap-3">
+              <CtaButton href="#cta" label="Work with us" variant="dark" />
+              <a href="#ventures" class="co-ghost">Our ventures <i class="fi fi-rr-arrow-down"></i></a>
+            </div>
+            <div data-reveal style="--d:.26s" class="co-hero-clients">
+              <span class="co-hc-label">Trusted by <b>200+</b> companies</span>
+              <ul class="co-hc-logos">{CLIENTS.map((c) => <li><img src={c.src} alt={c.name} loading="lazy" /></li>)}</ul>
+            </div>
+          </div>
+
+          <!-- company snapshot -->
+          <div data-reveal style="--d:.16s" class="co-snap" role="img" aria-label="BiztechCS at a glance">
+            <div class="co-snap-main">
+              <img src={`${BASE}/assets/biztech-icon.svg`} alt="" class="co-snap-mark" />
+              <b>Since 2006</b>
+              <span>Integrating Business &amp; Technology</span>
+            </div>
+            <span class="co-badge co-b1"><b>1300+</b> projects</span>
+            <span class="co-badge co-b2"><b>200+</b> team</span>
+            <span class="co-badge co-b3"><b>4</b> global offices</span>
+            <span class="co-badge co-b4"><i class="fi fi-rr-shield-check"></i> ISO 27001</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── TRUST BOX ───────── -->
+    <section id="trust" aria-label="Certifications and track record" class="pt-[clamp(16px,2vw,28px)] pb-[clamp(8px,1vw,16px)]">
+      <div class="wrap">
+        <div data-reveal class="co-trustbox">
+          <div class="co-tx-left">
+            <span class="co-tbx-label"><i class="fi fi-rr-shield-check"></i> Recognized<br/>&amp; certified</span>
+            <div class="co-tx-track">
+              <div class="co-tx-row">
+                {BADGES.map((b) => <span class="co-tx-logo"><img src={b.src} alt={b.name} title={b.name} loading="lazy" /></span>)}
+                {BADGES.map((b) => <span class="co-tx-logo" aria-hidden="true"><img src={b.src} alt="" loading="lazy" /></span>)}
+              </div>
+            </div>
+          </div>
+          <div class="co-tx-right">
+            <div class="co-tb-item"><div class="co-tn accent">1300+</div><div class="co-tl">Projects</div></div>
+            <div class="co-tb-item"><div class="co-tn accent">98%</div><div class="co-tl">Retention</div></div>
+            <div class="co-tb-item"><div class="co-tn accent">4.9</div><div class="co-tl">Clutch rating</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── MISSION + STORY ───────── -->
+    <section class="py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="co-mission-grid">
+          <div>
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-compass-alt text-teal"></i> Our story</span>
+            <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(26px,3.6vw,44px)] font-black tracking-[-0.04em] leading-[1.06]">From one engineer to an <span class="accent">IT powerhouse.</span></h2>
+            <p data-reveal style="--d:.12s" class="mt-6 text-[15px] leading-[1.7] text-muted max-w-[520px]">In 2006, Maulik Shah founded Biztech with a simple vision — bridge the gap between business and technology. Nineteen years on, that one-person startup is a global team that has delivered 1,300+ projects and launched four product ventures, while keeping the same customers-first values it started with.</p>
+            <div data-reveal style="--d:.18s" class="mt-7 flex flex-col gap-4">
+              <div class="co-mv"><span class="co-mv-ic"><i class="fi fi-rr-bullseye-arrow"></i></span><div><b class="block text-[15px] font-extrabold text-ink">Mission</b><p class="text-[14px] text-muted leading-[1.55] mt-0.5">Bring positive change to people's lives by delivering best-in-class digital solutions.</p></div></div>
+              <div class="co-mv"><span class="co-mv-ic"><i class="fi fi-rr-telescope"></i></span><div><b class="block text-[15px] font-extrabold text-ink">Vision</b><p class="text-[14px] text-muted leading-[1.55] mt-0.5">To be a top-three IT enterprise in our segment across the Americas, Europe and Asia.</p></div></div>
+            </div>
+          </div>
+          <!-- by the numbers -->
+          <div data-reveal style="--d:.14s" class="co-num-grid">
+            {STATS.map((s) => (
+              <div class="co-num">
+                <div class="co-num-n accent">{s.n}</div>
+                <div class="co-num-l">{s.label}</div>
+                <div class="co-num-s">{s.sub}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── LIFE @ BIZTECH (office tour video) ───────── -->
+    <section class="py-[var(--section-y)]">
+      <div class="wrap">
+        <figure data-reveal class="co-life" id="coLife" data-video={`${CDN}/2023/05/Biztechcs-1.mp4`}>
+          <img class="co-life-poster" src={`${CDN}/2023/05/Biztech-office-tour_b-1.webp`} alt="The BiztechCS team at our office" loading="lazy" />
+          <button class="co-life-play" type="button" aria-label="Play the BiztechCS office tour">
+            <span class="co-life-ring" aria-hidden="true"></span>
+            <i class="fi fi-sr-play"></i>
+          </button>
+          <figcaption class="co-life-cap">
+            <span class="co-life-label"><i class="fi fi-rr-play-circle"></i> Take a tour</span>
+            <p>200+ dreamers and doers — one culture, four offices, building together since 2006.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ───────── VENTURES (dark band) ───────── -->
+    <section id="ventures" class="surface-dark py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center mb-[clamp(36px,4vw,52px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em]"><i class="fi fi-rr-rocket-lunch"></i> Our ventures</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05] text-white max-w-[680px] mx-auto">We don't just build software — <span class="accent-l">we ship products.</span></h2>
+          <p data-reveal style="--d:.12s" class="mt-5 text-[clamp(15px,1.2vw,17px)] leading-[1.6] text-white/55 max-w-[560px] mx-auto">Four product ventures, built and run in-house — proof we engineer for the long haul, not just the project.</p>
+        </div>
+        <div class="grid grid-cols-4 gap-[16px] max-[900px]:grid-cols-2 max-[480px]:grid-cols-1">
+          {VENTURES.map((v, i) => (
+            <div data-reveal style={`--d:${(0.1 + i * 0.06).toFixed(2)}s`} class="co-venture group">
+              <span class="co-venture-ic"><i class={`fi ${v.ic}`}></i></span>
+              <span class="co-venture-tag">{v.tag}</span>
+              <h3 class="mt-2 text-[19px] font-extrabold tracking-[-0.02em] text-white">{v.name}</h3>
+              <p class="mt-2 text-[13.5px] leading-[1.55] text-white/60">{v.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── GLOBAL PRESENCE ───────── -->
+    <section class="py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="flex flex-wrap items-end justify-between gap-6 mb-[clamp(36px,4vw,52px)]">
+          <div class="max-w-[640px]">
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-globe text-teal"></i> Global presence</span>
+            <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05]">Four offices, <span class="accent">one team.</span></h2>
+          </div>
+          <p data-reveal style="--d:.12s" class="text-[14px] font-semibold text-muted max-w-[320px] max-[680px]:max-w-none">Time-zone-aligned delivery with US &amp; EU project leads and a global engineering core in India.</p>
+        </div>
+        <div class="grid grid-cols-4 gap-[16px] max-[820px]:grid-cols-2 max-[480px]:grid-cols-1">
+          {OFFICES.map((o, i) => (
+            <div data-reveal style={`--d:${(0.1 + i * 0.06).toFixed(2)}s;--accent:${o.accent}`} class="co-office group">
+              <div class="co-office-img">
+                <img src={o.img} alt={`${o.name} office location`} loading="lazy" />
+                <img class="co-office-flag" src={`https://flagcdn.com/w80/${o.code}.png`} alt={`${o.name} flag`} loading="lazy" />
+              </div>
+              <div class="co-office-body">
+                <h3 class="text-[19px] font-extrabold tracking-[-0.02em] text-ink">{o.name}</h3>
+                <p class="mt-1 text-[13.5px] text-muted flex items-center gap-1.5"><i class="fi fi-rr-marker text-[12px]" style={`color:${o.accent}`}></i> {o.city}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── LEADERSHIP ───────── -->
+    <section class="surface-tint py-[var(--section-y)]">
+      <div class="wrap">
+        <!-- team strength banner — premium panel -->
+        <div data-reveal class="co-team-card">
+          <span class="co-team-orb" aria-hidden="true"></span>
+          <div class="co-team-banner">
+            <div class="co-team-copy">
+              <span class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-users-alt text-teal"></i> Our team</span>
+              <h2 class="mt-5 leading-[.9]"><span class="co-team-num accent">200+</span><span class="block mt-2 text-[clamp(22px,3vw,34px)] font-black tracking-[-0.04em] text-ink">people. One team, four offices.</span></h2>
+              <p class="mt-5 text-[15px] leading-[1.65] text-muted max-w-[460px]">From a one-person startup in 2006 to <b class="text-ink">200+ engineers, designers and project managers</b> across the US, Europe and India — dreamers and doers who innovate every day.</p>
+              <ul class="co-team-meta">
+                <li><i class="fi fi-rr-globe"></i> 4 global offices</li>
+                <li><i class="fi fi-rr-graduation-cap"></i> 80% senior engineers</li>
+                <li><i class="fi fi-rr-calendar"></i> 19+ years strong</li>
+              </ul>
+            </div>
+            <div class="co-team-visual">
+              <div class="co-avatars">
+                {LEADERS.map((p) => <span class="co-av"><img src={p.img} alt="" loading="lazy" /></span>)}
+                <span class="co-av co-av-more">+200</span>
+              </div>
+              <p class="co-team-cap">The people you'll actually work with.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- leadership -->
+        <div class="flex flex-wrap items-end justify-between gap-6 mt-[clamp(48px,6vw,72px)] mb-[clamp(28px,3.4vw,40px)]">
+          <h3 data-reveal class="text-[clamp(20px,2.4vw,28px)] font-black tracking-[-0.03em] text-ink">Meet the <span class="accent">leadership.</span></h3>
+          <a data-reveal style="--d:.06s" href="https://www.biztechcs.com/leadership-team/" target="_blank" rel="noopener" class="co-all inline-flex items-center gap-2 text-[14.5px] font-bold text-ink whitespace-nowrap">View full team <i class="fi fi-rr-arrow-right"></i></a>
+        </div>
+        <div class="grid grid-cols-6 gap-[16px] max-[900px]:grid-cols-3 max-[520px]:grid-cols-2">
+          {LEADERS.map((p, i) => (
+            <article data-reveal style={`--d:${(0.1 + i * 0.06).toFixed(2)}s`} class="co-leader rounded-3xl bg-white border border-line overflow-hidden">
+              <div class="co-leader-photo"><img src={p.img} alt={p.name} loading="lazy" /></div>
+              <div class="px-4 py-3.5">
+                <b class="block text-[14px] font-extrabold tracking-[-0.01em] text-ink leading-tight">{p.name}</b>
+                <span class="mt-0.5 block text-[12px] font-semibold text-muted leading-snug">{p.role}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <!-- life at biztech — real team photos -->
+        <div class="flex items-end justify-between gap-6 mt-[clamp(48px,6vw,72px)] mb-[clamp(24px,3vw,36px)]">
+          <div>
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-confetti text-teal"></i> Life at Biztech</span>
+            <h3 data-reveal style="--d:.06s" class="mt-3 text-[clamp(20px,2.4vw,28px)] font-black tracking-[-0.03em] text-ink">Where work feels <span class="accent">like family.</span></h3>
+          </div>
+          <a data-reveal style="--d:.06s" href="https://www.biztechcs.com/life-at-biztech/" target="_blank" rel="noopener" class="co-all inline-flex items-center gap-2 text-[14.5px] font-bold text-ink whitespace-nowrap max-[640px]:hidden">See more <i class="fi fi-rr-arrow-right"></i></a>
+        </div>
+        <div class="co-gallery">
+          <figure data-reveal class="co-g-main"><img src={LIFE_PHOTOS[0].src} alt={LIFE_PHOTOS[0].alt} loading="lazy" /></figure>
+          <div class="co-g-side">
+            {LIFE_PHOTOS.slice(1).map((p, i) => (
+              <figure data-reveal style={`--d:${(0.06 + i * 0.05).toFixed(2)}s`} class="co-g-cell"><img src={p.src} alt={p.alt} loading="lazy" /></figure>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── WHY CHOOSE US ───────── -->
+    <section class="py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center mb-[clamp(36px,4vw,52px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-medal text-teal"></i> Why choose us</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05] max-w-[680px] mx-auto">What sets <span class="accent">BiztechCS apart.</span></h2>
+        </div>
+        <div class="grid grid-cols-3 gap-[18px] max-[860px]:grid-cols-2 max-[520px]:grid-cols-1">
+          {WHYUS.map((w, i) => (
+            <div data-reveal style={`--d:${(0.08 + i * 0.05).toFixed(2)}s`} class="co-why group">
+              <span class="co-why-ic"><i class={`fi ${w.ic}`}></i></span>
+              <h3 class="mt-5 text-[18px] font-extrabold tracking-[-0.02em] text-ink">{w.title}</h3>
+              <p class="mt-2 text-[14px] leading-[1.55] text-muted">{w.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── AWARDS & RECOGNITION (dark band) ───────── -->
+    <section class="surface-dark py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center mb-[clamp(36px,4vw,52px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em]"><i class="fi fi-rr-trophy"></i> Awards &amp; recognition</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05] text-white max-w-[680px] mx-auto">Recognised for <span class="accent-l">work that delivers.</span></h2>
+        </div>
+        <!-- badge logos on white tiles + name -->
+        <ul data-reveal style="--d:.1s" class="co-awards-logos">
+          {BADGES.map((b) => (
+            <li><span class="co-award-tile"><img src={b.src} alt={b.name} loading="lazy" /></span><span class="co-award-name">{b.name}</span></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ───────── VALUES ───────── -->
+    <section class="surface-tint py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center mb-[clamp(36px,4vw,52px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-diamond text-teal"></i> What we stand for</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05] max-w-[640px] mx-auto">Five values that <span class="accent">run everything.</span></h2>
+        </div>
+        <div class="co-values">
+          {VALUES.map((v, i) => (
+            <div data-reveal style={`--d:${(0.08 + i * 0.05).toFixed(2)}s`} class="co-value group">
+              <span class="co-value-ic"><i class={`fi ${v.ic}`}></i></span>
+              <h3 class="mt-4 text-[16px] font-extrabold tracking-[-0.02em] text-ink">{v.title}</h3>
+              <p class="mt-2 text-[13.5px] leading-[1.5] text-muted">{v.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── TESTIMONIALS ───────── -->
+    <section class="py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center mb-[clamp(36px,4vw,52px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-comment-quote text-teal"></i> What clients say</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05] max-w-[640px] mx-auto">Words from the <span class="accent">teams we serve.</span></h2>
+        </div>
+        <div class="grid grid-cols-3 gap-[18px] max-[860px]:grid-cols-1">
+          {TESTIMONIALS.map((t, i) => (
+            <blockquote data-reveal style={`--d:${(0.08 + i * 0.06).toFixed(2)}s`} class="co-tq">
+              <span class="co-tq-stars"><i class="fi fi-sr-star"></i><i class="fi fi-sr-star"></i><i class="fi fi-sr-star"></i><i class="fi fi-sr-star"></i><i class="fi fi-sr-star"></i></span>
+              <p class="co-tq-quote">"{t.quote}"</p>
+              <div class="co-tq-by"><span class="co-tq-av">{t.av}</span><span><b>{t.name}</b><em>{t.role}</em></span></div>
+            </blockquote>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── FAQ ───────── -->
+    <section class="surface-tint py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="co-faq-grid">
+          <div class="co-faq-head">
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-interrogation text-teal"></i> FAQ</span>
+            <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05]">About working with us.</h2>
+            <p data-reveal style="--d:.12s" class="mt-5 text-[15px] leading-[1.65] text-muted max-w-[360px]">Still have a question? <a href="#cta" class="font-bold text-teal-dk underline underline-offset-2">Talk to our team</a> — we'll give you a straight answer.</p>
+          </div>
+          <div class="flex flex-col gap-3">
+            {FAQS.map((f, i) => (
+              <details data-reveal style={`--d:${(0.06 + i * 0.05).toFixed(2)}s`} class="co-faq rounded-2xl bg-white border border-line">
+                <summary class="flex items-center justify-between gap-4 cursor-pointer px-6 py-5">
+                  <span class="text-[16px] font-extrabold text-ink">{f.q}</span>
+                  <i class="fi fi-rr-plus-small text-teal-dk text-[20px] shrink-0"></i>
+                </summary>
+                <p class="px-6 pb-5 text-[14.5px] leading-[1.6] text-muted">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── CTA ───────── -->
+    <section id="cta" class="surface-dark py-[clamp(64px,8vw,110px)]">
+      <div class="wrap">
+        <div data-reveal class="cta-card relative mx-auto max-w-[1100px] rounded-[28px] px-[clamp(28px,6vw,96px)] py-[clamp(40px,5vw,72px)] text-center">
+          <span class="cta-orb" aria-hidden="true"></span>
+          <span data-reveal style="--d:.04s" class="relative inline-flex items-center gap-2 rounded-full border border-sky-300/25 bg-sky-300/10 px-3.5 py-1.5 text-[12px] font-extrabold uppercase tracking-[0.14em] text-sky-300"><span class="cta-dot"></span> Let's talk</span>
+          <h2 data-reveal style="--d:.08s" class="relative mt-5 text-[clamp(30px,4.4vw,56px)] font-black tracking-[-0.04em] leading-[1.04] text-white max-w-[760px] mx-auto">Build something that lasts <span class="accent-l">— with us.</span></h2>
+          <p data-reveal style="--d:.12s" class="relative mt-5 text-[clamp(15px,1.2vw,18px)] text-white/65 max-w-[520px] mx-auto">Book a free 30-minute call with a senior engineer — no sales pressure, just a clear plan for your project.</p>
+          <div data-reveal style="--d:.16s" class="relative mt-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+            <CtaButton href={`${BASE}/#cta`} label="Book a 30-min call" variant="light" />
+            <a href="mailto:sales@biztechcs.com" class="cta-mail inline-flex items-center gap-2 text-[14px] font-bold text-white/75 transition-colors hover:text-white"><i class="fi fi-rr-envelope text-sky-300"></i> or email us</a>
+          </div>
+          <ul data-reveal style="--d:.22s" class="relative mt-9 flex flex-wrap items-center justify-center gap-2.5 list-none p-0">
+            {[['fi-rr-gift', '100% free'], ['fi-rr-comment-check', 'No sales pressure'], ['fi-rr-shield-check', 'IP you fully own']].map(([ic, label]) => (
+              <li class="cta-chip inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[12.5px] font-bold text-white/80"><i class={`fi ${ic} text-sky-300 text-[13px]`}></i> {label}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <Footer />
+</Layout>
+
+<style>
+  .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .accent-l { background: linear-gradient(100deg, #7dd3fc, #38bdf8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* hero */
+  .co-hero { padding-top: clamp(118px,11vw,156px); padding-bottom: clamp(40px,5vw,68px);
+    background: radial-gradient(70% 60% at 12% -10%, rgba(117,209,249,.16), transparent 60%), radial-gradient(60% 55% at 100% 0%, rgba(61,101,255,.07), transparent 58%), linear-gradient(180deg, #F4F8FD, #EEF3F9); }
+  .co-hero-grid { position: absolute; inset: 0; pointer-events: none; opacity: .5; background-image: linear-gradient(rgba(15,23,42,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,.04) 1px, transparent 1px); background-size: 46px 46px; -webkit-mask-image: radial-gradient(70% 60% at 50% 30%, #000, transparent 80%); mask-image: radial-gradient(70% 60% at 50% 30%, #000, transparent 80%); }
+  .co-hero-glow { position: absolute; right: -8%; top: -20%; width: 55%; height: 120%; border-radius: 50%; background: radial-gradient(circle, rgba(56,189,248,.16), transparent 65%); pointer-events: none; }
+  .co-hero-grid-cols { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px,5vw,72px); align-items: center; }
+  @media (max-width: 900px) { .co-hero-grid-cols { grid-template-columns: 1fr; } }
+  .co-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 16px 24px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); font-weight: 600; font-size: 15px; transition: border-color .25s, transform .25s; }
+  .co-ghost:hover { border-color: rgba(14,165,233,.5); transform: translateY(-1px); } .co-ghost i { line-height: 0; }
+  .co-hero-clients { margin-top: clamp(28px,3vw,40px); display: flex; flex-direction: column; gap: 12px; }
+  .co-hc-label { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+  .co-hc-label b { color: var(--ink); font-weight: 700; }
+  .co-hc-logos { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 26px; list-style: none; margin: 0; padding: 0; }
+  .co-hc-logos li { display: inline-flex; align-items: center; }
+  .co-hc-logos img { height: 24px; width: auto; max-width: 96px; object-fit: contain; filter: grayscale(1); opacity: .58; transition: filter .3s, opacity .3s; }
+  .co-hc-logos li:hover img { filter: grayscale(0); opacity: 1; }
+
+  /* company snapshot */
+  .co-snap { position: relative; width: min(420px,100%); aspect-ratio: 1; margin-inline: auto; }
+  .co-snap-main { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 56%; aspect-ratio: 1; display: grid; place-content: center; text-align: center; gap: 6px; padding: 24px; border-radius: 28px; background: #fff; border: 1px solid var(--line); box-shadow: 0 30px 70px -34px rgba(14,165,233,.45); z-index: 2; }
+  @media (prefers-reduced-motion: no-preference) { .co-snap-main { animation: coFloat 5s ease-in-out infinite; } }
+  @keyframes coFloat { 0%,100% { transform: translate(-50%,-50%); } 50% { transform: translate(-50%,calc(-50% - 8px)); } }
+  .co-snap-mark { width: 46px; height: auto; margin: 0 auto 4px; }
+  .co-snap-main b { font-size: 20px; font-weight: 900; letter-spacing: -.02em; color: var(--ink); }
+  .co-snap-main span { font-size: 11.5px; font-weight: 600; color: var(--muted); line-height: 1.3; }
+  .co-badge { position: absolute; display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px; border-radius: 999px; background: #fff; border: 1px solid var(--line); box-shadow: 0 14px 34px -18px rgba(35,38,46,.4); font-size: 13px; font-weight: 700; color: var(--ink); white-space: nowrap; z-index: 3; }
+  .co-badge b { color: var(--teal-dk); font-weight: 900; }
+  .co-badge i { color: var(--teal); font-size: 13px; line-height: 0; }
+  .co-b1 { top: 6%; left: -4%; } .co-b2 { top: 22%; right: -6%; } .co-b3 { bottom: 20%; left: -8%; } .co-b4 { bottom: 4%; right: 2%; }
+  @media (prefers-reduced-motion: no-preference) {
+    .co-b1 { animation: coB 4.5s ease-in-out infinite; } .co-b2 { animation: coB 4.5s ease-in-out .6s infinite; }
+    .co-b3 { animation: coB 4.5s ease-in-out 1.2s infinite; } .co-b4 { animation: coB 4.5s ease-in-out 1.8s infinite; }
+  }
+  @keyframes coB { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+
+  /* trust box */
+  .co-trustbox { display: grid; grid-template-columns: 60fr 40fr; align-items: stretch; border-radius: 24px; background: #fff; border: 1px solid var(--line); box-shadow: 0 18px 48px -30px rgba(35,38,46,.26); overflow: hidden; }
+  @media (max-width: 860px) { .co-trustbox { grid-template-columns: 1fr; } }
+  .co-tx-left { display: flex; align-items: center; gap: clamp(16px,2vw,28px); padding: clamp(14px,1.6vw,20px) clamp(20px,2.4vw,32px); position: relative; min-width: 0; }
+  .co-tx-left::after { content: ""; position: absolute; right: 0; top: 16px; bottom: 16px; width: 1px; background: var(--line); }
+  @media (max-width: 860px) { .co-tx-left::after { right: 22px; left: 22px; top: auto; bottom: 0; width: auto; height: 1px; } }
+  .co-tbx-label { flex: none; display: inline-flex; align-items: center; gap: 8px; max-width: 130px; font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; line-height: 1.35; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .co-tbx-label i { color: var(--teal); font-size: 14px; line-height: 0; flex: none; }
+  .co-tx-track { flex: 1; min-width: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .co-tx-row { display: flex; align-items: center; gap: clamp(26px,3vw,46px); width: max-content; }
+  .co-tx-logo { display: inline-flex; align-items: center; flex: none; }
+  .co-tx-logo img { width: auto; max-height: 40px; object-fit: contain; opacity: .8; filter: saturate(.92); }
+  @media (prefers-reduced-motion: no-preference) { .co-tx-row { animation: coMarquee 40s linear infinite; } .co-tx-track:hover .co-tx-row { animation-play-state: paused; } }
+  @keyframes coMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .co-tx-right { display: grid; grid-template-columns: repeat(3, 1fr); align-items: stretch; }
+  .co-tb-item { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px; padding: clamp(14px,1.6vw,20px) 10px; position: relative; }
+  .co-tx-right .co-tb-item + .co-tb-item::before { content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 1px; background: var(--line); }
+  .co-tn { font-size: clamp(22px,2.3vw,30px); font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+  .co-tl { font-size: 11.5px; font-weight: 700; color: var(--muted); }
+
+  /* mission + numbers */
+  .co-mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px,5vw,64px); align-items: center; }
+  @media (max-width: 900px) { .co-mission-grid { grid-template-columns: 1fr; } }
+  .co-mv { display: flex; align-items: flex-start; gap: 12px; }
+  .co-mv-ic { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.2); color: var(--teal-dk); font-size: 15px; line-height: 0; }
+  .co-num-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 420px) { .co-num-grid { grid-template-columns: 1fr; } }
+  .co-num { padding: 24px; border-radius: 18px; background: #fff; border: 1px solid var(--line); box-shadow: 0 10px 30px -22px rgba(35,38,46,.2); transition: transform .3s, border-color .3s; }
+  .co-num:hover { transform: translateY(-4px); border-color: rgba(14,165,233,.4); }
+  .co-num-n { font-size: clamp(28px,3.2vw,40px); font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+  .co-num-l { margin-top: 8px; font-size: 14.5px; font-weight: 800; color: var(--ink); }
+  .co-num-s { margin-top: 2px; font-size: 12.5px; color: var(--muted); }
+
+  /* ventures (dark) */
+  .co-venture { position: relative; overflow: hidden; border-radius: 22px; padding: 26px; background: rgba(255,255,255,.04); border: 1px solid rgba(125,211,252,.14); transition: transform .35s cubic-bezier(.16,1,.3,1), border-color .35s, background .35s, box-shadow .35s; }
+  .co-venture:hover { transform: translateY(-4px); border-color: rgba(125,211,252,.4); background: rgba(125,211,252,.06); box-shadow: 0 26px 56px -30px rgba(56,189,248,.4); }
+  .co-venture-ic { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 14px; background: rgba(125,211,252,.12); border: 1px solid rgba(125,211,252,.25); color: #7dd3fc; font-size: 21px; line-height: 0; transition: background .3s, color .3s; }
+  .co-venture:hover .co-venture-ic { background: #0ea5e9; color: #fff; border-color: transparent; }
+  .co-venture-tag { display: inline-flex; margin-top: 16px; padding: 4px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #7dd3fc; background: rgba(125,211,252,.1); border: 1px solid rgba(125,211,252,.22); }
+
+  /* global offices — country photo + flag */
+  .co-office { position: relative; overflow: hidden; border-radius: 22px; background: #fff; border: 1px solid var(--line); box-shadow: 0 10px 30px -22px rgba(35,38,46,.2); transition: transform .35s cubic-bezier(.16,1,.3,1), border-color .35s, box-shadow .35s; }
+  .co-office:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); box-shadow: 0 24px 50px -28px color-mix(in srgb, var(--accent) 50%, rgba(15,23,42,.4)); }
+  .co-office-img { position: relative; height: 150px; overflow: hidden; }
+  .co-office-img > img:first-child { width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.16,1,.3,1); }
+  .co-office:hover .co-office-img > img:first-child { transform: scale(1.06); }
+  .co-office-flag { position: absolute; left: 14px; bottom: 14px; width: 38px; height: 26px; object-fit: cover; border-radius: 5px; box-shadow: 0 4px 12px -4px rgba(0,0,0,.5), 0 0 0 2px #fff; }
+  .co-office-body { padding: 18px 20px 22px; }
+
+  /* team strength — premium panel */
+  .co-team-card { position: relative; overflow: hidden; border-radius: 28px;
+    background: radial-gradient(120% 130% at 100% 0%, rgba(56,189,248,.14), transparent 55%), linear-gradient(160deg, #fff, #F1F7FD);
+    border: 1px solid var(--line); box-shadow: 0 30px 70px -40px rgba(14,165,233,.4);
+    padding: clamp(28px,4vw,52px); }
+  .co-team-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .3;
+    background-image: linear-gradient(rgba(14,165,233,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,.05) 1px, transparent 1px);
+    background-size: 56px 56px; -webkit-mask-image: radial-gradient(80% 100% at 0% 50%, #000, transparent 70%); mask-image: radial-gradient(80% 100% at 0% 50%, #000, transparent 70%); }
+  .co-team-orb { position: absolute; right: -8%; top: -30%; width: 46%; aspect-ratio: 1; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, rgba(56,189,248,.28), transparent 65%); filter: blur(6px); }
+  @media (prefers-reduced-motion: no-preference) { .co-team-orb { animation: coTeamGlow 7s ease-in-out infinite; } }
+  @keyframes coTeamGlow { 0%,100% { opacity: .7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.12); } }
+
+  .co-team-banner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px,5vw,64px); align-items: center; }
+  @media (max-width: 900px) { .co-team-banner { grid-template-columns: 1fr; } }
+  .co-team-num { display: inline-block; font-size: clamp(60px,8vw,104px); font-weight: 900; letter-spacing: -.05em; line-height: .88;
+    filter: drop-shadow(0 14px 30px rgba(14,165,233,.28)); }
+  .co-team-meta { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 22px; list-style: none; padding: 0; }
+  .co-team-meta li { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: 999px; font-size: 12.5px; font-weight: 700; color: var(--ink); background: rgba(255,255,255,.7); border: 1px solid var(--line); }
+  .co-team-meta i { color: var(--teal-dk); font-size: 13px; line-height: 0; }
+  .co-team-visual { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; text-align: center; }
+  @media (max-width: 900px) { .co-team-visual { align-items: flex-start; text-align: left; } }
+  .co-avatars { display: flex; align-items: center; }
+  .co-av { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; border: 3px solid #fff; background: #e8eef5; margin-left: -16px; box-shadow: 0 8px 20px -10px rgba(35,38,46,.4); }
+  .co-av:first-child { margin-left: 0; }
+  .co-av img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .co-av-more { display: grid; place-items: center; background: linear-gradient(150deg,#0ea5e9,#0369a1); color: #fff; font-size: 15px; font-weight: 800; letter-spacing: -.02em; }
+  @media (max-width: 420px) { .co-av { width: 50px; height: 50px; margin-left: -13px; } }
+  .co-team-cap { font-size: 14px; font-weight: 700; color: var(--ink); }
+
+  /* leadership */
+  .co-all i { transition: transform .3s; line-height: 0; } .co-all:hover { color: var(--teal-dk); } .co-all:hover i { transform: translateX(4px); }
+  .co-leader { box-shadow: 0 10px 30px -20px rgba(35,38,46,.22); }
+  .co-leader-photo { aspect-ratio: 1; overflow: hidden; background: #f4f6f9; }
+  .co-leader-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+
+  /* life at biztech — photo gallery (balanced full-height block) */
+  .co-gallery { display: grid; grid-template-columns: 1.5fr 1fr; gap: 14px; height: clamp(380px,42vw,520px); }
+  .co-g-side { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 14px; }
+  .co-g-main, .co-g-cell { position: relative; margin: 0; overflow: hidden; border-radius: 18px; border: 1px solid var(--line); background: #eef2f7; box-shadow: 0 12px 34px -26px rgba(35,38,46,.4); }
+  .co-g-main img, .co-g-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform .55s cubic-bezier(.16,1,.3,1); }
+  .co-g-main:hover img, .co-g-cell:hover img { transform: scale(1.06); }
+  @media (max-width: 900px) { .co-gallery { grid-template-columns: 1fr; height: auto; } .co-g-main { aspect-ratio: 16 / 10; } .co-g-side { grid-template-rows: auto; } .co-g-cell { aspect-ratio: 4 / 3; } }
+
+  /* values */
+  .co-values { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  @media (max-width: 1000px) { .co-values { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 620px) { .co-values { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 400px) { .co-values { grid-template-columns: 1fr; } }
+  .co-value { border-radius: 20px; background: #fff; border: 1px solid var(--line); padding: 24px; box-shadow: 0 10px 30px -22px rgba(35,38,46,.2); transition: transform .3s, border-color .3s, box-shadow .3s; }
+  .co-value:hover { transform: translateY(-4px); border-color: rgba(14,165,233,.4); box-shadow: 0 22px 46px -26px rgba(14,165,233,.3); }
+  .co-value-ic { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 13px; background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.2); color: var(--teal-dk); font-size: 19px; line-height: 0; transition: background .3s, color .3s, transform .3s; }
+  .co-value:hover .co-value-ic { background: var(--teal); color: #fff; border-color: transparent; transform: rotate(-6deg); }
+
+  /* life @ biztech — office tour video */
+  .co-life { position: relative; margin: 0; border-radius: 28px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 70px -40px rgba(15,23,42,.5); }
+  .co-life-poster, .co-life video { display: block; width: 100%; height: clamp(300px,42vw,520px); object-fit: cover; }
+  .co-life video { background: #000; }
+  .co-life-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(24px,4vw,44px); color: #fff;
+    background: linear-gradient(180deg, transparent, rgba(7,11,20,.82)); transition: opacity .3s; }
+  .co-life.playing .co-life-cap, .co-life.playing .co-life-play { opacity: 0; pointer-events: none; }
+  .co-life-label { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #7dd3fc; }
+  .co-life-label i { line-height: 0; font-size: 13px; }
+  .co-life-cap p { margin-top: 8px; font-size: clamp(16px,1.8vw,22px); font-weight: 800; letter-spacing: -.02em; max-width: 620px; }
+  /* play button */
+  .co-life-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); z-index: 2;
+    display: grid; place-items: center; width: clamp(64px,7vw,86px); height: clamp(64px,7vw,86px); border-radius: 50%; border: 0; cursor: pointer;
+    background: rgba(255,255,255,.18); backdrop-filter: blur(6px); color: #fff; transition: background .3s, transform .3s; }
+  .co-life-play:hover { background: var(--teal); transform: translate(-50%,-50%) scale(1.06); }
+  .co-life-play i { font-size: clamp(22px,2.4vw,30px); line-height: 0; margin-left: 4px; }
+  .co-life-ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(255,255,255,.6); }
+  @media (prefers-reduced-motion: no-preference) { .co-life-ring { animation: coPulse 2.4s ease-out infinite; } }
+  @keyframes coPulse { 0% { transform: scale(1); opacity: .8; } 80%,100% { transform: scale(1.5); opacity: 0; } }
+
+  /* why choose us */
+  .co-why { position: relative; overflow: hidden; border-radius: 22px; background: #fff; border: 1px solid var(--line); padding: 28px; box-shadow: 0 10px 30px -22px rgba(35,38,46,.22); transition: transform .35s cubic-bezier(.16,1,.3,1), border-color .35s, box-shadow .35s; }
+  .co-why:hover { transform: translateY(-4px); border-color: rgba(14,165,233,.4); box-shadow: 0 26px 56px -28px rgba(14,165,233,.3); }
+  .co-why-ic { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 14px; background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.2); color: var(--teal-dk); font-size: 22px; line-height: 0; transition: background .3s, color .3s, border-color .3s, transform .3s; }
+  .co-why:hover .co-why-ic { background: var(--teal); color: #fff; border-color: transparent; transform: rotate(-6deg); }
+
+  /* awards (dark) */
+  .co-awards-logos { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; list-style: none; margin: 0; padding: 0; }
+  @media (max-width: 900px) { .co-awards-logos { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 520px) { .co-awards-logos { grid-template-columns: repeat(2, 1fr); } }
+  .co-awards-logos li { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+  .co-award-tile { display: grid; place-items: center; width: 100%; height: 84px; border-radius: 16px; background: #fff; border: 1px solid var(--line); box-shadow: 0 16px 40px -28px rgba(0,0,0,.7); transition: transform .3s, box-shadow .3s; }
+  .co-awards-logos li:hover .co-award-tile { transform: translateY(-4px); box-shadow: 0 24px 50px -28px rgba(56,189,248,.6); }
+  .co-award-tile img { max-height: 48px; max-width: 80%; width: auto; object-fit: contain; }
+  .co-award-name { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.65); line-height: 1.3; }
+
+  /* testimonials */
+  .co-tq { display: flex; flex-direction: column; margin: 0; border-radius: 22px; background: #fff; border: 1px solid var(--line); padding: 28px; box-shadow: 0 10px 30px -22px rgba(35,38,46,.22); transition: transform .35s cubic-bezier(.16,1,.3,1), border-color .35s, box-shadow .35s; }
+  .co-tq:hover { transform: translateY(-4px); border-color: rgba(14,165,233,.4); box-shadow: 0 24px 50px -28px rgba(14,165,233,.28); }
+  .co-tq-stars { display: inline-flex; gap: 2px; color: #f6a609; font-size: 13px; line-height: 0; }
+  .co-tq-stars i { line-height: 0; }
+  .co-tq-quote { margin-top: 16px; flex: 1; font-size: 15px; line-height: 1.6; font-weight: 500; color: var(--ink); }
+  .co-tq-by { margin-top: 20px; display: flex; align-items: center; gap: 12px; }
+  .co-tq-av { flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(150deg,#0ea5e9,#0369a1); color: #fff; font-size: 14px; font-weight: 800; }
+  .co-tq-by b { display: block; font-size: 14.5px; font-weight: 800; color: var(--ink); line-height: 1.2; }
+  .co-tq-by em { display: block; font-style: normal; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+
+  /* faq */
+  .co-faq-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.4fr); gap: clamp(32px,5vw,72px); align-items: start; }
+  .co-faq-head { position: sticky; top: 110px; }
+  @media (max-width: 860px) { .co-faq-grid { grid-template-columns: 1fr; gap: clamp(28px,5vw,40px); } .co-faq-head { position: static; } }
+  .co-faq summary { list-style: none; } .co-faq summary::-webkit-details-marker { display: none; }
+  .co-faq summary i { transition: transform .3s; } .co-faq[open] summary i { transform: rotate(45deg); }
+  .co-faq[open] { box-shadow: 0 14px 36px -26px rgba(35,38,46,.24); }
+
+  /* final CTA — glow panel (matches other pages) */
+  #cta.surface-dark { background: linear-gradient(180deg, #0B1220, #0F172A 55%, #0B1220); }
+  .cta-card { isolation: isolate; background: linear-gradient(165deg, rgba(125,211,252,.10), rgba(15,23,42,.30) 55%, rgba(11,18,32,.20)); border: 1px solid rgba(125,211,252,.18); box-shadow: 0 40px 90px -50px rgba(2,8,23,.9), inset 0 1px 0 rgba(255,255,255,.06); overflow: hidden; }
+  .cta-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; background-image: linear-gradient(rgba(125,211,252,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(125,211,252,.05) 1px, transparent 1px); background-size: 38px 38px; -webkit-mask-image: radial-gradient(120% 90% at 50% 0%, #000 35%, transparent 75%); mask-image: radial-gradient(120% 90% at 50% 0%, #000 35%, transparent 75%); }
+  .cta-card::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; z-index: 1; background: linear-gradient(90deg, transparent, rgba(125,211,252,.65), transparent); }
+  .cta-orb { position: absolute; z-index: 0; left: 50%; top: -40%; width: 620px; max-width: 120%; aspect-ratio: 1; transform: translateX(-50%); pointer-events: none; background: radial-gradient(circle, rgba(14,165,233,.30), rgba(56,189,248,.10) 45%, transparent 70%); filter: blur(8px); animation: ctaGlow 7s ease-in-out infinite; }
+  .cta-dot { width: 7px; height: 7px; border-radius: 999px; background: #7dd3fc; box-shadow: 0 0 0 0 rgba(125,211,252,.6); animation: ctaPulse 2s ease-out infinite; }
+  .cta-chip { background: rgba(255,255,255,.05); border: 1px solid rgba(125,211,252,.16); backdrop-filter: blur(6px); transition: border-color .25s, background .25s, transform .25s; }
+  .cta-chip:hover { border-color: rgba(125,211,252,.4); background: rgba(125,211,252,.10); transform: translateY(-2px); }
+  @keyframes ctaPulse { 0% { box-shadow: 0 0 0 0 rgba(125,211,252,.55); } 70% { box-shadow: 0 0 0 9px rgba(125,211,252,0); } 100% { box-shadow: 0 0 0 0 rgba(125,211,252,0); } }
+  @keyframes ctaGlow { 0%, 100% { opacity: .85; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.08); } }
+  @media (prefers-reduced-motion: reduce) { .co-snap-main, .co-badge, .co-tx-row, .cta-orb, .cta-dot, .co-life-ring { animation: none; } }
+</style>
+
+<script>
+  // Life @ Biztech — click to play the office-tour video inline
+  const life = document.getElementById('coLife')
+  if (life) {
+    const play = life.querySelector('.co-life-play')
+    play?.addEventListener('click', () => {
+      const src = life.dataset.video
+      const poster = life.querySelector('.co-life-poster')
+      const v = document.createElement('video')
+      v.src = src
+      v.controls = true
+      v.autoplay = true
+      v.playsInline = true
+      v.preload = 'metadata'
+      if (poster) poster.replaceWith(v)
+      life.classList.add('playing')
+      v.play().catch(() => {})
+    })
+  }
+</script>

@@ -1,15 +1,16 @@
 ---
+const BASE = import.meta.env.BASE_URL
 const COMPANY = [
   ['About Us', '#about'], ['Our Ventures', '#'], ['Our Team', '#about'], ['Partnerships', '#'],
   ['Our Engagement Model', '#engagement'], ['Success Stories', '#work'], ['Career', '#'], ['Contact Us', '#cta'],
 ]
 const SERVICES = [
   ['Software Product Engineering', '#services'], ['Application Development', '#services'], ['Ecommerce Development', '#services'],
-  ['AI/ML Development', '#services'], ['DevOps Automation', '#services'], ['Odoo Development', '#services'],
+  ['AI/ML Development', `${BASE}/services/ai-ml-development`], ['DevOps Automation', '#services'], ['Odoo Development', '#services'],
   ['ERP Services', '#services'], ['CRM Services', '#services'],
 ]
 const SOLUTIONS = [
-  ['Web To Print', '#services'], ['Portal', '#services'],
+  ['Web To Print', `${BASE}/industries/printing`], ['Portal', '#services'],
 ]
 const HIRE = [
   ['Hire Magento Developers', '#'], ['Hire Shopify Developers', '#'], ['Hire Javascript Developers', '#'],
