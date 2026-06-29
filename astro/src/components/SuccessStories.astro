@@ -14,15 +14,15 @@ const CASES = [
           <i class="fi fi-rr-trophy text-teal"></i> Selected work
         </span>
         <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(30px,4vw,52px)] font-black tracking-[-0.04em] leading-[1.04] max-w-[720px]">
-          Success stories of <span class="accent">digital transformation.</span>
+          A portfolio of <span class="accent">digital transformation.</span>
         </h2>
       </div>
-      <a data-reveal style="--d:.12s" href="#cta" class="seeall inline-flex items-center gap-2 text-[14.5px] font-bold text-ink whitespace-nowrap">View all case studies <i class="fi fi-rr-arrow-right"></i></a>
+      <a data-reveal style="--d:.12s" href="#cta" class="seeall inline-flex items-center gap-2 text-[14.5px] font-bold text-ink whitespace-nowrap">Start your project <i class="fi fi-rr-arrow-right"></i></a>
     </div>
 
     <div class="grid grid-cols-3 gap-[18px] max-[900px]:grid-cols-1 max-[900px]:max-w-[560px] max-[900px]:mx-auto">
       {CASES.map((c, i) => (
-        <a href="#cta" data-reveal style={`--d:${(0.1 + i * 0.08).toFixed(2)}s`} class="cs-card group flex flex-col rounded-3xl bg-white border border-line overflow-hidden no-underline text-inherit transition duration-300 hover:-translate-y-1.5">
+        <div data-reveal style={`--d:${(0.1 + i * 0.08).toFixed(2)}s`} class="cs-card group flex flex-col rounded-3xl bg-white border border-line overflow-hidden transition duration-300 hover:-translate-y-1.5">
           <div class="cover relative aspect-[16/10] overflow-hidden bg-paper-2">
             <img src={c.img} alt={c.name} loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
             <span class="absolute left-4 top-4 text-[11px] font-extrabold uppercase tracking-[0.06em] text-teal-dk px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm">{c.tag}</span>
@@ -30,9 +30,8 @@ const CASES = [
           <div class="flex flex-col flex-1 p-7">
             <h3 class="text-[21px] font-extrabold tracking-[-0.02em] text-ink">{c.name}</h3>
             <p class="mt-2 text-[14px] leading-[1.55] text-muted flex-1">{c.desc}</p>
-            <span class="mt-6 inline-flex items-center gap-2 text-[13.5px] font-bold text-teal-dk">View case study <i class="fi fi-rr-arrow-right transition-transform duration-300 group-hover:translate-x-1"></i></span>
           </div>
-        </a>
+        </div>
       ))}
     </div>
   </div>

@@ -159,25 +159,18 @@ const slug = (c) => c.toLowerCase().replace(/[^a-z0-9]+/g, '-')
 
     <!-- category filter chips (top) -->
     <div data-reveal class="tech-filters flex flex-wrap gap-2.5 mb-[clamp(28px,3vw,40px)]" data-tech-filters>
-      <button class="tfilter is-active" data-cat="all">All</button>
-      {STACK.map((s) => (
-        <button class="tfilter" data-cat={slug(s.cat)}>{s.cat}</button>
+      {STACK.map((s, i) => (
+        <button class:list={["tfilter", i === 0 && "is-active"]} data-cat={slug(s.cat)}>{s.cat}</button>
       ))}
     </div>
 
     <!-- one compact wall -->
-    <div data-reveal class="tech-wall grid gap-x-[clamp(16px,2.4vw,32px)] gap-y-7" data-tech-wall>
-      {ALL.map((t) => (
-        t.logo ? (
-          <div class="titem tlogo group flex flex-col items-center gap-2" data-cat={slug(t.cat)}>
-            <img src={t.logo} alt={t.n} title={t.n} loading="lazy" class="logo-img h-[clamp(28px,3vw,36px)] w-auto max-w-[44px] object-contain" />
-            <span class="text-[10.5px] font-semibold text-muted leading-none text-center transition-colors duration-300 group-hover:text-ink">{t.n}</span>
-          </div>
-        ) : (
-          <div class="titem tchip-wrap flex items-center justify-center" data-cat={slug(t.cat)}>
-            <span class="tchip">{t.n}</span>
-          </div>
-        )
+    <div data-reveal class="tech-wall grid gap-x-[clamp(16px,2.4vw,32px)] gap-y-7 has-filter" data-tech-wall>
+      {ALL.filter((t) => t.logo).map((t) => (
+        <div class="titem tlogo group flex flex-col items-center gap-2" data-cat={slug(t.cat)}>
+          <img src={t.logo} alt={t.n} title={t.n} loading="lazy" class="logo-img h-[clamp(56px,6vw,72px)] w-auto max-w-[88px] object-contain" />
+          <span class="tname text-[10.5px] font-semibold text-muted leading-none text-center transition-colors duration-300 group-hover:text-ink">{t.n}</span>
+        </div>
       ))}
     </div>
   </div>
@@ -202,7 +195,8 @@ const slug = (c) => c.toLowerCase().replace(/[^a-z0-9]+/g, '-')
     const wall = sec.querySelector('[data-tech-wall]')
     const filters = Array.from(sec.querySelectorAll('.tfilter'))
     const items = Array.from(sec.querySelectorAll('.titem'))
-    let locked = 'all' // clicked category
+    const active = filters.find((f) => f.classList.contains('is-active'))
+    let locked = active ? active.dataset.cat : 'all' // clicked category (defaults to first category)
 
     const apply = (cat) => {
       if (cat === 'all') {
@@ -225,5 +219,7 @@ const slug = (c) => c.toLowerCase().replace(/[^a-z0-9]+/g, '-')
       f.addEventListener('mouseenter', () => { if (f.dataset.cat !== 'all') apply(f.dataset.cat) })
       f.addEventListener('mouseleave', () => apply(locked))
     })
+
+    apply(locked)
   }
 </script>

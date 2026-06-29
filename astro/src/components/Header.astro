@@ -1,8 +1,9 @@
 ---
 const MENU = [
+  { label: 'AI Engineering', href: '#ai-native', mega: null },
   { label: 'Services', href: '#services', mega: 'services' },
   { label: 'Industries', href: '#industries', mega: 'industries' },
-  { label: 'Work', href: '#work', mega: 'work' },
+  { label: 'Case Studies', href: '#work', mega: 'work' },
   { label: 'Why BiztechCS', href: '#why', mega: 'why' },
   { label: 'Resources', href: '#resources', mega: 'resources' },
   { label: 'Company', href: '#about', mega: 'company' },
@@ -10,7 +11,7 @@ const MENU = [
 ---
 <header id="hdr">
   <div class="wrap"><div class="nav">
-    <a href="#" class="logo">
+    <a href="#hero-sec" class="logo" aria-label="Biztech — back to top">
       <img class="lg-dark" src={`${import.meta.env.BASE_URL}/assets/biztech-logo.svg`} alt="Biztech" />
       <img class="lg-light" src={`${import.meta.env.BASE_URL}/assets/biztech-logo.svg`} alt="Biztech" />
     </a>
@@ -74,7 +75,7 @@ const MENU = [
           <span class="label"><span class="idx"><i class="fi fi-rr-sparkles"></i></span> AI-First Engineering</span>
           <h3>From GenAI pilots to production-grade AI agents.</h3>
           <p class="mega-p">Build intelligent software that automates workflows, surfaces insights, and scales with your business.</p>
-          <a href="#services" class="link-arrow">Explore AI services <i class="fi fi-rr-arrow-right"></i></a>
+          <a href="#ai-native" class="link-arrow">Explore AI services <i class="fi fi-rr-arrow-right"></i></a>
         </div>
       </div>
     </div>
@@ -97,7 +98,7 @@ const MENU = [
           <span class="label"><span class="idx"><i class="fi fi-rr-bullseye-arrow"></i></span> Deep Domain Expertise</span>
           <h3>Software built for how your industry actually operates.</h3>
           <p class="mega-p">From web-to-print platforms to compliant life-science workflows — 50+ printing industry projects delivered.</p>
-          <a href="#industries" class="link-arrow">See industry case studies <i class="fi fi-rr-arrow-right"></i></a>
+          <a href="#industries" class="link-arrow">Explore our industries <i class="fi fi-rr-arrow-right"></i></a>
         </div>
       </div>
     </div>
@@ -105,8 +106,8 @@ const MENU = [
     <div class="mega" data-mega="work">
       <div class="wrap mega-grid four">
         <div class="mega-col"><h4>Explore Our Work</h4><ul>
-          <li><a href="#work"><i class="fi fi-rr-document mi"></i>Case Studies</a></li>
           <li><a href="#work"><i class="fi fi-rr-grid mi"></i>Client Portfolio</a></li>
+          <li><a href="#work"><i class="fi fi-rr-apps mi"></i>Featured Projects</a></li>
           <li><a href="#work"><i class="fi fi-rr-comment-quote mi"></i>Client Testimonials</a></li>
         </ul></div>
         <div class="mega-col"><h4>By Outcome</h4><ul>
@@ -118,8 +119,8 @@ const MENU = [
         <div class="mega-col promo span2">
           <span class="label"><span class="idx"><i class="fi fi-rr-trophy"></i></span> Selected Work</span>
           <h3>Real projects. Measurable impact.</h3>
-          <p class="mega-p">+52% conversion, 60% fewer review hours, 3× faster throughput — outcomes, not just deliverables.</p>
-          <a href="#work" class="link-arrow">View case studies <i class="fi fi-rr-arrow-right"></i></a>
+          <p class="mega-p">Real client results — higher conversion, fewer review hours, faster throughput. Outcomes, not just deliverables.</p>
+          <a href="#work" class="link-arrow">View portfolio <i class="fi fi-rr-arrow-right"></i></a>
         </div>
       </div>
     </div>
@@ -210,10 +211,6 @@ const MENU = [
 </header>
 
 <style>
-  /* auto-hide: scroll-down hides (fade + slide up), scroll-up reveals — driven by .is-hidden */
-  #hdr { transition: transform 0.45s cubic-bezier(0.16,1,0.3,1), opacity 0.4s cubic-bezier(0.16,1,0.3,1), top 0.4s cubic-bezier(0.16,1,0.3,1); }
-  #hdr.is-hidden { transform: translateY(-130%); opacity: 0; pointer-events: none; }
-
   /* mega panels hidden by default; .show reveals (replaces framer-motion) */
   .mega { opacity: 0; visibility: hidden; transform: translate(-50%, 16px); transition: opacity 0.28s cubic-bezier(0.16,1,0.3,1), transform 0.28s cubic-bezier(0.16,1,0.3,1), visibility 0.28s; }
   .mega.show { opacity: 1; visibility: visible; transform: translate(-50%, 8px); }
@@ -262,17 +259,19 @@ const MENU = [
     hdr.addEventListener('mouseleave', () => { hideTimer = setTimeout(resetMenu, 120) })
   }
 
-  /* ---- scroll: scrolled state + auto-hide on scroll-down ---- */
-  let lastY = window.scrollY
+  /* ---- scroll: scrolled state only (header stays pinned, no auto-hide) ---- */
+  // header wrap: width finishes shrinking exactly as the pill background finishes appearing.
+  // Pill background is driven by .scrolled (toggles at TRIGGER) with a .4s transition.
+  // We map width over the SAME window: starts at TRIGGER, completes by TRIGGER+RANGE,
+  // where RANGE is tuned so the width settles together with the .4s background fade.
+  const hwrap = hdr && hdr.querySelector('.wrap')
+  const W_MAX = 1920, W_MIN = 1440, TRIGGER = 30, RANGE = 130
   const onScroll = () => {
     const y = window.scrollY
-    if (hdr) hdr.classList.toggle('scrolled', y > 30)
-    const delta = y - lastY
-    if (Math.abs(delta) > 6) {
-      if (y < 140) hdr && hdr.classList.remove('is-hidden')
-      else if (delta > 0 && y > 200) hdr && hdr.classList.add('is-hidden')
-      else if (delta < 0) hdr && hdr.classList.remove('is-hidden')
-      lastY = y
+    if (hdr) hdr.classList.toggle('scrolled', y > TRIGGER)
+    if (hwrap) {
+      const p = Math.min(1, Math.max(0, (y - TRIGGER) / RANGE)) // 0 at trigger -> 1 when pill is fully formed
+      hwrap.style.maxWidth = (W_MAX - (W_MAX - W_MIN) * p) + 'px'
     }
   }
   window.addEventListener('scroll', onScroll, { passive: true })

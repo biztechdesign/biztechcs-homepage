@@ -34,13 +34,8 @@ i.fi::before { display: block; line-height: 1; }
 /* Tech-stack filter chips + category highlight — kept global so Astro scoped-style
    drops can't break them. */
 #tech .titem { transition: opacity .3s ease, filter .3s ease, transform .3s ease; }
-#tech .tech-wall.has-filter .titem:not(.match) { opacity: 0.25; filter: grayscale(1); }
-#tech .tech-wall.has-filter .titem.match { transform: translateY(-3px); }
-#tech .tchip-wrap { grid-column: span 2; }
-#tech .tchip {
-  display: inline-flex; align-items: center; height: 30px; padding: 0 13px; border-radius: 999px;
-  background: #fff; border: 1px solid var(--line); font-size: 12px; font-weight: 700; color: var(--ink); white-space: nowrap;
-}
+/* when a category is selected, hide everything outside it */
+#tech .tech-wall.has-filter .titem:not(.match) { display: none; }
 #tech .tfilter {
   padding: 8px 15px; border-radius: 999px; font-size: 12.5px; font-weight: 700; cursor: pointer;
   background: #fff; border: 1px solid var(--line); color: var(--muted);

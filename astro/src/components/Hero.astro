@@ -22,13 +22,6 @@ const CLIENTS = [
   ['Biorbyt', `${CDN}/2023/05/Biorbyt.svg`],
   ['Medguard', `${CDN}/2023/05/medguard.png`],
 ]
-const CERTS = [
-  ['Google Premier Partner', `${CDN}/2024/03/Google-premier-partner-2024.svg`],
-  ['GESIA Member', `${CDN}/2025/08/Gesia.svg`],
-  ['Salesforce ISV Partner', `${CDN}/2023/05/saleforce-isvpartner.svg`],
-  ['Top App Development Companies', `${CDN}/2023/05/TADC.svg`],
-  ['SugarCRM ISV Partner', `${CDN}/2023/05/SugarCRM.png`],
-]
 ---
 <section class="hero light" id="hero-sec">
   <span class="hero-grid"></span>
@@ -36,7 +29,7 @@ const CERTS = [
   <div class="wrap hero-split">
     <!-- LEFT — editorial headline -->
     <div class="hero-copy">
-      <span class="hero-pill"><span class="pdot"></span> Since 2006 <b>·</b> Now AI-Powered</span>
+      <span class="hero-pill"><span class="pdot"></span> Since 2006 <b>·</b> AI-Powered</span>
 
       <h1 class="display hero-h1">
         <span class="line"><span class="ln">Engineer the</span></span>
@@ -68,14 +61,6 @@ const CERTS = [
           <ul class="hp-logos">
             {CLIENTS.map(([name, src]) => (
               <li><img src={src} alt={name} loading="lazy" /></li>
-            ))}
-          </ul>
-        </div>
-        <div class="hp-row hp-certs">
-          <span class="hp-label"><i class="fi fi-rr-shield-check"></i> Recognized &amp; certified</span>
-          <ul class="hp-badges">
-            {CERTS.map(([name, src]) => (
-              <li><img src={src} alt={name} title={name} loading="lazy" /></li>
             ))}
           </ul>
         </div>
@@ -111,6 +96,27 @@ const CERTS = [
         <div class="hs"><b><span data-count="98">0</span>%</b><span>Client retention</span></div>
         <div class="hs"><b><span data-count="80">0</span>%</b><span>Senior engineers</span></div>
       </div>
+
+      <div class="hp-reviews hero-parallax-b">
+        <a class="rcard" href="#work" aria-label="Rated 4.9 out of 5 on Clutch from 26 reviews">
+          <span class="rcard-ic"><img src={`${import.meta.env.BASE_URL}/assets/badges/clutch-mark.png`} alt="" width="26" height="26" /></span>
+          <span class="rcard-body">
+            <span class="rcard-top"><b>4.9</b><span class="rcard-max">/5</span>
+              <span class="rcard-stars" aria-hidden="true"><i class="fi fi-sr-star"></i><i class="fi fi-sr-star"></i><i class="fi fi-sr-star"></i><i class="fi fi-sr-star"></i><i class="fi fi-sr-star"></i></span>
+            </span>
+            <span class="rcard-sub">Clutch · 26 reviews</span>
+          </span>
+        </a>
+        <a class="rcard" href="#work" aria-label="Rated 4.8 out of 5 on Google from 80+ reviews">
+          <span class="rcard-ic"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#4285F4" d="M23.5 12.27c0-.79-.07-1.54-.2-2.27H12v4.51h6.47a5.53 5.53 0 0 1-2.4 3.58v3h3.86c2.26-2.09 3.57-5.17 3.57-8.82z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.27 14.29a7.2 7.2 0 0 1 0-4.58V6.62H1.29a12 12 0 0 0 0 10.76l3.98-3.09z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42A11.96 11.96 0 0 0 12 0 12 12 0 0 0 1.29 6.62l3.98 3.09C6.22 6.86 8.87 4.75 12 4.75z"/></svg></span>
+          <span class="rcard-body">
+            <span class="rcard-top"><b>4.8</b><span class="rcard-max">/5</span>
+              <span class="rcard-stars" aria-hidden="true"><i class="fi fi-sr-star"></i><i class="fi fi-sr-star"></i><i class="fi fi-sr-star"></i><i class="fi fi-sr-star"></i><i class="fi fi-sr-star"></i></span>
+            </span>
+            <span class="rcard-sub">Google · 80+ reviews</span>
+          </span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -136,16 +142,33 @@ const CERTS = [
   .hp-label { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
   .hp-label b { color: var(--ink); font-weight: 700; }
   .hp-label i { color: var(--teal); line-height: 0; font-size: 12px; }
-  .hp-logos, .hp-badges { display: flex; align-items: center; flex-wrap: wrap; list-style: none; padding: 0; margin: 0; }
-  .hp-logos { gap: 14px 26px; }
-  .hp-badges { gap: 14px 24px; }
-  .hp-logos li, .hp-badges li { display: inline-flex; align-items: center; }
+  .hp-logos { display: flex; align-items: center; flex-wrap: wrap; list-style: none; padding: 0; margin: 0; gap: 14px 26px; }
+  .hp-logos li { display: inline-flex; align-items: center; }
   .hp-logos img { height: 24px; width: auto; max-width: 96px; object-fit: contain; filter: grayscale(1); opacity: 0.58; transition: filter 0.3s, opacity 0.3s; }
   .hp-logos li:hover img { filter: grayscale(0); opacity: 1; }
-  .hp-badges img { height: 34px; width: auto; object-fit: contain; opacity: 0.92; transition: opacity 0.3s, transform 0.3s; }
-  .hp-badges li:hover img { opacity: 1; transform: translateY(-2px); }
-  @media (max-width: 900px) { .hero-proof { margin-left: auto; margin-right: auto; } .hp-logos, .hp-badges { justify-content: center; } .hp-label { justify-content: center; } }
-  @media (prefers-reduced-motion: reduce) { .hp-logos img, .hp-badges img { transition: none; } .hp-badges li:hover img { transform: none; } }
+
+  /* review rating cards (Clutch / Google) — under the stat strip, right column */
+  .hp-reviews { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .rcard { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px;
+    background: #fff; border: 1px solid var(--line);
+    box-shadow: 0 10px 30px -22px rgba(35,38,46,.3);
+    transition: border-color .3s, transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s; }
+  .rcard:hover { transform: translateY(-3px); border-color: rgba(14,165,233,.45); box-shadow: 0 18px 40px -22px rgba(14,165,233,.32); }
+  .rcard-ic { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 11px; line-height: 0;
+    background: #f8fafc; border: 1px solid var(--line); }
+  .rcard-ic svg, .rcard-ic img { display: block; object-fit: contain; }
+  .rcard-body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .rcard-top { display: flex; align-items: baseline; gap: 4px; line-height: 1; }
+  .rcard-top b { font-size: 20px; font-weight: 900; letter-spacing: -0.03em; color: var(--ink); }
+  .rcard-max { font-size: 12px; font-weight: 700; color: var(--muted); }
+  .rcard-stars { display: inline-flex; gap: 1px; margin-left: 5px; color: #f6a609; font-size: 11px; line-height: 0; align-self: center; }
+  .rcard-stars i { line-height: 0; }
+  .rcard-sub { font-size: 12px; font-weight: 600; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rcard:hover .rcard-sub { color: var(--ink); }
+  @media (max-width: 1100px) { .hp-reviews { grid-template-columns: 1fr; } }
+
+  @media (max-width: 900px) { .hero-proof { margin-left: auto; margin-right: auto; } .hp-logos, .hp-reviews { justify-content: center; } .hp-label { justify-content: center; } }
+  @media (prefers-reduced-motion: reduce) { .hp-logos img { transition: none; } }
   @keyframes hFade { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
   @keyframes hLine { to { transform: translateY(0); } }
 

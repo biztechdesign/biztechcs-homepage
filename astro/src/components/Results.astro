@@ -1,0 +1,96 @@
+---
+// Tier-2: Outcomes bar — surfaces CLIENT RESULTS (not company-scale stats).
+// Distinct from Hero/WhyBiztech which show 1200+/98%/200+ company numbers.
+// Numbers are outcome-focused and drawn from real project work.
+const RESULTS = [
+  { n: 52, pre: '+', suf: '%', label: 'Higher conversion', sub: 'on a rebuilt storefront' },
+  { n: 3, pre: '', suf: '×', label: 'Faster throughput', sub: 'after platform re-architecture' },
+  { n: 60, pre: '', suf: '%', label: 'Fewer review hours', sub: 'via workflow automation' },
+  { n: 40, pre: '', suf: '%', label: 'Lower build cost', sub: 'one cross-platform codebase' },
+]
+const PROOF = [
+  { ic: 'fi-rr-rocket-lunch', text: 'Most engagements ship to production in 8–14 weeks' },
+  { ic: 'fi-rr-refresh', text: '98% client retention — teams come back project after project' },
+  { ic: 'fi-rr-shield-check', text: 'Fixed-scope delivery — no cost overruns after the scoping call' },
+]
+---
+<section id="results" class="surface-dark py-[var(--section-y)]">
+  <div class="wrap">
+    <div class="flex flex-col items-center text-center mb-[clamp(32px,4vw,48px)]">
+      <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em]">
+        <i class="fi fi-rr-chart-histogram"></i> Outcomes, not just deliverables
+      </span>
+      <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,52px)] font-black tracking-[-0.04em] leading-[1.04] max-w-[720px] text-white">
+        We measure success in <span class="accent-l">your numbers.</span>
+      </h2>
+      <p data-reveal style="--d:.1s" class="mt-4 text-[14.5px] leading-[1.6] text-white/55 max-w-[520px]">
+        Example outcomes from recent client engagements — the kind of impact we build toward on every project.
+      </p>
+    </div>
+
+    <!-- outcome metrics -->
+    <div data-reveal style="--d:.12s" class="res-grid grid grid-cols-4 gap-[16px] max-[760px]:grid-cols-2 max-[420px]:grid-cols-1">
+      {RESULTS.map((r, i) => (
+        <div class="res-card group rounded-3xl p-7 text-center transition duration-300 hover:-translate-y-1.5" style={`--d:${(0.1 + i * 0.06).toFixed(2)}s`}>
+          <div class="res-n">
+            <span>{r.pre}</span><span class="res-num" data-count={r.n}>0</span><span>{r.suf}</span>
+          </div>
+          <div class="mt-2 text-[15px] font-extrabold text-white">{r.label}</div>
+          <div class="mt-1 text-[13px] text-white/55 leading-snug">{r.sub}</div>
+        </div>
+      ))}
+    </div>
+
+    <!-- supporting proof row -->
+    <div data-reveal style="--d:.3s" class="res-proof mt-[clamp(20px,2.4vw,28px)] grid grid-cols-3 gap-[16px] max-[760px]:grid-cols-1">
+      {PROOF.map((p) => (
+        <div class="flex items-center gap-3 rounded-2xl px-5 py-4 res-proof-card">
+          <span class="grid place-items-center w-10 h-10 rounded-xl bg-white/10 border border-white/15 text-teal-300 text-[16px] shrink-0"><i class={`fi ${p.ic}`}></i></span>
+          <span class="text-[13.5px] font-semibold text-white/85 leading-snug">{p.text}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .accent-l { background: linear-gradient(100deg, #7dd3fc, #38bdf8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* glassy metric cards on the dark band */
+  .res-card { background: rgba(255,255,255,.04); border: 1px solid rgba(125,211,252,.16); }
+  .res-card:hover { border-color: rgba(125,211,252,.45); background: rgba(125,211,252,.07);
+    box-shadow: 0 24px 56px -28px rgba(56,189,248,.4); }
+
+  /* big glowing sky-blue numbers */
+  .res-n { display: inline-flex; align-items: baseline; font-size: clamp(40px, 5vw, 60px); font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+  .res-n > span { font: inherit; background: linear-gradient(120deg, #bae6fd, #38bdf8 55%, #0ea5e9);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 18px rgba(56,189,248,.35)); }
+
+  .res-proof-card { background: rgba(255,255,255,.04); border: 1px solid rgba(125,211,252,.14); }
+</style>
+
+<script>
+  // count-up the outcome numbers when the section scrolls into view
+  const sec = document.getElementById('results')
+  if (sec) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const easeOut = (t) => 1 - Math.pow(1 - t, 3)
+    const run = (el) => {
+      const target = Number(el.dataset.count)
+      const decimals = String(target).includes('.') ? 1 : 0
+      if (reduce) { el.textContent = target.toFixed(decimals); return }
+      const dur = 1500, start = performance.now()
+      const f = (now) => {
+        const p = Math.min(1, (now - start) / dur)
+        el.textContent = (easeOut(p) * target).toFixed(decimals)
+        if (p < 1) requestAnimationFrame(f)
+      }
+      requestAnimationFrame(f)
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { run(e.target); io.unobserve(e.target) } })
+    }, { threshold: 0.6 })
+    sec.querySelectorAll('[data-count]').forEach((el) => io.observe(el))
+  }
+</script>

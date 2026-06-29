@@ -52,10 +52,11 @@ const LEGAL = [
   @media (max-width: 1024px) { .foot-cols { grid-template-columns: 1fr 1fr; gap: 32px 28px; } }
   @media (max-width: 520px) { .foot-cols { grid-template-columns: 1fr; } }
 
-  .foot-bigmark { margin-top: clamp(40px, 5vw, 64px); display: flex; justify-content: center; }
-  .foot-bigmark img { height: clamp(70px, 13vw, 150px); width: auto; opacity: .95; }
+  .foot-bigmark { margin-top: clamp(24px, 3vw, 36px); display: flex; justify-content: center; }
+  .foot-bigmark img { height: clamp(35px, 6.5vw, 75px); width: auto; opacity: .95; }
   /* Hire Developers has 16 links — split into two columns so it doesn't run tall */
-  .foot-hire ul { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 22px; }
+  .foot-hire ul { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 22px; }
+  .foot-hire li { margin-bottom: 0; }
   @media (max-width: 1024px) { .foot-hire { grid-column: 1 / -1; } }
   @media (max-width: 520px) { .foot-hire ul { grid-template-columns: 1fr; } }
   .foot-legal { display: flex; flex-wrap: wrap; }

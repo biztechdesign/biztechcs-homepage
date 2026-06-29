@@ -1,0 +1,27 @@
+---
+// Reusable CTA with the header "Get Started" character-roll hover animation.
+// Colors are black or white only: variant="dark" (black bg / white text) | "light" (white bg / black text).
+// Usage: <CtaButton href="#cta" label="Book a call" variant="dark" />
+interface Props {
+  href?: string
+  label: string
+  variant?: 'dark' | 'light'
+  arrow?: boolean
+  class?: string
+  id?: string
+  full?: boolean
+}
+const { href = '#cta', label, variant = 'dark', arrow = true, class: cls = '', id, full = false } = Astro.props
+const chars = [...label]
+---
+<a
+  href={href}
+  id={id}
+  class:list={['btn-labs', variant === 'light' && 'inv', full && 'w-full justify-center', cls]}
+>
+  <span class="lbl"><span class="roll">
+    <span class="top">{chars.map((c, i) => <span style={`--i:${i}`}>{c}</span>)}</span>
+    <span class="bot">{chars.map((c, i) => <span style={`--i:${i}`}>{c}</span>)}</span>
+  </span></span>
+  {arrow && <span class="arrow"><i class="fi fi-rr-arrow-right"></i></span>}
+</a>

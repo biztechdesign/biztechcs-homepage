@@ -1,34 +1,164 @@
 ---
-const MODELS = [
-  { ic: 'fi-rr-users-alt', title: 'Dedicated team', desc: 'A full squad that runs as an extension of yours — for ongoing product work.' },
-  { ic: 'fi-rr-bullseye-arrow', title: 'Fixed-scope project', desc: 'Defined deliverables, a transparent estimate and a fixed outcome.' },
-  { ic: 'fi-rr-user-add', title: 'Staff augmentation', desc: 'Plug senior engineers into your existing team to close specific gaps.' },
+import CtaButton from './CtaButton.astro'
+// Merged: Project Planner (interactive picker) + Engagement-model comparison matrix.
+// The planner recommends a model; the matching matrix card highlights live. No price shown.
+const TYPES = [
+  { id: 'web', label: 'Web / SaaS platform', ic: 'fi-rr-browser', weeks: 10, stack: 'React · Node · AWS' },
+  { id: 'mobile', label: 'Mobile app', ic: 'fi-rr-mobile-notch', weeks: 12, stack: 'Flutter · Firebase' },
+  { id: 'ecom', label: 'Ecommerce / Web-to-Print', ic: 'fi-rr-shopping-cart', weeks: 9, stack: 'Magento · Shopify' },
+  { id: 'ai', label: 'AI / ML solution', ic: 'fi-rr-brain', weeks: 13, stack: 'Python · RAG · LLMs' },
+  { id: 'erp', label: 'ERP / CRM (Odoo, Salesforce)', ic: 'fi-rr-apps', weeks: 14, stack: 'Odoo · Salesforce' },
+  { id: 'integration', label: 'System / API integration', ic: 'fi-rr-share', weeks: 7, stack: 'REST · GraphQL' },
 ]
+const SCOPES = [
+  { id: 'mvp', label: 'MVP / Prototype', mult: 0.6 },
+  { id: 'standard', label: 'Full product', mult: 1 },
+  { id: 'enterprise', label: 'Enterprise-grade', mult: 1.7 },
+]
+const TEAMS = [
+  { id: 'small', label: '1–3 engineers', mult: 0.7, shape: '1–3 senior engineers' },
+  { id: 'mid', label: '4–6 engineers', mult: 1, shape: '4–6 cross-functional' },
+  { id: 'large', label: '7+ engineers', mult: 1.5, shape: '7+ multi-pod team' },
+]
+const MODELS = [
+  {
+    id: 'dedicated', ic: 'fi-rr-users-alt', title: 'Dedicated team', tag: 'Most popular',
+    desc: 'A full squad that runs as an extension of yours — for ongoing product work.',
+    rows: { 'Best for': 'Long-term product builds & roadmaps', 'Team size': '3–15+ engineers',
+      'Commitment': '3 months — multi-year', 'You control': 'Roadmap, priorities & sprints', 'Ramp-up': '1–2 weeks' },
+    featured: true,
+  },
+  {
+    id: 'fixed', ic: 'fi-rr-bullseye-arrow', title: 'Fixed-scope project', tag: null,
+    desc: 'Defined deliverables, a transparent estimate and a fixed outcome.',
+    rows: { 'Best for': 'Well-defined scope & deadlines', 'Team size': 'Scoped to deliverable',
+      'Commitment': 'Per-milestone', 'You control': 'Scope & acceptance criteria', 'Ramp-up': '1–2 weeks' },
+    featured: false,
+  },
+  {
+    id: 'staff', ic: 'fi-rr-user-add', title: 'Staff augmentation', tag: null,
+    desc: 'Plug senior engineers into your existing team to close specific gaps.',
+    rows: { 'Best for': 'Filling skill gaps fast', 'Team size': '1–5 specialists',
+      'Commitment': 'Flexible, monthly', 'You control': 'Day-to-day management', 'Ramp-up': 'Days' },
+    featured: false,
+  },
+]
+const ROW_KEYS = ['Best for', 'Team size', 'Commitment', 'You control', 'Ramp-up']
+const ROW_IC = {
+  'Best for': 'fi-rr-bullseye-pointer', 'Team size': 'fi-rr-users', 'Commitment': 'fi-rr-calendar-clock',
+  'You control': 'fi-rr-settings-sliders', 'Ramp-up': 'fi-rr-rocket-lunch',
+}
 ---
 <section id="engagement" class="surface-tint py-[var(--section-y)]">
   <div class="wrap">
-    <div class="flex flex-wrap items-end justify-between gap-6 mb-[clamp(36px,4vw,52px)]">
-      <div class="max-w-[640px]">
-        <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
-          <i class="fi fi-rr-handshake text-teal"></i> Engagement models
-        </span>
-        <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,52px)] font-black tracking-[-0.04em] leading-[1.04] whitespace-nowrap max-[680px]:whitespace-normal">
-          Three ways to <span class="accent">work with us.</span>
-        </h2>
-      </div>
-      <p data-reveal style="--d:.12s" class="text-[14px] font-semibold text-muted max-w-[300px] max-[680px]:max-w-none">
-        Every model runs on Agile delivery with transparent estimates — no cost overruns.
+    <div class="flex flex-col items-center text-center mb-[clamp(32px,4vw,48px)]">
+      <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
+        <i class="fi fi-rr-handshake text-teal"></i> Engagement &amp; planning
+      </span>
+      <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,52px)] font-black tracking-[-0.04em] leading-[1.04] max-w-[760px]">
+        Find the model that <span class="accent">fits your project.</span>
+      </h2>
+      <p data-reveal style="--d:.12s" class="mt-5 text-muted text-[clamp(15px,1.2vw,17px)] leading-[1.6] max-w-[560px]">
+        Answer three quick questions — we'll recommend the right engagement model, team and timeline, then show how all three compare.
       </p>
     </div>
 
-    <div class="grid grid-cols-3 gap-[18px] max-[760px]:grid-cols-1">
+    <!-- ===== interactive planner ===== -->
+    <div data-reveal style="--d:.16s" class="est grid grid-cols-[1.15fr_0.85fr] gap-0 rounded-3xl border border-line bg-white overflow-hidden max-[860px]:grid-cols-1">
+      <!-- inputs -->
+      <div class="p-[clamp(24px,3vw,40px)]">
+        <fieldset>
+          <legend class="est-q">1 · What are you building?</legend>
+          <div class="grid grid-cols-2 gap-2.5 max-[480px]:grid-cols-1">
+            {TYPES.map((t, i) => (
+              <label class="est-opt">
+                <input type="radio" name="ptype" value={t.id} data-weeks={t.weeks} data-stack={t.stack} checked={i === 0} />
+                <span class="est-card"><i class={`fi ${t.ic}`}></i>{t.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <fieldset class="mt-7">
+          <legend class="est-q">2 · How big is the scope?</legend>
+          <div class="grid grid-cols-3 gap-2.5 max-[480px]:grid-cols-1">
+            {SCOPES.map((s, i) => (
+              <label class="est-opt">
+                <input type="radio" name="pscope" value={s.id} data-mult={s.mult} checked={i === 1} />
+                <span class="est-pill">{s.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <fieldset class="mt-7">
+          <legend class="est-q">3 · Team size you'd want</legend>
+          <div class="grid grid-cols-3 gap-2.5 max-[480px]:grid-cols-1">
+            {TEAMS.map((t, i) => (
+              <label class="est-opt">
+                <input type="radio" name="pteam" value={t.id} data-mult={t.mult} data-shape={t.shape} checked={i === 1} />
+                <span class="est-pill">{t.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- plan summary (no price) -->
+      <div class="est-result flex flex-col justify-center p-[clamp(24px,3vw,40px)]">
+        <span class="est-chip">Your recommended plan</span>
+        <div id="estModel" class="mt-3 text-[clamp(22px,3vw,30px)] font-black tracking-[-0.03em] leading-[1.1] text-white">Dedicated team</div>
+        <p id="estModelNote" class="mt-1.5 text-[13px] leading-[1.5] text-white/55">Best for an ongoing build with evolving scope.</p>
+
+        <ul class="mt-6 flex flex-col gap-3.5">
+          <li class="flex items-center gap-3">
+            <span class="grid place-items-center w-9 h-9 rounded-xl bg-white/10 text-teal-300 text-[15px] shrink-0"><i class="fi fi-rr-users"></i></span>
+            <div><div class="est-rk">Team shape</div><div id="estTeam" class="est-rv">4–6 cross-functional</div></div>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="grid place-items-center w-9 h-9 rounded-xl bg-white/10 text-teal-300 text-[15px] shrink-0"><i class="fi fi-rr-calendar-clock"></i></span>
+            <div><div class="est-rk">Indicative timeline</div><div id="estTime" class="est-rv">8–10 weeks</div></div>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="grid place-items-center w-9 h-9 rounded-xl bg-white/10 text-teal-300 text-[15px] shrink-0"><i class="fi fi-rr-layers"></i></span>
+            <div><div class="est-rk">Likely stack</div><div id="estStack" class="est-rv">React · Node · AWS</div></div>
+          </li>
+        </ul>
+
+        <div class="mt-6 mb-1">
+          <div class="est-rk mb-2.5">How we'd deliver it</div>
+          <ol class="est-phases"><li><span>Discovery</span></li><li><span>Build</span></li><li><span>QA</span></li><li><span>Launch</span></li></ol>
+        </div>
+
+        <CtaButton id="estCta" href="#cta" label="Get your detailed quote" variant="light" full={true} class="mt-6" />
+        <p class="mt-3 text-center text-[12px] text-white/45">Free · 30-min call · fixed-scope, no overruns</p>
+      </div>
+    </div>
+
+    <!-- ===== comparison matrix (recommended card highlights live) ===== -->
+    <p data-reveal class="mt-[clamp(40px,5vw,64px)] mb-[clamp(20px,2.4vw,28px)] text-center text-[13px] font-bold uppercase tracking-[0.14em] text-muted">
+      How the three models compare
+    </p>
+    <div data-reveal style="--d:.1s" class="ematrix grid grid-cols-3 gap-[18px] max-[860px]:grid-cols-1" id="ematrix">
       {MODELS.map((m, i) => (
-        <div data-reveal style={`--d:${(0.1 + i * 0.07).toFixed(2)}s`} class="emodel group flex flex-col rounded-3xl bg-white border border-line p-8 transition duration-300 hover:-translate-y-1.5 hover:border-teal/40">
-          <span class="grid place-items-center w-14 h-14 rounded-2xl bg-teal/10 border border-teal/20 text-teal text-[24px] transition duration-300 group-hover:bg-teal group-hover:text-white group-hover:border-transparent group-hover:-rotate-6">
+        <div data-model={m.id} style={`--d:${(0.12 + i * 0.07).toFixed(2)}s`} class:list={["emodel group relative flex flex-col rounded-3xl border p-7 transition duration-300 hover:-translate-y-1.5", m.featured ? "bg-ink text-white border-transparent" : "bg-white border-line hover:border-teal/40"]}>
+          <span class="emodel-rec"><i class="fi fi-rr-check"></i> Recommended for you</span>
+          {m.tag && <span class="emodel-tag absolute -top-3 left-7 rounded-full bg-teal px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.08em] text-white shadow-lg">{m.tag}</span>}
+          <span class:list={["grid place-items-center w-[52px] h-[52px] rounded-2xl text-[22px] transition duration-300 group-hover:-rotate-6", m.featured ? "bg-white/12 border border-white/20 text-white" : "bg-teal/10 border border-teal/20 text-teal group-hover:bg-teal group-hover:text-white group-hover:border-transparent"]}>
             <i class={`fi ${m.ic}`}></i>
           </span>
-          <h3 class="mt-6 text-[19px] font-extrabold tracking-[-0.02em] text-ink">{m.title}</h3>
-          <p class="mt-2 text-[14px] leading-[1.55] text-muted flex-1">{m.desc}</p>
+          <h3 class:list={["mt-5 text-[20px] font-extrabold tracking-[-0.02em]", m.featured ? "text-white" : "text-ink"]}>{m.title}</h3>
+          <p class:list={["mt-2 text-[13.5px] leading-[1.5]", m.featured ? "text-white/70" : "text-muted"]}>{m.desc}</p>
+          <dl class="mt-6 flex flex-col">
+            {ROW_KEYS.map((k) => (
+              <div class:list={["flex items-start gap-3 py-3 border-t", m.featured ? "border-white/12" : "border-line"]}>
+                <i class:list={[`fi ${ROW_IC[k]} text-[14px] mt-0.5 shrink-0`, m.featured ? "text-teal-300" : "text-teal"]}></i>
+                <div class="flex-1">
+                  <dt class:list={["text-[11px] font-bold uppercase tracking-[0.08em]", m.featured ? "text-white/50" : "text-muted"]}>{k}</dt>
+                  <dd class:list={["mt-0.5 text-[14px] font-semibold leading-snug", m.featured ? "text-white" : "text-ink"]}>{m.rows[k]}</dd>
+                </div>
+              </div>
+            ))}
+          </dl>
+          <CtaButton href="#cta" label="Choose this model" variant={m.featured ? 'light' : 'dark'} full={true} class="mt-7" />
         </div>
       ))}
     </div>
@@ -37,6 +167,96 @@ const MODELS = [
 
 <style>
   .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .est { box-shadow: 0 24px 64px -32px rgba(35, 38, 46, 0.34); }
+  .est-result { background: linear-gradient(155deg, #0f172a, #1e293b 60%, #0369a1); }
+  .est-q { font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 12px; letter-spacing: -0.01em; }
+
+  .est-chip { display: inline-flex; align-self: flex-start; align-items: center; padding: 5px 11px; border-radius: 999px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1;
+    color: #7dd3fc; background: rgba(125,211,252,.1); border: 1px solid rgba(125,211,252,.22); }
+
+  .est-opt { display: block; cursor: pointer; }
+  .est-opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .est-card { display: flex; align-items: center; gap: 9px; height: 100%; border: 1px solid var(--line); border-radius: 14px;
+    background: #f8fafc; padding: 13px 14px; font-size: 13.5px; font-weight: 600; color: var(--ink);
+    transition: border-color .2s, background .2s, box-shadow .2s, transform .2s; }
+  .est-card i { color: var(--teal); font-size: 16px; line-height: 0; flex: none; }
+  .est-pill { display: flex; align-items: center; justify-content: center; text-align: center; border: 1px solid var(--line);
+    border-radius: 12px; background: #f8fafc; padding: 11px 10px; font-size: 13px; font-weight: 700; color: var(--ink);
+    transition: border-color .2s, background .2s, box-shadow .2s, transform .2s; }
+  .est-opt:hover .est-card, .est-opt:hover .est-pill { border-color: rgba(14,165,233,.45); transform: translateY(-1px); }
+  .est-opt input:checked + .est-card, .est-opt input:checked + .est-pill {
+    border-color: var(--teal); background: rgba(14,165,233,.08); box-shadow: 0 0 0 3px rgba(14,165,233,.14); }
+  .est-opt input:focus-visible + .est-card, .est-opt input:focus-visible + .est-pill { outline: 2px solid var(--teal-dk); outline-offset: 2px; }
+
+  .est-rk { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+  .est-rv { font-size: 14.5px; font-weight: 700; color: #fff; margin-top: 1px; }
+  #estModel, #estModelNote, #estTeam, #estTime, #estStack { transition: opacity .2s; }
+
+  .est-phases { display: flex; align-items: center; gap: 6px; list-style: none; margin: 0; padding: 0; }
+  .est-phases li { flex: 1; position: relative; }
+  .est-phases li span { display: block; text-align: center; padding: 7px 4px; border-radius: 9px; font-size: 11.5px; font-weight: 700;
+    color: rgba(255,255,255,.82); background: rgba(125,211,252,.12); border: 1px solid rgba(125,211,252,.22); }
+  .est-phases li:not(:last-child)::after { content: "›"; position: absolute; right: -7px; top: 50%; transform: translateY(-50%);
+    color: rgba(255,255,255,.4); font-size: 13px; font-weight: 700; z-index: 1; }
+
+  /* matrix */
   .emodel { box-shadow: 0 10px 30px -20px rgba(35, 38, 46, 0.22); }
   .emodel:hover { box-shadow: 0 24px 56px -28px rgba(14, 165, 233, 0.3); }
+  /* "Recommended for you" badge — hidden until JS flags the matching card */
+  .emodel-rec { position: absolute; top: 0; right: 0; display: none; align-items: center; gap: 5px;
+    padding: 6px 12px; border-bottom-left-radius: 14px; border-top-right-radius: 22px;
+    font-size: 11px; font-weight: 800; letter-spacing: .02em; background: #0ea5e9; color: #fff; }
+  .emodel-rec i { line-height: 0; font-size: 12px; }
+  .emodel.is-rec { outline: 2px solid #0ea5e9; outline-offset: 2px; }
+  .emodel.is-rec .emodel-rec { display: inline-flex; }
+  .emodel.is-rec .emodel-tag { display: none; }
 </style>
+
+<script>
+  const sec = document.getElementById('engagement')
+  if (sec) {
+    const modelEl = document.getElementById('estModel')
+    const noteEl = document.getElementById('estModelNote')
+    const teamEl = document.getElementById('estTeam')
+    const timeEl = document.getElementById('estTime')
+    const stackEl = document.getElementById('estStack')
+    const ctaEl = document.getElementById('estCta')
+    const matrix = document.getElementById('ematrix')
+    const sel = (name) => sec.querySelector(`input[name="${name}"]:checked`)
+
+    // recommend an engagement model from scope + team -> {id, name, note}
+    const pickModel = (scope, team) => {
+      if (scope === 'mvp') return { id: 'fixed', name: 'Fixed-scope project', note: 'Defined deliverables and a fixed outcome — ideal for an MVP.' }
+      if (scope === 'enterprise' || team === 'large') return { id: 'dedicated', name: 'Dedicated team', note: 'A managed squad for a large, evolving enterprise build.' }
+      if (team === 'small') return { id: 'staff', name: 'Staff augmentation', note: 'Plug senior engineers into your team to close specific gaps.' }
+      return { id: 'dedicated', name: 'Dedicated team', note: 'Best for an ongoing build with evolving scope.' }
+    }
+    const fade = (el, val) => { if (!el) return; el.style.opacity = '0'; setTimeout(() => { el.textContent = val; el.style.opacity = '1' }, 120) }
+
+    const recalc = () => {
+      const type = sel('ptype'), scope = sel('pscope'), team = sel('pteam')
+      if (!type || !scope || !team) return
+      const weeksBase = +type.dataset.weeks
+      const sMult = +scope.dataset.mult
+      const tMult = +team.dataset.mult
+      const wMid = weeksBase * sMult * (tMult > 1 ? 0.85 : tMult < 1 ? 1.15 : 1)
+      const wLow = Math.max(3, Math.round(wMid * 0.85))
+      const wHigh = Math.round(wMid * 1.2)
+
+      const model = pickModel(scope.value, team.value)
+      fade(modelEl, model.name)
+      fade(noteEl, model.note)
+      fade(teamEl, team.dataset.shape)
+      fade(timeEl, `${wLow}–${wHigh} weeks`)
+      fade(stackEl, type.dataset.stack)
+      if (ctaEl) ctaEl.href = `#cta?type=${type.value}&scope=${scope.value}&team=${team.value}`
+
+      // highlight the matching matrix card
+      if (matrix) matrix.querySelectorAll('.emodel').forEach((c) => c.classList.toggle('is-rec', c.dataset.model === model.id))
+    }
+
+    sec.querySelectorAll('input[type="radio"]').forEach((r) => r.addEventListener('change', recalc))
+    recalc()
+  }
+</script>

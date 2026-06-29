@@ -1,0 +1,73 @@
+---
+// Tier-1: "Recognized & certified" — 2nd section, logos inside a boxed card,
+// auto-scrolling right-to-left so all 11 badges fit in a short band.
+const B = `${import.meta.env.BASE_URL}/assets/badges`
+const BADGES = [
+  { name: 'Reviewed on Clutch — 26 reviews', src: `${B}/clutch.svg`, h: 38 },
+  { name: 'Google Premier Partner 2024', src: `${B}/google-partner.svg`, h: 50 },
+  { name: 'GESIA Member', src: `${B}/gesia.svg`, h: 46 },
+  { name: 'Salesforce ISV Partner', src: `${B}/salesforce-isv.svg`, h: 34 },
+  { name: 'Top App Development Companies', src: `${B}/tadc.svg`, h: 56 },
+  { name: 'SugarCRM ISV Partner', src: `${B}/sugarcrm.png`, h: 38 },
+  { name: 'Techimply — Top eCommerce Development', src: `${B}/techimply.svg`, h: 56 },
+  { name: 'TÜV certified', src: `${B}/tuv.svg`, h: 46 },
+  { name: 'Great Place To Work', src: `${B}/gptw.svg`, h: 50 },
+  { name: 'Great Place To Work for Women', src: `${B}/gptw-women.svg`, h: 50 },
+  { name: 'Odoo Partner', src: `${B}/odoo.svg`, h: 34 },
+]
+---
+<section id="trust" aria-label="Awards, partnerships and certifications" class="py-[clamp(20px,2.6vw,36px)]">
+  <div class="wrap">
+    <div data-reveal class="tband">
+      <span class="tband-title"><i class="fi fi-rr-shield-check"></i> Recognized &amp; certified</span>
+      <div class="tb-track">
+        <div class="tb-row">
+          {BADGES.map((b) => (
+            <span class="tb-badge"><img src={b.src} alt={b.name} title={b.name} loading="lazy" style={`height:${b.h}px`} /></span>
+          ))}
+          {BADGES.map((b) => (
+            <span class="tb-badge" aria-hidden="true"><img src={b.src} alt="" loading="lazy" style={`height:${b.h}px`} /></span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tband {
+    display: flex; align-items: center; gap: clamp(18px, 2.4vw, 36px); min-width: 0;
+    border-radius: 22px; border: 1px solid var(--line); background: #fff;
+    padding: clamp(14px, 1.6vw, 20px) clamp(20px, 3vw, 36px);
+    box-shadow: 0 16px 44px -30px rgba(35, 38, 46, 0.26);
+  }
+  .tband-title {
+    flex: none; display: inline-flex; align-items: center; gap: 8px; max-width: 112px;
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; line-height: 1.35;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+    position: relative; padding-right: clamp(18px, 2.4vw, 36px);
+  }
+  .tband-title::after { content: ""; position: absolute; right: 0; top: -6px; bottom: -6px; width: 1px; background: var(--line); }
+  .tband-title i { color: var(--teal); font-size: 14px; line-height: 0; flex: none; }
+
+  .tb-track { flex: 1; min-width: 0; position: relative; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); }
+  .tb-row { display: flex; align-items: center; gap: clamp(28px, 3.2vw, 48px); width: max-content; }
+  .tb-badge { display: inline-flex; align-items: center; flex: none; }
+  .tb-badge img { width: auto; max-width: 180px; object-fit: contain; opacity: .78; filter: saturate(.92);
+    transition: opacity .3s, filter .3s, transform .3s; }
+  .tb-badge:hover img { opacity: 1; filter: saturate(1); transform: translateY(-2px); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tb-row { animation: tbScroll 42s linear infinite; }
+    .tb-track:hover .tb-row { animation-play-state: paused; }
+  }
+  @keyframes tbScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  @media (max-width: 720px) {
+    .tband { flex-direction: column; align-items: stretch; gap: 14px; text-align: center; }
+    .tband-title { max-width: none; justify-content: center; padding-right: 0; }
+    .tband-title::after { display: none; }
+  }
+</style>

@@ -1,0 +1,58 @@
+---
+// Tier-2: Leadership strip — humanizes the company-first story with real faces.
+// Real leaders pulled from biztechcs.com/leadership-team (top 6 curated for the homepage).
+const T = `${import.meta.env.BASE_URL}/assets/team`
+const LEADERS = [
+  { name: 'Maulik Shah', role: 'Founder & CEO', img: `${T}/maulik.png` },
+  { name: 'Amit Shah', role: 'Chief Financial Officer', img: `${T}/amit.png` },
+  { name: 'Kinjal Shah', role: 'Chief Human Resources Officer', img: `${T}/kinjal.png` },
+  { name: 'Parth Pandya', role: 'AVP — Marketing', img: `${T}/parth.png` },
+  { name: 'Divyang Sonchhatra', role: 'AVP — Sales', img: `${T}/divyang.webp` },
+  { name: 'Jay Jagani', role: 'Sr. Product Manager', img: `${T}/jay.png` },
+]
+---
+<section id="leadership" class="surface-tint py-[var(--section-y)]">
+  <div class="wrap">
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-[clamp(36px,4vw,52px)]">
+      <div class="max-w-[640px]">
+        <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
+          <i class="fi fi-rr-users-alt text-teal"></i> Leadership
+        </span>
+        <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,52px)] font-black tracking-[-0.04em] leading-[1.04] whitespace-nowrap max-[680px]:whitespace-normal">
+          The people <span class="accent">behind the work.</span>
+        </h2>
+        <p data-reveal style="--d:.12s" class="mt-4 text-[14.5px] leading-[1.6] text-muted max-w-[460px]">
+          Senior leaders with US &amp; EU accountability — building enterprise software with craft since 2006.
+        </p>
+      </div>
+      <a data-reveal style="--d:.12s" href="https://www.biztechcs.com/leadership-team/" target="_blank" rel="noopener" class="ld-all inline-flex items-center gap-2 text-[14.5px] font-bold text-ink whitespace-nowrap">
+        View full team <i class="fi fi-rr-arrow-right"></i>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-6 gap-[16px] max-[900px]:grid-cols-3 max-[520px]:grid-cols-2">
+      {LEADERS.map((p, i) => (
+        <article data-reveal style={`--d:${(0.1 + i * 0.06).toFixed(2)}s`} class="ld relative flex flex-col rounded-3xl bg-white border border-line overflow-hidden">
+          <div class="ld-photo">
+            <img src={p.img} alt={p.name} loading="lazy" />
+          </div>
+          <div class="px-4 py-3.5">
+            <b class="block text-[14px] font-extrabold tracking-[-0.01em] text-ink leading-tight">{p.name}</b>
+            <span class="mt-0.5 block text-[12px] font-semibold text-muted leading-snug">{p.role}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .ld-all i { transition: transform .3s; line-height: 0; }
+  .ld-all:hover { color: var(--teal-dk); }
+  .ld-all:hover i { transform: translateX(4px); }
+
+  .ld { box-shadow: 0 10px 30px -20px rgba(35, 38, 46, 0.22); }
+  .ld-photo { position: relative; aspect-ratio: 1; overflow: hidden; background: #f4f6f9; }
+  .ld-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+</style>
