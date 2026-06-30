@@ -1,0 +1,238 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import CtaBand from '../components/CtaBand.astro'
+import { caseStudies } from '../data/caseStudies'
+
+const BASE = import.meta.env.BASE_URL
+
+const STATS = [
+  { n: '1,300+', label: 'Projects delivered' },
+  { n: '40+', label: 'Countries served' },
+  { n: '98%', label: 'Client retention' },
+  { n: '19+', label: 'Years shipping' },
+]
+
+const FILTERS = [
+  { key: 'all', label: 'All work' },
+  { key: 'finance', label: 'Finance' },
+  { key: 'healthcare', label: 'Healthcare' },
+  { key: 'manufacturing', label: 'Manufacturing' },
+  { key: 'education', label: 'Education' },
+]
+
+// Real client work — sourced from src/data/caseStudies.ts; cards open the on-site detail page.
+const CASES = caseStudies.map((c) => ({
+  cats: c.cats, ic: c.ic, client: c.client, tag: c.tag,
+  metric: c.metric, metricLabel: c.metricLabel, title: c.title, desc: c.cardDesc,
+  href: `${BASE}/case-studies/${c.slug}`,
+}))
+
+const QUOTES = [
+  { q: 'Account opening went from ten paper forms and several branch visits to a guided digital flow wired straight into our core banking platform.', by: 'Digital Transformation Lead', org: 'Banking' },
+  { q: 'Our field teams finally run on one app — scheduling, routes and check-ins — instead of an expensive CRM nobody fully used.', by: 'Field Operations Head', org: 'Agrochemicals' },
+  { q: 'Scheduling, billing, notes and insurance claims used to live in separate tools. Now it\'s a single system the whole clinic trusts.', by: 'Operations Manager', org: 'Healthcare' },
+]
+---
+<Layout>
+  <Header />
+  <div class="page-shell" id="cshub">
+
+    <!-- ───────── HERO ───────── -->
+    <section class="cs-hero" id="top">
+      <span class="cs-hero-grid" aria-hidden="true"></span>
+      <span class="cs-hero-glow" aria-hidden="true"></span>
+      <div class="wrap relative text-center">
+        <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
+          <i class="fi fi-rr-trophy text-teal"></i> Case studies
+        </span>
+        <h1 data-reveal style="--d:.06s" class="mt-6 text-[clamp(34px,5.4vw,62px)] font-black tracking-[-0.045em] leading-[1.04] text-ink max-w-[860px] mx-auto">
+          Real projects. <span class="accent">Measurable impact.</span>
+        </h1>
+        <p data-reveal style="--d:.12s" class="mt-6 text-[clamp(16px,1.3vw,18px)] leading-[1.65] text-muted max-w-[600px] mx-auto">
+          Not lab demos — production software that moved real numbers for real clients across mobility, commerce, manufacturing and finance.
+        </p>
+
+        <div data-reveal style="--d:.18s" class="cs-stats">
+          {STATS.map((s, i) => (
+            <div class="cs-stat">
+              <div class="cs-stat-n">{s.n}</div>
+              <div class="cs-stat-l">{s.label}</div>
+              {i < STATS.length - 1 && <span class="cs-stat-div" aria-hidden="true"></span>}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── PORTFOLIO ───────── -->
+    <section class="cs-work py-[clamp(40px,5vw,72px)]">
+      <div class="wrap">
+        <!-- filter bar -->
+        <div data-reveal class="cs-filters" role="tablist" aria-label="Filter case studies">
+          {FILTERS.map((f, i) => (
+            <button class:list={['cs-filter', i === 0 && 'is-active']} data-filter={f.key}>{f.label}</button>
+          ))}
+        </div>
+
+        <!-- grid -->
+        <div class="cs-grid">
+          {CASES.map((c, i) => (
+            <article data-reveal style={`--d:${(0.04 + (i % 3) * 0.06).toFixed(2)}s`} class="cs-card" data-cats={c.cats}>
+              <a href={c.href} class="cs-card-link group">
+                <div class:list={['cs-cover', !c.img && 'is-icon']}>
+                  {c.img && <img src={c.img} alt={c.client} loading="lazy" />}
+                  {c.img && <span class="cs-cover-shade" aria-hidden="true"></span>}
+                  {!c.img && <span class="cs-cover-glow" aria-hidden="true"></span>}
+                  {!c.img && <span class="cs-iconwrap"><i class={`fi ${c.ic}`}></i></span>}
+                  <span class="cs-chip">{c.tag}</span>
+                  {c.client && <span class="cs-client">{c.client}</span>}
+                </div>
+                <div class="cs-cbody">
+                  <div class="cs-metric"><b>{c.metric}</b><span>{c.metricLabel}</span></div>
+                  <h3 class="cs-title">{c.title}</h3>
+                  {c.desc && <p class="cs-desc">{c.desc}</p>}
+                  <span class="cs-read">Read the story <i class="fi fi-rr-arrow-right"></i></span>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+
+        <p class="cs-empty" hidden>No case studies in this category yet — <a href={`${BASE}/contact`}>tell us what you're building</a>.</p>
+      </div>
+    </section>
+
+    <!-- ───────── CLIENT QUOTES ───────── -->
+    <section class="cs-quotes-sec surface-tint py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center max-w-[640px] mx-auto mb-[clamp(32px,4vw,48px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-comment-quote text-teal"></i> In their words</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,3.6vw,44px)] font-black tracking-[-0.04em] leading-[1.06]">What clients say after <span class="accent">we ship.</span></h2>
+        </div>
+        <div class="cs-quotes">
+          {QUOTES.map((q, i) => (
+            <figure data-reveal style={`--d:${(0.06 + i * 0.06).toFixed(2)}s`} class="cs-quote">
+              <i class="fi fi-rr-quote-right cs-quote-mark" aria-hidden="true"></i>
+              <blockquote>{q.q}</blockquote>
+              <figcaption><b>{q.by}</b><span>{q.org}</span></figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── CTA (shared component) ───────── -->
+    <CtaBand
+      badge="Your project next"
+      heading="Let's make your numbers"
+      accent="the next case study."
+      sub="Book a free 30-minute call with a senior engineer — we'll map the outcome, scope and timeline before you commit a rupee or dollar."
+      chips={[['fi-rr-gift', '100% free'], ['fi-rr-comment-check', 'No sales pressure'], ['fi-rr-shield-check', 'IP you fully own']]}
+    />
+
+  </div>
+  <Footer />
+</Layout>
+
+<style>
+  .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* ===== hero ===== */
+  .cs-hero { position: relative; overflow: hidden; padding: clamp(116px, 13vh, 168px) 0 clamp(40px, 5vw, 64px); background: linear-gradient(180deg, #f8fafc 0%, #eef3f9 100%); }
+  .cs-hero-grid { position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(14,165,233,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,.06) 1px, transparent 1px);
+    background-size: 44px 44px; mask-image: radial-gradient(75% 60% at 50% 0%, #000 0%, transparent 75%); }
+  .cs-hero-glow { position: absolute; top: -16%; left: 50%; transform: translateX(-50%); width: 720px; height: 620px; pointer-events: none;
+    background: radial-gradient(circle, rgba(14,165,233,.16), transparent 62%); filter: blur(8px); }
+
+  .cs-stats { margin-top: clamp(34px, 4vw, 52px); display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 0; }
+  .cs-stat { position: relative; display: flex; flex-direction: column; align-items: center; padding: 0 clamp(20px, 3vw, 44px); }
+  .cs-stat-n { font-size: clamp(26px, 3.2vw, 40px); font-weight: 900; letter-spacing: -.04em; line-height: 1;
+    background: linear-gradient(120deg, #0ea5e9, #6366f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .cs-stat-l { margin-top: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+  .cs-stat-div { position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 1px; height: 34px; background: var(--line); }
+  @media (max-width: 560px) { .cs-stat { flex-basis: 50%; padding: 14px 0; } .cs-stat-div { display: none; } }
+
+  /* ===== filter bar ===== */
+  .cs-filters { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: clamp(28px, 3vw, 40px); }
+  .cs-filter { padding: 10px 20px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink);
+    font-size: 14px; font-weight: 700; cursor: pointer; transition: background .25s, color .25s, border-color .25s, transform .25s; }
+  .cs-filter:hover { border-color: rgba(14,165,233,.45); transform: translateY(-1px); }
+  .cs-filter.is-active { background: var(--ink); color: #fff; border-color: transparent; }
+
+  /* ===== grid ===== */
+  .cs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 1.8vw, 22px); }
+  @media (max-width: 960px) { .cs-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .cs-grid { grid-template-columns: 1fr; } }
+
+  .cs-card { display: flex; }
+  .cs-card-link { display: flex; flex-direction: column; width: 100%; border-radius: 22px; overflow: hidden;
+    background: #fff; border: 1px solid var(--line); box-shadow: 0 10px 30px -22px rgba(35,38,46,.22);
+    transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s, border-color .35s; }
+  .cs-card-link:hover { transform: translateY(-5px); border-color: rgba(14,165,233,.4); box-shadow: 0 28px 56px -28px rgba(14,165,233,.34); }
+
+  .cs-cover { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--paper-2); }
+  .cs-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.16,1,.3,1); }
+  .cs-card-link:hover .cs-cover img { transform: scale(1.05); }
+  .cs-cover-shade { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(11,18,32,.05) 0%, rgba(11,18,32,.35) 60%, rgba(11,18,32,.78) 100%); }
+  .cs-cover.is-icon { background: radial-gradient(120% 100% at 0% 0%, rgba(56,189,248,.18), transparent 55%), radial-gradient(120% 110% at 100% 100%, rgba(99,102,241,.2), transparent 55%), linear-gradient(160deg, #0b1222, #0a1020); display: grid; place-items: center; }
+  .cs-cover-glow { position: absolute; inset: 0; background: radial-gradient(60% 60% at 50% 45%, rgba(56,189,248,.22), transparent 70%); }
+  .cs-iconwrap { position: relative; z-index: 1; display: grid; place-items: center; width: 70px; height: 70px; border-radius: 20px;
+    background: rgba(125,211,252,.12); border: 1px solid rgba(125,211,252,.3); color: #7dd3fc; font-size: 30px; line-height: 0;
+    box-shadow: 0 0 32px -6px rgba(56,189,248,.5); transition: transform .4s cubic-bezier(.16,1,.3,1); }
+  .cs-card-link:hover .cs-iconwrap { transform: rotate(-6deg) scale(1.06); }
+  .cs-chip { position: absolute; left: 14px; top: 14px; z-index: 2; font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+    color: var(--teal-dk); padding: 6px 11px; border-radius: 999px; background: rgba(255,255,255,.92); backdrop-filter: blur(6px); }
+  .cs-cover.is-icon .cs-chip { color: #7dd3fc; background: rgba(255,255,255,.08); border: 1px solid rgba(125,211,252,.25); }
+  .cs-client { position: absolute; left: 16px; bottom: 14px; z-index: 2; font-size: 24px; font-weight: 900; letter-spacing: -.03em; color: #fff; }
+
+  .cs-cbody { display: flex; flex-direction: column; flex: 1; padding: 22px; }
+  .cs-metric { display: inline-flex; align-items: baseline; gap: 7px; margin-bottom: 12px; }
+  .cs-metric b { font-size: 22px; font-weight: 900; letter-spacing: -.03em; line-height: 1;
+    background: linear-gradient(120deg, #0ea5e9, #6366f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .cs-metric span { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .cs-title { font-size: 17px; font-weight: 800; letter-spacing: -.02em; color: var(--ink); line-height: 1.3; }
+  .cs-desc { margin-top: 9px; font-size: 14.5px; line-height: 1.55; color: var(--muted); }
+  .cs-read { margin-top: auto; padding-top: 16px; display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 800; color: var(--teal-dk); }
+  .cs-read i { line-height: 0; transition: transform .3s; }
+  .cs-card-link:hover .cs-read i { transform: translateX(4px); }
+
+  .cs-empty { margin-top: 28px; text-align: center; color: var(--muted); font-size: 14.5px; }
+  .cs-empty a { font-weight: 800; color: var(--teal-dk); text-decoration: underline; text-underline-offset: 2px; }
+
+  /* ===== client quotes ===== */
+  .cs-quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 1.8vw, 22px); }
+  @media (max-width: 900px) { .cs-quotes { grid-template-columns: 1fr; max-width: 620px; margin-inline: auto; } }
+  .cs-quote { position: relative; margin: 0; padding: clamp(24px, 2.4vw, 32px); border-radius: 22px; background: #fff; border: 1px solid var(--line);
+    box-shadow: 0 14px 40px -30px rgba(35,38,46,.3); transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s, border-color .35s; }
+  .cs-quote:hover { transform: translateY(-4px); border-color: rgba(14,165,233,.35); box-shadow: 0 26px 54px -30px rgba(14,165,233,.34); }
+  .cs-quote-mark { position: absolute; top: 20px; right: 22px; font-size: 26px; line-height: 0; color: rgba(14,165,233,.28); }
+  .cs-quote blockquote { margin: 0; font-size: 15.5px; line-height: 1.55; font-weight: 500; color: var(--ink); }
+  .cs-quote figcaption { margin-top: 20px; display: flex; flex-direction: column; }
+  .cs-quote figcaption b { font-size: 14px; font-weight: 800; color: var(--ink); }
+  .cs-quote figcaption span { font-size: 12.5px; font-weight: 600; color: var(--teal-dk); }
+</style>
+
+<script>
+  // Filter the portfolio grid by category.
+  const root = document.getElementById('cshub')
+  if (root) {
+    const btns = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-filter]'))
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('.cs-card'))
+    const empty = root.querySelector<HTMLElement>('.cs-empty')
+    btns.forEach((b) => b.addEventListener('click', () => {
+      btns.forEach((x) => x.classList.toggle('is-active', x === b))
+      const f = b.dataset.filter || 'all'
+      let shown = 0
+      cards.forEach((c) => {
+        const cats = (c.dataset.cats || '').split(' ')
+        const show = f === 'all' || cats.includes(f)
+        c.style.display = show ? '' : 'none'
+        if (show) shown++
+      })
+      if (empty) empty.hidden = shown !== 0
+    }))
+  }
+</script>

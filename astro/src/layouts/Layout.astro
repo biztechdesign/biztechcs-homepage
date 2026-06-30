@@ -63,7 +63,7 @@ import '../styles/site.css'
          height so the content scrolls up and uncovers the fixed footer beneath it.
          Only on wide screens; below 1025px the footer is a normal static block. */
       const shell = document.querySelector('.page-shell')
-      const footer = document.querySelector('footer')
+      const footer = document.querySelector('.site-footer')
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       if (shell && footer && !reduce) {
         const sync = () => {
@@ -78,30 +78,6 @@ import '../styles/site.css'
         if (window.ResizeObserver) new ResizeObserver(sync).observe(footer)
       }
 
-      /* WhyBiztech tilted-card carousel — transform-based slide (overflow scroll was blocked
-         by the rotated cards, so we translateX the track instead). */
-      const why = document.querySelector('#why')
-      if (why) {
-        const carousel = why.querySelector('.rcarousel')
-        const track = why.querySelector('[data-rtrack]')
-        const cards = track ? track.querySelectorAll('.rcard') : []
-        if (carousel && track && cards.length) {
-          let idx = 0
-          const cardW = () => cards[0].offsetWidth + 22
-          const maxIdx = () => {
-            const visible = Math.max(1, Math.floor(carousel.clientWidth / cardW()))
-            return Math.max(0, cards.length - visible)
-          }
-          const apply = () => {
-            idx = Math.max(0, Math.min(idx, maxIdx()))
-            track.style.setProperty('--rx', (-idx * cardW()) + 'px')
-          }
-          why.querySelector('[data-rnext]')?.addEventListener('click', () => { idx++; apply() })
-          why.querySelector('[data-rprev]')?.addEventListener('click', () => { idx--; apply() })
-          window.addEventListener('resize', apply, { passive: true })
-          apply()
-        }
-      }
     </script>
   </body>
 </html>

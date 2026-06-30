@@ -86,6 +86,11 @@
   /* Headings use Lexend; body uses Source Sans 3 */
   h1,h2,h3,h4,h5,h6,.display{font-family:var(--font-head)}
 
+  /* Avoid widows/orphans site-wide: headings balance their lines so no single
+     word is left alone on the last line; body paragraphs avoid a stranded last word. */
+  h1,h2,h3,h4,h5,h6,.display{text-wrap:balance}
+  p,li,figcaption,blockquote{text-wrap:pretty}
+
   /* Display type */
   .display{font-weight:900;letter-spacing:-.04em;line-height:.92;text-transform:uppercase}
   .label{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
@@ -596,29 +601,34 @@
   /* The shell holds all content above the footer; it gets a solid bg + sits above the
      fixed footer, with margin-bottom == footer height (set by JS) so it scrolls up to reveal it. */
   .page-shell{position:relative;z-index:1;background:var(--page-bg)}
+  /* The page shell ends on a dark CTA band and is lifted off a fixed footer by margin-bottom.
+     A sub-pixel gap between the shell's bottom edge and the footer's top flashes the light page
+     bg as a thin white line. This dark bar bridges that gap (it extends a few px BELOW the shell
+     box, into the margin, matching the CTA-band/footer top colour) so no light seam shows. */
+  .page-shell::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:4px;background:#0B1220;z-index:0;pointer-events:none}
   @media (min-width: 1025px){
-    footer{position:fixed;left:0;right:0;bottom:0;z-index:0}
+    .site-footer{position:fixed;left:0;right:0;bottom:0;z-index:0}
   }
   @media (prefers-reduced-motion: reduce){
-    footer{position:relative!important}
+    .site-footer{position:relative!important}
     .page-shell{margin-bottom:0!important}
   }
 
   /* ===== Dark footer ===== */
-  footer{min-height:550px;background:linear-gradient(180deg,#0B1220,#0F172A);color:#9aa4b2;padding:48px 0 36px;overflow:hidden}
-  footer::before{content:"";position:absolute;inset:0;pointer-events:none;
+  .site-footer{min-height:550px;background:linear-gradient(180deg,#0B1220,#0F172A);color:#9aa4b2;padding:48px 0 36px;overflow:hidden}
+  .site-footer::before{content:"";position:absolute;inset:0;pointer-events:none;
        background:radial-gradient(60% 70% at 12% 0%,rgba(14,165,233,.12),transparent 60%),radial-gradient(50% 60% at 92% 0%,rgba(61,101,255,.1),transparent 62%)}
-  footer .wrap{position:relative;z-index:1}
+  .site-footer .wrap{position:relative;z-index:1}
   .foot-top{padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.08)}
   .foot-brand img{height:34px;margin-bottom:22px;filter:brightness(0) invert(1)}
   .foot-brand p{max-width:300px;font-size:15px;line-height:1.6;margin-bottom:24px;color:#9aa4b2}
   .foot-badges{display:flex;gap:10px;flex-wrap:wrap}
   .foot-badges span{border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:7px 13px;font-size:12px;font-weight:700;color:#e8eaed;background:rgba(255,255,255,.04)}
-  footer h4{color:#fff;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
-  footer ul{list-style:none}
-  footer li{margin-bottom:18px}
-  footer ul a{font-size:14.5px;color:#9aa4b2;transition:.2s}
-  footer ul a:hover{color:#fff}
+  .site-footer h4{color:#fff;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
+  .site-footer ul{list-style:none}
+  .site-footer li{margin-bottom:18px}
+  .site-footer ul a{font-size:14.5px;color:#9aa4b2;transition:.2s}
+  .site-footer ul a:hover{color:#fff}
   .foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding-top:30px;font-size:13px;color:#7c8696}
   .foot-bottom a{margin-left:20px;color:#9aa4b2;transition:.2s}
   .foot-bottom a:hover{color:#fff}

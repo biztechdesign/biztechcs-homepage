@@ -1,0 +1,59 @@
+---
+import CtaButton from './CtaButton.astro'
+const BASE = import.meta.env.BASE_URL
+// Shared end-of-page CTA band — ONE design used on every page. Pass page-specific
+// content via props. `chips` is an array of [flaticon-class, label] pairs.
+const {
+  badge = "Let's talk",
+  heading,
+  accent = '',
+  sub,
+  primaryLabel = 'Book a 30-min call',
+  primaryHref = `${BASE}/contact`,
+  mailHref = 'mailto:sales@biztechcs.com',
+  mailLabel = 'or email us',
+  chips = [
+    ['fi-rr-gift', '100% free'],
+    ['fi-rr-comment-check', 'No sales pressure'],
+    ['fi-rr-shield-check', 'IP you fully own'],
+  ],
+} = Astro.props
+---
+<section id="cta" class="surface-dark py-[clamp(64px,8vw,110px)]">
+  <div class="wrap">
+    <div data-reveal class="cta-card relative mx-auto max-w-[1100px] rounded-[28px] px-[clamp(28px,6vw,96px)] py-[clamp(40px,5vw,72px)] text-center">
+      <span class="cta-orb" aria-hidden="true"></span>
+      <span data-reveal style="--d:.04s" class="relative inline-flex items-center gap-2 rounded-full border border-sky-300/25 bg-sky-300/10 px-3.5 py-1.5 text-[12px] font-extrabold uppercase tracking-[0.14em] text-sky-300"><span class="cta-dot"></span> {badge}</span>
+      <h2 data-reveal style="--d:.08s" class="relative mt-5 text-[clamp(30px,4.4vw,56px)] font-black tracking-[-0.04em] leading-[1.04] text-white max-w-[760px] mx-auto">{heading}{accent ? <> <span class="accent-l">{accent}</span></> : null}</h2>
+      <p data-reveal style="--d:.12s" class="relative mt-5 text-[clamp(15px,1.2vw,18px)] text-white/65 max-w-[520px] mx-auto">{sub}</p>
+      <div data-reveal style="--d:.16s" class="relative mt-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+        <CtaButton href={primaryHref} label={primaryLabel} variant="light" />
+        {mailHref && (
+          <a href={mailHref} class="cta-mail inline-flex items-center gap-2 text-[14px] font-bold text-white/75 transition-colors hover:text-white"><i class="fi fi-rr-envelope text-sky-300"></i> {mailLabel}</a>
+        )}
+      </div>
+      {chips && chips.length > 0 && (
+        <ul data-reveal style="--d:.22s" class="relative mt-9 flex flex-wrap items-center justify-center gap-2.5 list-none p-0">
+          {chips.map(([ic, label]) => (
+            <li class="cta-chip inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[12.5px] font-bold text-white/80"><i class={`fi ${ic} text-sky-300 text-[13px]`}></i> {label}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .accent-l { background: linear-gradient(100deg, #7dd3fc, #38bdf8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  #cta.surface-dark { background: linear-gradient(180deg, #0B1220, #0F172A 55%, #0B1220); }
+  .cta-card { isolation: isolate; background: linear-gradient(165deg, rgba(125,211,252,.10), rgba(15,23,42,.30) 55%, rgba(11,18,32,.20)); border: 1px solid rgba(125,211,252,.18); box-shadow: 0 40px 90px -50px rgba(2,8,23,.9), inset 0 1px 0 rgba(255,255,255,.06); overflow: hidden; }
+  .cta-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; background-image: linear-gradient(rgba(125,211,252,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(125,211,252,.05) 1px, transparent 1px); background-size: 38px 38px; -webkit-mask-image: radial-gradient(120% 90% at 50% 0%, #000 35%, transparent 75%); mask-image: radial-gradient(120% 90% at 50% 0%, #000 35%, transparent 75%); }
+  .cta-card::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; z-index: 1; background: linear-gradient(90deg, transparent, rgba(125,211,252,.65), transparent); }
+  .cta-orb { position: absolute; z-index: 0; left: 50%; top: -40%; width: 620px; max-width: 120%; aspect-ratio: 1; transform: translateX(-50%); pointer-events: none; background: radial-gradient(circle, rgba(14,165,233,.30), rgba(56,189,248,.10) 45%, transparent 70%); filter: blur(8px); animation: ctaGlow 7s ease-in-out infinite; }
+  .cta-dot { width: 7px; height: 7px; border-radius: 999px; background: #7dd3fc; box-shadow: 0 0 0 0 rgba(125,211,252,.6); animation: ctaPulse 2s ease-out infinite; }
+  .cta-chip { background: rgba(255,255,255,.05); border: 1px solid rgba(125,211,252,.16); backdrop-filter: blur(6px); transition: border-color .25s, background .25s, transform .25s; }
+  .cta-chip:hover { border-color: rgba(125,211,252,.4); background: rgba(125,211,252,.10); transform: translateY(-2px); }
+  @keyframes ctaPulse { 0% { box-shadow: 0 0 0 0 rgba(125,211,252,.55); } 70% { box-shadow: 0 0 0 9px rgba(125,211,252,0); } 100% { box-shadow: 0 0 0 0 rgba(125,211,252,0); } }
+  @keyframes ctaGlow { 0%, 100% { opacity: .85; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.08); } }
+  @media (prefers-reduced-motion: reduce) { .cta-orb, .cta-dot { animation: none; } }
+</style>

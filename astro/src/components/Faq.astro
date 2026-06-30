@@ -1,12 +1,22 @@
 ---
-// These mirror the FAQPage JSON-LD in Layout.astro — visible content must match the schema.
-const FAQS = [
+// Shared FAQ section — ONE design used on every page. Pass page-specific content via props.
+// Defaults mirror the FAQPage JSON-LD in Layout.astro (homepage) — keep them in sync.
+const DEFAULT_FAQS = [
   { q: 'How do you handle time-zone differences?', a: 'We maintain daily working-hour overlap with US and European clients and have local offices in both regions — real-time collaboration during your day, plus progress overnight.' },
   { q: 'Who owns the intellectual property?', a: 'You do. We use US-style work-for-hire agreements with full IP transfer on payment, backed by NDAs and clear code ownership from day one.' },
   { q: 'How do you protect our data and stay compliant?', a: "We're ISO 27001 and 9001 certified, with encryption, strict access controls, and GDPR-aligned data handling built into our processes." },
   { q: 'What engagement models do you offer?', a: 'Dedicated teams, fixed-scope projects, or staff augmentation — all with transparent estimates and Agile delivery to avoid cost overruns.' },
   { q: 'How quickly can we get started?', a: "Most engagements begin within 1–2 weeks of a scoping call. Book a free 30-minute call and we'll outline a plan." },
 ]
+const {
+  items = DEFAULT_FAQS,
+  eyebrow = 'Questions, answered',
+  heading = 'The things buyers',
+  accent = 'ask us first.',
+  sub = 'Still unsure about something? Book a 30-minute call — no sales pressure, just straight answers from a senior engineer.',
+  ctaHref = '#cta',
+  ctaLabel = 'Ask us directly',
+} = Astro.props
 ---
 <section id="faq" class="surface-tint py-[var(--section-y)]">
   <div class="wrap grid grid-cols-[0.8fr_1.2fr] gap-[clamp(40px,6vw,90px)] items-start max-[900px]:grid-cols-1 max-[900px]:gap-9">
@@ -14,22 +24,24 @@ const FAQS = [
     <!-- left: framing -->
     <div class="max-[900px]:max-w-[640px] min-[900px]:sticky min-[900px]:top-28">
       <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
-        <i class="fi fi-rr-interrogation text-teal"></i> Questions, answered
+        <i class="fi fi-rr-interrogation text-teal"></i> {eyebrow}
       </span>
       <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(30px,4vw,52px)] font-black tracking-[-0.04em] leading-[1.04]">
-        The things buyers <span class="accent">ask us first.</span>
+        {heading}{accent ? <> <span class="accent">{accent}</span></> : null}
       </h2>
       <p data-reveal style="--d:.12s" class="mt-5 text-muted text-[clamp(15px,1.2vw,17px)] leading-[1.6] max-w-[400px]">
-        Still unsure about something? Book a 30-minute call — no sales pressure, just straight answers from a senior engineer.
+        {sub}
       </p>
-      <a data-reveal style="--d:.18s" href="#cta" class="seeall mt-7 inline-flex items-center gap-2 text-[14.5px] font-bold text-ink">
-        Ask us directly <i class="fi fi-rr-arrow-right"></i>
-      </a>
+      {ctaLabel && (
+        <a data-reveal style="--d:.18s" href={ctaHref} class="seeall mt-7 inline-flex items-center gap-2 text-[14.5px] font-bold text-ink">
+          {ctaLabel} <i class="fi fi-rr-arrow-right"></i>
+        </a>
+      )}
     </div>
 
     <!-- right: accordion -->
     <div class="faq-list">
-      {FAQS.map((f, i) => (
+      {items.map((f, i) => (
         <details data-reveal style={`--d:${(0.08 + i * 0.05).toFixed(2)}s`} class="faq-item group border-t border-line" open={i === 0}>
           <summary class="flex items-center justify-between gap-5 py-6 cursor-pointer list-none">
             <span class="text-[17px] max-[560px]:text-[16px] font-extrabold tracking-[-0.01em] text-ink">{f.q}</span>

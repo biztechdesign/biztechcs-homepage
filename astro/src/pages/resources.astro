@@ -1,0 +1,287 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import CtaBand from '../components/CtaBand.astro'
+
+const BASE = import.meta.env.BASE_URL
+const CDN = 'https://www.biztechcs.com/wp-content/uploads/2026/06'
+const BLOG = 'https://www.biztechcs.com/blog/'
+
+// Featured article (real post).
+const FEATURED = {
+  tag: 'AI & ML', read: '7 min read',
+  title: 'How Custom AI/ML Development Services Help Businesses Scale Faster',
+  excerpt: 'Where bespoke AI and machine-learning models deliver measurable scale — and how to pick the right problems to solve first, before you spend a rupee on a model.',
+  img: `${CDN}/How-Custom-AIML-Development-Services-Help-Businesses-Banner-Image-scaled.png`,
+  href: `${BASE}/blog/ai-ml-development-services`,
+}
+
+const FILTERS = [
+  { key: 'all', label: 'All articles' },
+  { key: 'ai', label: 'AI & ML' },
+  { key: 'erp', label: 'ERP & CRM' },
+  { key: 'ecommerce', label: 'Ecommerce' },
+  { key: 'cloud', label: 'Cloud & DevOps' },
+]
+
+// First two are real posts (specific URLs + banners); the rest are topical reads on the live blog.
+const POSTS = [
+  { cats: 'erp', tag: 'ERP', read: '8 min read', title: 'Odoo ERP Customization: Top Industries Getting the Most Out of It', img: `${CDN}/Banner-Image-Odoo-ERP-Customization-By-Industry-1-scaled.png`, href: 'https://www.biztechcs.com/blog/odoo-erp-customization/' },
+  { cats: 'erp', tag: 'Migration', read: '6 min read', title: 'Odoo Migration: How to Move Your ERP Data Without Losing a Single Record', img: `${CDN}/Three-stage-Odoo-migration-journey-scaled.webp`, href: 'https://www.biztechcs.com/blog/odoo-migration-services-without-losing-record/' },
+  { cats: 'ecommerce', tag: 'Ecommerce', read: '6 min read', ic: 'fi-rr-shopping-cart', title: 'Headless Commerce vs Traditional: Which Is Right for Your Store?', href: BLOG },
+  { cats: 'cloud', tag: 'Cloud', read: '9 min read', ic: 'fi-rr-cloud-upload-alt', title: 'A Practical Guide to Cloud Migration on AWS and Azure', href: BLOG },
+  { cats: 'ai', tag: 'AI & ML', read: '8 min read', ic: 'fi-rr-sparkles', title: 'Taking GenAI from Pilot to Production: Evals, Guardrails & Cost Controls', href: BLOG },
+  { cats: 'ai', tag: 'AI & ML', read: '7 min read', ic: 'fi-rr-brain', title: 'RAG vs Fine-Tuning: How to Choose Your LLM Strategy', href: BLOG },
+  { cats: 'ecommerce', tag: 'Ecommerce', read: '7 min read', ic: 'fi-rr-shop', title: 'Magento to Shopify: A Migration Playbook That Protects Your SEO', href: BLOG },
+  { cats: 'cloud', tag: 'DevOps', read: '6 min read', ic: 'fi-rr-settings', title: 'DevOps Done Right: CI/CD Pipelines That Actually Ship Faster', href: BLOG },
+]
+const newsChars = [...'Subscribe']
+---
+<Layout>
+  <Header />
+  <div class="page-shell" id="blhub">
+
+    <!-- ───────── HERO ───────── -->
+    <section class="bl-hero" id="top">
+      <span class="bl-hero-grid" aria-hidden="true"></span>
+      <span class="bl-hero-glow" aria-hidden="true"></span>
+      <div class="wrap relative text-center">
+        <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
+          <i class="fi fi-rr-pen-nib text-teal"></i> Resources &amp; blog
+        </span>
+        <h1 data-reveal style="--d:.06s" class="mt-6 text-[clamp(34px,5.2vw,60px)] font-black tracking-[-0.045em] leading-[1.04] text-ink max-w-[820px] mx-auto">
+          Insights from 19 years of <span class="accent">shipping software.</span>
+        </h1>
+        <p data-reveal style="--d:.12s" class="mt-6 text-[clamp(16px,1.3vw,18px)] leading-[1.65] text-muted max-w-[580px] mx-auto">
+          Technical deep-dives, playbooks and honest takes from our senior engineering team — on AI, ERP, ecommerce and cloud.
+        </p>
+      </div>
+    </section>
+
+    <!-- ───────── FEATURED ───────── -->
+    <section class="bl-feat-sec py-[clamp(8px,2vw,24px)]">
+      <div class="wrap">
+        <a href={FEATURED.href} data-reveal class="bl-feat group">
+          <div class="bl-feat-cover">
+            <img src={FEATURED.img} alt={FEATURED.title} loading="lazy" />
+            <span class="bl-feat-flag"><i class="fi fi-rr-bookmark"></i> Featured</span>
+          </div>
+          <div class="bl-feat-body">
+            <div class="bl-feat-meta">
+              <span class="bl-chip">{FEATURED.tag}</span>
+              <span class="bl-read"><i class="fi fi-rr-clock"></i> {FEATURED.read}</span>
+            </div>
+            <h2 class="bl-feat-title">{FEATURED.title}</h2>
+            <p class="bl-feat-ex">{FEATURED.excerpt}</p>
+            <span class="bl-feat-cta">Read the article <i class="fi fi-rr-arrow-right"></i></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ───────── ARTICLE GRID ───────── -->
+    <section class="bl-list py-[clamp(32px,4vw,56px)]">
+      <div class="wrap">
+        <div class="bl-list-head">
+          <h2 data-reveal class="text-[clamp(22px,2.4vw,30px)] font-black tracking-[-0.03em] text-ink">Latest articles</h2>
+          <a data-reveal href={BLOG} target="_blank" rel="noopener" class="bl-viewall">View all on the blog <i class="fi fi-rr-arrow-right"></i></a>
+        </div>
+
+        <div data-reveal class="bl-filters" role="tablist" aria-label="Filter articles">
+          {FILTERS.map((f, i) => (
+            <button class:list={['bl-filter', i === 0 && 'is-active']} data-filter={f.key}>{f.label}</button>
+          ))}
+        </div>
+
+        <div class="bl-grid">
+          {POSTS.map((p, i) => (
+            <article data-reveal style={`--d:${(0.04 + (i % 3) * 0.06).toFixed(2)}s`} class="bl-card" data-cats={p.cats}>
+              <a href={p.href} target="_blank" rel="noopener" class="bl-card-link group">
+                <div class:list={['bl-cover', !p.img && 'is-icon']}>
+                  {p.img && <img src={p.img} alt={p.title} loading="lazy" />}
+                  {!p.img && <span class="bl-cover-glow" aria-hidden="true"></span>}
+                  {!p.img && <span class="bl-iconwrap"><i class={`fi ${p.ic}`}></i></span>}
+                  <span class="bl-chip bl-chip-abs">{p.tag}</span>
+                </div>
+                <div class="bl-cbody">
+                  <h3 class="bl-title">{p.title}</h3>
+                  <div class="bl-cmeta">
+                    <span class="bl-read"><i class="fi fi-rr-clock"></i> {p.read}</span>
+                    <span class="bl-readnow">Read now <i class="fi fi-rr-arrow-right"></i></span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+
+        <p class="bl-empty" hidden>No articles in this category yet — <a href={BLOG} target="_blank" rel="noopener">browse the full blog</a>.</p>
+      </div>
+    </section>
+
+    <!-- ───────── NEWSLETTER ───────── -->
+    <section class="bl-news-sec py-[var(--section-y)]">
+      <div class="wrap">
+        <div data-reveal class="bl-news">
+          <span class="bl-news-orb" aria-hidden="true"></span>
+          <div class="bl-news-txt">
+            <span class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-sky-300"><i class="fi fi-rr-envelope"></i> Newsletter</span>
+            <h2 class="bl-news-h">One useful email a month.</h2>
+            <p class="bl-news-p">New deep-dives, engineering playbooks and the occasional honest opinion — no spam, unsubscribe anytime.</p>
+          </div>
+          <form id="newsForm" class="bl-news-form" action="mailto:sales@biztechcs.com" method="post" enctype="text/plain">
+            <input name="email" type="email" required placeholder="you@company.com" class="bl-news-input" aria-label="Email address" />
+            <button type="submit" class="btn-labs justify-center bl-news-btn">
+              <span class="lbl"><span class="roll">
+                <span class="top">{newsChars.map((c, i) => <span style={`--i:${i}`}>{c}</span>)}</span>
+                <span class="bot">{newsChars.map((c, i) => <span style={`--i:${i}`}>{c}</span>)}</span>
+              </span></span>
+              <span class="arrow"><i class="fi fi-rr-arrow-right"></i></span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── CTA (shared component) ───────── -->
+    <CtaBand
+      badge="Have a project?"
+      heading="Less reading,"
+      accent="more shipping."
+      sub="Book a free 30-minute call with a senior engineer and turn the ideas in these articles into a plan for your product."
+      chips={[['fi-rr-gift', '100% free'], ['fi-rr-comment-check', 'No sales pressure'], ['fi-rr-shield-check', 'IP you fully own']]}
+    />
+
+  </div>
+  <Footer />
+</Layout>
+
+<style>
+  .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* ===== hero ===== */
+  .bl-hero { position: relative; overflow: hidden; padding: clamp(116px, 13vh, 168px) 0 clamp(28px, 4vw, 48px); background: linear-gradient(180deg, #f8fafc 0%, #eef3f9 100%); }
+  .bl-hero-grid { position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(14,165,233,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,.06) 1px, transparent 1px);
+    background-size: 44px 44px; mask-image: radial-gradient(75% 60% at 50% 0%, #000 0%, transparent 75%); }
+  .bl-hero-glow { position: absolute; top: -16%; left: 50%; transform: translateX(-50%); width: 720px; height: 600px; pointer-events: none;
+    background: radial-gradient(circle, rgba(14,165,233,.16), transparent 62%); filter: blur(8px); }
+
+  /* ===== featured ===== */
+  .bl-feat { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 0; border-radius: 26px; overflow: hidden;
+    background: #fff; border: 1px solid var(--line); box-shadow: 0 20px 56px -34px rgba(35,38,46,.34);
+    transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s, border-color .4s; }
+  .bl-feat:hover { transform: translateY(-4px); border-color: rgba(14,165,233,.4); box-shadow: 0 34px 70px -34px rgba(14,165,233,.36); }
+  @media (max-width: 820px) { .bl-feat { grid-template-columns: 1fr; } }
+  .bl-feat-cover { position: relative; overflow: hidden; min-height: 280px; display: grid; place-items: center;
+    padding: clamp(14px, 1.6vw, 26px); background: linear-gradient(160deg, #ebf5f7, #e4edf7); }
+  .bl-feat-cover img { width: 100%; height: 100%; object-fit: contain; }
+  .bl-feat-flag { position: absolute; left: 16px; top: 16px; display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #fff;
+    padding: 7px 12px; border-radius: 999px; background: rgba(2,8,23,.55); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.18); }
+  .bl-feat-flag i { line-height: 0; }
+  .bl-feat-body { display: flex; flex-direction: column; justify-content: center; padding: clamp(26px, 3vw, 44px); }
+  .bl-feat-meta { display: flex; align-items: center; gap: 14px; }
+  .bl-feat-title { margin-top: 16px; font-size: clamp(21px, 2.4vw, 30px); font-weight: 900; letter-spacing: -.03em; line-height: 1.16; color: var(--ink); }
+  .bl-feat-ex { margin-top: 14px; font-size: 15px; line-height: 1.6; color: var(--muted); max-width: 480px; }
+  .bl-feat-cta { margin-top: 24px; display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 800; color: var(--teal-dk); }
+  .bl-feat-cta i { line-height: 0; transition: transform .3s; }
+  .bl-feat:hover .bl-feat-cta i { transform: translateX(4px); }
+
+  /* shared chip + read meta */
+  .bl-chip { font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--teal-dk);
+    padding: 6px 11px; border-radius: 999px; background: rgba(14,165,233,.1); }
+  .bl-read { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
+  .bl-read i { line-height: 0; }
+
+  /* ===== list head + filters ===== */
+  .bl-list-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: clamp(20px, 2.4vw, 30px); }
+  .bl-viewall { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 800; color: var(--ink); white-space: nowrap; }
+  .bl-viewall i { line-height: 0; transition: transform .3s; } .bl-viewall:hover { color: var(--teal-dk); } .bl-viewall:hover i { transform: translateX(4px); }
+  .bl-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: clamp(24px, 3vw, 36px); }
+  .bl-filter { padding: 9px 18px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink);
+    font-size: 13.5px; font-weight: 700; cursor: pointer; transition: background .25s, color .25s, border-color .25s, transform .25s; }
+  .bl-filter:hover { border-color: rgba(14,165,233,.45); transform: translateY(-1px); }
+  .bl-filter.is-active { background: var(--ink); color: #fff; border-color: transparent; }
+
+  /* ===== grid ===== */
+  .bl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 1.8vw, 24px); }
+  @media (max-width: 920px) { .bl-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .bl-grid { grid-template-columns: 1fr; } }
+  .bl-card { display: flex; }
+  .bl-card-link { display: flex; flex-direction: column; width: 100%; border-radius: 22px; overflow: hidden;
+    background: #fff; border: 1px solid var(--line); box-shadow: 0 10px 30px -22px rgba(35,38,46,.22);
+    transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s, border-color .35s; }
+  .bl-card-link:hover { transform: translateY(-5px); border-color: rgba(14,165,233,.4); box-shadow: 0 28px 56px -28px rgba(14,165,233,.34); }
+
+  .bl-cover { position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--paper-2); }
+  .bl-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .bl-cover.is-icon { display: grid; place-items: center; background: radial-gradient(120% 100% at 0% 0%, rgba(56,189,248,.18), transparent 55%), radial-gradient(120% 110% at 100% 100%, rgba(99,102,241,.2), transparent 55%), linear-gradient(160deg, #0b1222, #0a1020); }
+  .bl-cover-glow { position: absolute; inset: 0; background: radial-gradient(60% 60% at 50% 45%, rgba(56,189,248,.22), transparent 70%); }
+  .bl-iconwrap { position: relative; z-index: 1; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 18px;
+    background: rgba(125,211,252,.12); border: 1px solid rgba(125,211,252,.3); color: #7dd3fc; font-size: 27px; line-height: 0;
+    box-shadow: 0 0 30px -6px rgba(56,189,248,.5); transition: transform .4s cubic-bezier(.16,1,.3,1); }
+  .bl-card-link:hover .bl-iconwrap { transform: rotate(-6deg) scale(1.06); }
+  .bl-chip-abs { position: absolute; left: 14px; bottom: 14px; z-index: 2; background: rgba(255,255,255,.92); backdrop-filter: blur(6px); }
+  .bl-cover.is-icon .bl-chip-abs { color: #7dd3fc; background: rgba(255,255,255,.08); border: 1px solid rgba(125,211,252,.25); }
+
+  .bl-cbody { display: flex; flex-direction: column; flex: 1; padding: 22px; }
+  .bl-title { font-size: 16.5px; font-weight: 800; letter-spacing: -.02em; line-height: 1.35; color: var(--ink);
+    display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .bl-cmeta { margin-top: auto; padding-top: 18px; display: flex; align-items: center; justify-content: space-between; }
+  .bl-readnow { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; color: var(--teal-dk); }
+  .bl-readnow i { line-height: 0; transition: transform .3s; }
+  .bl-card-link:hover .bl-readnow i { transform: translateX(4px); }
+  .bl-empty { margin-top: 28px; text-align: center; color: var(--muted); font-size: 14.5px; }
+  .bl-empty a { font-weight: 800; color: var(--teal-dk); text-decoration: underline; text-underline-offset: 2px; }
+
+  /* ===== newsletter ===== */
+  .bl-news { position: relative; overflow: hidden; display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: clamp(24px, 4vw, 56px);
+    border-radius: 28px; padding: clamp(32px, 4vw, 56px);
+    background: radial-gradient(80% 120% at 0% 0%, rgba(56,189,248,.16), transparent 55%), linear-gradient(160deg, #0b1222 0%, #0a1020 60%, #0b1224 100%);
+    border: 1px solid rgba(125,211,252,.18); box-shadow: 0 40px 90px -50px rgba(2,8,23,.85); }
+  @media (max-width: 760px) { .bl-news { grid-template-columns: 1fr; } }
+  .bl-news-orb { position: absolute; right: -10%; top: -40%; width: 460px; height: 460px; pointer-events: none;
+    background: radial-gradient(circle, rgba(99,102,241,.3), transparent 65%); filter: blur(10px); }
+  .bl-news-txt { position: relative; z-index: 1; }
+  .bl-news-h { margin-top: 14px; font-size: clamp(24px, 2.8vw, 36px); font-weight: 900; letter-spacing: -.03em; line-height: 1.1; color: #fff; }
+  .bl-news-p { margin-top: 12px; font-size: 15px; line-height: 1.6; color: rgba(255,255,255,.66); max-width: 440px; }
+  .bl-news-form { position: relative; z-index: 1; display: flex; gap: 12px; max-[480px]:flex-direction: column; }
+  .bl-news-input { flex: 1; min-width: 0; border-radius: 12px; padding: 14px 16px; font-size: 15px; color: #fff; font-family: inherit;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(125,211,252,.22); transition: border-color .25s, box-shadow .25s, background .25s; }
+  .bl-news-input::placeholder { color: rgba(255,255,255,.45); }
+  .bl-news-input:focus { outline: none; border-color: #38bdf8; background: rgba(255,255,255,.1); box-shadow: 0 0 0 3px rgba(56,189,248,.18); }
+  .bl-news-btn { flex: none; }
+  @media (max-width: 480px) { .bl-news-form { flex-direction: column; } }
+</style>
+
+<script>
+  // category filter
+  const root = document.getElementById('blhub')
+  if (root) {
+    const btns = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-filter]'))
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('.bl-card'))
+    const empty = root.querySelector<HTMLElement>('.bl-empty')
+    btns.forEach((b) => b.addEventListener('click', () => {
+      btns.forEach((x) => x.classList.toggle('is-active', x === b))
+      const f = b.dataset.filter || 'all'
+      let shown = 0
+      cards.forEach((c) => {
+        const show = f === 'all' || (c.dataset.cats || '').split(' ').includes(f)
+        c.style.display = show ? '' : 'none'
+        if (show) shown++
+      })
+      if (empty) empty.hidden = shown !== 0
+    }))
+
+    // newsletter — build a mailto so it works without a backend
+    const form = document.getElementById('newsForm') as HTMLFormElement | null
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (!form.reportValidity()) return
+      const email = new FormData(form).get('email') || ''
+      window.location.href = `mailto:sales@biztechcs.com?subject=${encodeURIComponent('Newsletter signup')}&body=${encodeURIComponent('Please subscribe me to the BiztechCS newsletter: ' + email)}`
+    })
+  }
+</script>

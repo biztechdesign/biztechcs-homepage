@@ -1,0 +1,399 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import CtaButton from '../components/CtaButton.astro'
+import TrustBand from '../components/TrustBand.astro'
+import Faq from '../components/Faq.astro'
+import CtaBand from '../components/CtaBand.astro'
+
+const BASE = import.meta.env.BASE_URL
+const T = `${BASE}/assets/team`
+
+// hero proof stats
+const STATS = [
+  { n: '19+', label: 'Years leading' },
+  { n: '1,200+', label: 'Projects delivered' },
+  { n: '200+', label: 'People led' },
+  { n: '98%', label: 'Client retention' },
+]
+
+// ── C-suite spotlight (executive leadership) ──
+const EXECS = [
+  { name: 'Maulik Shah', role: 'Founder & CEO', img: `${T}/maulik.png`,
+    bio: 'Founded Biztech in 2006 with one idea — bridge business and technology. Nineteen years on, he leads a 200+ team and four product ventures, still customer-first.',
+    ln: 'https://www.linkedin.com/in/maulikshah/' },
+  { name: 'Amit Shah', role: 'Chief Financial Officer', img: `${T}/amit.png`,
+    bio: 'Owns the financial discipline that keeps engagements transparent and predictable — clear estimates, no cost overruns, and a business built to last.',
+    ln: 'https://www.linkedin.com/company/biztech-it-consultancy-pvt-ltd-/' },
+  { name: 'Kinjal Shah', role: 'Chief Human Resources Officer', img: `${T}/kinjal.png`,
+    bio: 'Builds the culture behind a Great-Place-To-Work-certified team — hiring senior talent, growing careers, and keeping the people you work with for the long haul.',
+    ln: 'https://www.linkedin.com/company/biztech-it-consultancy-pvt-ltd-/' },
+]
+
+// ── Full leadership roster (real team; initials avatar where no photo) ──
+const LEADERS = [
+  { name: 'Parth Pandya', role: 'AVP — Marketing', img: `${T}/parth.png` },
+  { name: 'Divyang Sonchhatra', role: 'AVP — Sales', img: `${T}/divyang.webp` },
+  { name: 'Jay Jagani', role: 'Sr. Product Manager', img: `${T}/jay.png` },
+  { name: 'Nikita Agarwal', role: 'Sr. HR Manager', img: null },
+  { name: 'Manish Gurnani', role: 'Sr. Delivery Manager', img: null },
+  { name: 'Pratik Shah', role: 'Sr. Project Manager', img: null },
+  { name: 'Namita Sheth', role: 'Sr. Project Manager', img: null },
+  { name: 'Dhaval Panara', role: 'Sr. Digital Marketing Manager', img: null },
+  { name: 'Uttam Jain', role: 'Lead Odoo Consultant', img: null },
+  { name: 'Jenis Sheth', role: 'Sr. Manager — Presales', img: null },
+]
+const initials = (n) => n.split(' ').map((w) => w[0]).slice(0, 2).join('').toUpperCase()
+
+// ── How we lead (leadership principles) ──
+const PRINCIPLES = [
+  { ic: 'fi-rr-user-headset', t: 'Accountable by name', d: 'Every engagement has a senior lead who owns the outcome end to end — a person, not a ticket queue.' },
+  { ic: 'fi-rr-comment-alt-check', t: 'Honest over easy', d: 'Transparent estimates and straight answers, even when the truth is harder to hear than the pitch.' },
+  { ic: 'fi-rr-users-alt', t: 'Lead from the front', d: 'Our leaders are senior engineers and operators first — close to the work, not above it.' },
+  { ic: 'fi-rr-seedling', t: 'Grow our people', d: 'We promote from within and invest in upskilling, so the team that starts with you only gets stronger.' },
+]
+
+// ── Departments led ──
+const DEPTS = [
+  { ic: 'fi-rr-code-simple', t: 'Engineering' },
+  { ic: 'fi-rr-apps', t: 'Product' },
+  { ic: 'fi-rr-rocket-lunch', t: 'Delivery' },
+  { ic: 'fi-rr-megaphone', t: 'Marketing' },
+  { ic: 'fi-rr-handshake', t: 'Sales & Presales' },
+  { ic: 'fi-rr-heart', t: 'People & Culture' },
+]
+
+// ── Leadership FAQ ──
+const FAQS = [
+  { q: 'Will I work directly with senior leaders?', a: 'Yes. Every engagement is assigned a senior lead — a project, product or delivery manager from this team — who owns your outcome and is your single point of accountability throughout.' },
+  { q: 'Who owns my project day to day?', a: 'A senior delivery or project manager runs your build, backed by the executive team. You get one accountable name, weekly standups and full visibility into every sprint.' },
+  { q: 'How experienced is your leadership?', a: 'Our leaders have run software delivery since 2006 across 1,200+ projects in 40+ countries — most are senior engineers or operators who came up through the work, not around it.' },
+  { q: 'Can I speak with a leader before committing?', a: 'Absolutely. Book a free 30-minute call and you\'ll speak with a senior leader who can scope your project honestly — no sales pressure.' },
+]
+---
+<Layout>
+  <Header />
+  <div class="page-shell">
+
+    <!-- ───────── HERO ───────── -->
+    <section class="ld-hero relative overflow-hidden" id="top">
+      <span class="ld-hero-grid" aria-hidden="true"></span>
+      <span class="ld-hero-glow" aria-hidden="true"></span>
+      <div class="wrap relative">
+        <div class="ld-hero-cols">
+          <div>
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
+              <i class="fi fi-rr-user-crown text-teal"></i> Leadership team
+            </span>
+            <h1 data-reveal style="--d:.06s" class="mt-6 text-[clamp(34px,5.2vw,60px)] font-black tracking-[-0.045em] leading-[1.04] text-ink max-w-[620px]">
+              The people who own <span class="accent">your outcome.</span>
+            </h1>
+            <p data-reveal style="--d:.12s" class="mt-7 text-[clamp(16px,1.3vw,18px)] leading-[1.65] text-muted max-w-[540px]">
+              Meet the leaders behind 1,200+ projects since 2006 — senior engineers and operators who run delivery, not a sales deck. With BiztechCS, you get a name, not a ticket queue.
+            </p>
+            <div data-reveal style="--d:.18s" class="mt-9 flex flex-wrap gap-3">
+              <CtaButton href="#cta" label="Talk to a senior lead" variant="dark" />
+              <a href="#team" class="ld-ghost">Meet the team <i class="fi fi-rr-arrow-down"></i></a>
+            </div>
+            <div data-reveal style="--d:.26s" class="ld-stats">
+              {STATS.map((s, i) => (
+                <div class="ld-stat">
+                  <div class="ld-stat-n">{s.n}</div>
+                  <div class="ld-stat-l">{s.label}</div>
+                  {i < STATS.length - 1 && <span class="ld-stat-div" aria-hidden="true"></span>}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- leadership at a glance (no person photo) -->
+          <div data-reveal style="--d:.16s" class="ld-snap" role="img" aria-label="BiztechCS leadership at a glance">
+            <span class="ld-snap-orb" aria-hidden="true"></span>
+            <div class="ld-snap-main">
+              <span class="ld-snap-ic"><i class="fi fi-rr-user-crown"></i></span>
+              <b>One accountable team</b>
+              <span>Senior-led since 2006</span>
+            </div>
+            <span class="ld-snap-badge ld-sb1"><b>13</b> leaders</span>
+            <span class="ld-snap-badge ld-sb2"><b>200+</b> team</span>
+            <span class="ld-snap-badge ld-sb3"><b>4</b> global offices</span>
+            <span class="ld-snap-badge ld-sb4"><i class="fi fi-rr-shield-check"></i> ISO 27001</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- recognized & certified (shared) -->
+    <TrustBand />
+
+    <!-- ───────── EXECUTIVE SPOTLIGHT ───────── -->
+    <section id="exec" class="py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center mb-[clamp(36px,4vw,52px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-diamond text-teal"></i> Executive leadership</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05] max-w-[720px] mx-auto">The team steering <span class="accent">the company.</span></h2>
+          <p data-reveal style="--d:.12s" class="mt-5 text-muted text-[clamp(15px,1.2vw,17px)] leading-[1.6] max-w-[580px] mx-auto">Three leaders who set the direction — and stay close enough to the work to be accountable for it.</p>
+        </div>
+        <div class="grid grid-cols-3 gap-[18px] max-[860px]:grid-cols-1 max-[860px]:max-w-[460px] max-[860px]:mx-auto">
+          {EXECS.map((p, i) => (
+            <article data-reveal style={`--d:${(0.08 + i * 0.07).toFixed(2)}s`} class="ld-exec group">
+              <span class="ld-exec-spot" aria-hidden="true"></span>
+              <div class="ld-exec-photo"><img src={p.img} alt={p.name} loading="lazy" /></div>
+              <div class="ld-exec-body">
+                <b class="ld-exec-name">{p.name}</b>
+                <span class="ld-exec-role">{p.role}</span>
+                <p class="ld-exec-bio">{p.bio}</p>
+                <a href={p.ln} target="_blank" rel="noopener" class="ld-exec-ln" aria-label={`${p.name} on LinkedIn`}><i class="fi fi-brands-linkedin"></i> LinkedIn</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── HOW WE LEAD (dark band) ───────── -->
+    <section id="principles" class="surface-dark py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="ld-lead-grid">
+          <div>
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em]"><i class="fi fi-rr-compass-alt"></i> How we lead</span>
+            <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,46px)] font-black tracking-[-0.04em] leading-[1.05] text-white">Leadership you can <span class="accent-l">hold to account.</span></h2>
+            <p data-reveal style="--d:.12s" class="mt-5 text-[clamp(15px,1.2vw,17px)] leading-[1.65] text-white/65 max-w-[520px]">
+              We don't hide behind account managers. Our leaders are senior practitioners who own your outcome by name — and lead a team that only gets stronger over time.
+            </p>
+            <div data-reveal style="--d:.2s" class="mt-8"><CtaButton href="#cta" label="Talk to a senior lead" variant="light" /></div>
+          </div>
+          <div data-reveal style="--d:.16s" class="ld-lead-tiles">
+            {PRINCIPLES.map((p) => (
+              <div class="ld-lead-tile">
+                <span class="ld-lead-ic"><i class={`fi ${p.ic}`}></i></span>
+                <h3 class="ld-lead-t">{p.t}</h3>
+                <p class="ld-lead-d">{p.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── FULL LEADERSHIP ROSTER ───────── -->
+    <section id="team" class="surface-tint py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center mb-[clamp(36px,4vw,52px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-users-alt text-teal"></i> The full team</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05] max-w-[680px] mx-auto">Meet the <span class="accent">leadership.</span></h2>
+          <p data-reveal style="--d:.12s" class="mt-5 text-muted text-[clamp(15px,1.2vw,17px)] leading-[1.6] max-w-[560px] mx-auto">The senior managers and specialists who run delivery, product and growth across every engagement.</p>
+        </div>
+        <div class="ld-roster">
+          {LEADERS.map((p, i) => (
+            <article data-reveal style={`--d:${(0.05 + (i % 5) * 0.05).toFixed(2)}s`} class="ld-card group">
+              <div class="ld-card-photo">
+                {p.img
+                  ? <img src={p.img} alt={p.name} loading="lazy" />
+                  : <span class="ld-card-initials" aria-hidden="true">{initials(p.name)}</span>}
+              </div>
+              <div class="ld-card-body">
+                <b class="ld-card-name">{p.name}</b>
+                <span class="ld-card-role">{p.role}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <!-- departments led -->
+        <div class="ld-depts" data-reveal>
+          <span class="ld-depts-label"><i class="fi fi-rr-sitemap"></i> Leading across</span>
+          <ul class="ld-depts-list">
+            {DEPTS.map((d) => (
+              <li><i class={`fi ${d.ic}`}></i> {d.t}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── TEAM STRENGTH ───────── -->
+    <section class="py-[var(--section-y)]">
+      <div class="wrap">
+        <div data-reveal class="ld-team-card">
+          <span class="ld-team-orb" aria-hidden="true"></span>
+          <div class="ld-team-banner">
+            <div>
+              <span class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-globe text-teal"></i> Behind the leaders</span>
+              <h2 class="mt-5 leading-[.9]"><span class="ld-team-num accent">200+</span><span class="block mt-2 text-[clamp(22px,3vw,34px)] font-black tracking-[-0.04em] text-ink">engineers, designers &amp; PMs.</span></h2>
+              <p class="mt-5 text-[15px] leading-[1.65] text-muted max-w-[460px]">This leadership team directs <b class="text-ink">200+ specialists</b> across the US, Europe and India — one accountable structure, time-zone-aligned to you.</p>
+              <ul class="ld-team-meta">
+                <li><i class="fi fi-rr-globe"></i> 4 global offices</li>
+                <li><i class="fi fi-rr-graduation-cap"></i> 80% senior engineers</li>
+                <li><i class="fi fi-rr-calendar"></i> 19+ years strong</li>
+              </ul>
+            </div>
+            <div class="ld-team-visual">
+              <div class="ld-avatars">
+                {[...EXECS, ...LEADERS.filter((p) => p.img)].slice(0, 6).map((p) => <span class="ld-av"><img src={p.img} alt="" loading="lazy" /></span>)}
+                <span class="ld-av ld-av-more">+200</span>
+              </div>
+              <p class="ld-team-cap">The people you'll actually work with.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── FAQ (shared component) ───────── -->
+    <Faq
+      items={FAQS}
+      eyebrow="Questions, answered"
+      heading="Working with our"
+      accent="leadership."
+      sub="How accountability actually works at BiztechCS — straight answers, no sales pressure."
+      ctaHref="#cta"
+      ctaLabel="Talk to a senior lead"
+    />
+
+    <!-- ───────── CTA (shared component) ───────── -->
+    <CtaBand
+      badge="Let's talk"
+      heading="Get a senior lead on your project"
+      accent="from day one."
+      sub="Book a free 30-minute call with a senior leader. We'll scope the outcome honestly — and stay accountable long after handoff."
+      chips={[['fi-rr-user-headset', 'Senior-led'], ['fi-rr-comment-check', 'No sales pressure'], ['fi-rr-shield-check', 'IP you fully own']]}
+    />
+
+  </div>
+  <Footer />
+</Layout>
+
+<style>
+  .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 0.12em; }
+  .accent-l { background: linear-gradient(100deg, #7dd3fc, #38bdf8); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 0.12em; }
+
+  /* First-paint hardening: promote the shell to its own paint layer so the fixed
+     sticky-reveal footer can't bleed through transparent sections before first repaint. */
+  :global(.page-shell) { transform: translateZ(0); }
+
+  /* ===== hero ===== */
+  .ld-hero { position: relative; padding-top: clamp(118px,11vw,156px); padding-bottom: clamp(40px,5vw,64px);
+    background: radial-gradient(70% 60% at 12% -10%, rgba(117,209,249,.16), transparent 60%),
+      radial-gradient(60% 55% at 100% 0%, rgba(61,101,255,.07), transparent 58%), linear-gradient(180deg, #F4F8FD, #EEF3F9); }
+  .ld-hero-grid { position: absolute; inset: 0; pointer-events: none; opacity: .5;
+    background-image: linear-gradient(rgba(15,23,42,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,.04) 1px, transparent 1px);
+    background-size: 46px 46px; -webkit-mask-image: radial-gradient(70% 60% at 50% 30%, #000, transparent 80%); mask-image: radial-gradient(70% 60% at 50% 30%, #000, transparent 80%); }
+  .ld-hero-glow { position: absolute; right: -8%; top: -20%; width: 55%; height: 120%; border-radius: 50%; background: radial-gradient(circle, rgba(56,189,248,.16), transparent 65%); pointer-events: none; }
+  .ld-hero-cols { display: grid; grid-template-columns: 1.12fr 0.88fr; gap: clamp(32px,5vw,72px); align-items: center; }
+  @media (max-width: 940px) { .ld-hero-cols { grid-template-columns: 1fr; } }
+
+  .ld-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 16px 24px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); font-weight: 600; font-size: 15px; transition: border-color .25s, transform .25s, color .25s; }
+  .ld-ghost:hover { border-color: rgba(14,165,233,.5); color: var(--teal-dk); transform: translateY(-1px); } .ld-ghost i { line-height: 0; }
+
+  .ld-stats { margin-top: clamp(30px,3.4vw,42px); display: flex; flex-wrap: wrap; align-items: center; gap: 8px 0; }
+  .ld-stat { position: relative; display: flex; flex-direction: column; padding-right: clamp(18px,2.4vw,34px); }
+  .ld-stat-n { font-size: clamp(24px,2.8vw,34px); font-weight: 900; letter-spacing: -.04em; line-height: 1;
+    background: linear-gradient(120deg, #0ea5e9, #6366f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .ld-stat-l { margin-top: 7px; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+  .ld-stat-div { position: absolute; right: 0; top: 4px; bottom: 4px; width: 1px; background: var(--line); }
+  @media (max-width: 560px) { .ld-stat { flex-basis: 50%; padding: 12px 0; } .ld-stat-div { display: none; } }
+
+  /* ===== leadership at a glance (icon card, no photo) ===== */
+  @keyframes ldGlow { 0%,100% { opacity: .7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.12); } }
+  .ld-snap { position: relative; width: min(420px,100%); aspect-ratio: 1; margin-inline: auto; }
+  .ld-snap-orb { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 78%; aspect-ratio: 1; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, rgba(56,189,248,.22), transparent 62%); filter: blur(6px); }
+  @media (prefers-reduced-motion: no-preference) { .ld-snap-orb { animation: ldGlow 7s ease-in-out infinite; } }
+  .ld-snap-main { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 58%; aspect-ratio: 1; display: grid; place-content: center; text-align: center; gap: 7px; padding: 24px; border-radius: 28px; background: #fff; border: 1px solid var(--line); box-shadow: 0 30px 70px -34px rgba(14,165,233,.45); z-index: 2; }
+  @media (prefers-reduced-motion: no-preference) { .ld-snap-main { animation: ldFloat 5s ease-in-out infinite; } }
+  @keyframes ldFloat { 0%,100% { transform: translate(-50%,-50%); } 50% { transform: translate(-50%,calc(-50% - 8px)); } }
+  .ld-snap-ic { display: grid; place-items: center; width: 56px; height: 56px; margin: 0 auto 4px; border-radius: 16px; font-size: 24px; line-height: 0; background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.2); color: var(--teal-dk); }
+  .ld-snap-main b { font-size: 18px; font-weight: 900; letter-spacing: -.02em; color: var(--ink); }
+  .ld-snap-main span { font-size: 11.5px; font-weight: 600; color: var(--muted); line-height: 1.3; }
+  .ld-snap-badge { position: absolute; display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px; border-radius: 999px; background: #fff; border: 1px solid var(--line); box-shadow: 0 14px 34px -18px rgba(35,38,46,.4); font-size: 13px; font-weight: 700; color: var(--ink); white-space: nowrap; z-index: 3; }
+  .ld-snap-badge b { color: var(--teal-dk); font-weight: 900; }
+  .ld-snap-badge i { color: var(--teal); font-size: 13px; line-height: 0; }
+  .ld-sb1 { top: 6%; left: -4%; } .ld-sb2 { top: 22%; right: -6%; } .ld-sb3 { bottom: 20%; left: -8%; } .ld-sb4 { bottom: 4%; right: 2%; }
+  @media (prefers-reduced-motion: no-preference) {
+    .ld-sb1 { animation: ldB 4.5s ease-in-out infinite; } .ld-sb2 { animation: ldB 4.5s ease-in-out .6s infinite; }
+    .ld-sb3 { animation: ldB 4.5s ease-in-out 1.2s infinite; } .ld-sb4 { animation: ldB 4.5s ease-in-out 1.8s infinite; }
+  }
+  @keyframes ldB { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+
+  /* ===== executive spotlight ===== */
+  .ld-exec { position: relative; overflow: hidden; border-radius: 24px; background: #fff; border: 1px solid var(--line); box-shadow: 0 10px 30px -22px rgba(35,38,46,.22); transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s, border-color .35s; }
+  .ld-exec:hover { transform: translateY(-5px); border-color: rgba(14,165,233,.4); box-shadow: 0 26px 56px -28px rgba(14,165,233,.32); }
+  .ld-exec-spot { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .35s; background: radial-gradient(360px circle at 50% 0%, rgba(56,189,248,.14), transparent 60%); }
+  .ld-exec:hover .ld-exec-spot { opacity: 1; }
+  .ld-exec-photo { position: relative; z-index: 1; aspect-ratio: 1; overflow: hidden; background: #eef2f7; }
+  .ld-exec-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform .5s cubic-bezier(.16,1,.3,1); }
+  .ld-exec:hover .ld-exec-photo img { transform: scale(1.05); }
+  .ld-exec-body { position: relative; z-index: 1; padding: clamp(20px,2.2vw,26px); }
+  .ld-exec-name { display: block; font-size: 19px; font-weight: 900; letter-spacing: -.02em; color: var(--ink); }
+  .ld-exec-role { display: block; margin-top: 2px; font-size: 13px; font-weight: 700; color: var(--teal-dk); }
+  .ld-exec-bio { margin-top: 14px; font-size: 14px; line-height: 1.6; color: var(--muted); }
+  .ld-exec-ln { margin-top: 16px; display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 800; color: var(--ink); transition: color .25s; }
+  .ld-exec-ln i { color: #0a66c2; font-size: 15px; line-height: 0; }
+  .ld-exec-ln:hover { color: var(--teal-dk); }
+
+  /* ===== how we lead (dark) ===== */
+  .ld-lead-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(32px,5vw,64px); align-items: center; }
+  @media (max-width: 900px) { .ld-lead-grid { grid-template-columns: 1fr; } }
+  .ld-lead-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 480px) { .ld-lead-tiles { grid-template-columns: 1fr; } }
+  .ld-lead-tile { padding: 24px; border-radius: 20px; background: rgba(255,255,255,.04); border: 1px solid rgba(125,211,252,.16); transition: border-color .3s, background .3s, transform .3s; }
+  .ld-lead-tile:hover { border-color: rgba(125,211,252,.4); background: rgba(125,211,252,.07); transform: translateY(-3px); }
+  .ld-lead-ic { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 13px; background: rgba(125,211,252,.12); border: 1px solid rgba(125,211,252,.25); color: #7dd3fc; font-size: 19px; line-height: 0; }
+  .ld-lead-t { margin-top: 16px; font-size: 16px; font-weight: 800; letter-spacing: -.01em; color: #fff; }
+  .ld-lead-d { margin-top: 7px; font-size: 13.5px; line-height: 1.55; color: rgba(255,255,255,.6); }
+
+  /* ===== full roster ===== */
+  .ld-roster { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  @media (max-width: 980px) { .ld-roster { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 620px) { .ld-roster { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 380px) { .ld-roster { grid-template-columns: 1fr; } }
+  .ld-card { overflow: hidden; border-radius: 20px; background: #fff; border: 1px solid var(--line); box-shadow: 0 10px 30px -22px rgba(35,38,46,.2); transition: transform .35s cubic-bezier(.16,1,.3,1), border-color .35s, box-shadow .35s; }
+  .ld-card:hover { transform: translateY(-4px); border-color: rgba(14,165,233,.4); box-shadow: 0 22px 46px -26px rgba(14,165,233,.28); }
+  .ld-card-photo { position: relative; aspect-ratio: 1; overflow: hidden; background: linear-gradient(160deg, #eef4fa, #e2ecf5); display: grid; place-items: center; }
+  .ld-card-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform .5s cubic-bezier(.16,1,.3,1); }
+  .ld-card:hover .ld-card-photo img { transform: scale(1.05); }
+  .ld-card-initials { font-size: clamp(28px,4vw,40px); font-weight: 900; letter-spacing: -.03em; line-height: 1;
+    background: linear-gradient(140deg, #0ea5e9, #6366f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .ld-card-body { padding: 16px 18px 20px; }
+  .ld-card-name { display: block; font-size: 14.5px; font-weight: 800; letter-spacing: -.01em; color: var(--ink); line-height: 1.25; }
+  .ld-card-role { display: block; margin-top: 3px; font-size: 12.5px; font-weight: 600; color: var(--muted); line-height: 1.4; }
+
+  /* departments led */
+  .ld-depts { margin-top: clamp(36px,4vw,52px); display: flex; flex-wrap: wrap; align-items: center; gap: 14px clamp(16px,2.4vw,28px); justify-content: center;
+    padding: clamp(18px,2.2vw,26px) clamp(20px,3vw,36px); border-radius: 22px; background: #fff; border: 1px solid var(--line); box-shadow: 0 16px 44px -32px rgba(35,38,46,.24); }
+  .ld-depts-label { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .ld-depts-label i { color: var(--teal); font-size: 14px; line-height: 0; }
+  .ld-depts-list { display: flex; flex-wrap: wrap; gap: 8px 10px; list-style: none; margin: 0; padding: 0; }
+  .ld-depts-list li { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; color: var(--ink); background: rgba(14,165,233,.06); border: 1px solid rgba(14,165,233,.16); }
+  .ld-depts-list i { color: var(--teal-dk); font-size: 13px; line-height: 0; }
+
+  /* ===== team strength panel ===== */
+  .ld-team-card { position: relative; overflow: hidden; border-radius: 28px;
+    background: radial-gradient(120% 130% at 100% 0%, rgba(56,189,248,.14), transparent 55%), linear-gradient(160deg, #fff, #F1F7FD);
+    border: 1px solid var(--line); box-shadow: 0 30px 70px -40px rgba(14,165,233,.4); padding: clamp(28px,4vw,52px); }
+  .ld-team-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .3;
+    background-image: linear-gradient(rgba(14,165,233,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,.05) 1px, transparent 1px);
+    background-size: 56px 56px; -webkit-mask-image: radial-gradient(80% 100% at 0% 50%, #000, transparent 70%); mask-image: radial-gradient(80% 100% at 0% 50%, #000, transparent 70%); }
+  .ld-team-orb { position: absolute; right: -8%; top: -30%; width: 46%; aspect-ratio: 1; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, rgba(56,189,248,.28), transparent 65%); filter: blur(6px); }
+  @media (prefers-reduced-motion: no-preference) { .ld-team-orb { animation: ldGlow 7s ease-in-out infinite; } }
+  .ld-team-banner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px,5vw,64px); align-items: center; }
+  @media (max-width: 900px) { .ld-team-banner { grid-template-columns: 1fr; } }
+  .ld-team-num { display: inline-block; font-size: clamp(60px,8vw,104px); font-weight: 900; letter-spacing: -.05em; line-height: .88; filter: drop-shadow(0 14px 30px rgba(14,165,233,.28)); }
+  .ld-team-meta { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 22px; list-style: none; padding: 0; }
+  .ld-team-meta li { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: 999px; font-size: 12.5px; font-weight: 700; color: var(--ink); background: rgba(255,255,255,.7); border: 1px solid var(--line); }
+  .ld-team-meta i { color: var(--teal-dk); font-size: 13px; line-height: 0; }
+  .ld-team-visual { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; text-align: center; }
+  @media (max-width: 900px) { .ld-team-visual { align-items: flex-start; text-align: left; } }
+  .ld-avatars { display: flex; align-items: center; }
+  .ld-av { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; border: 3px solid #fff; background: #e8eef5; margin-left: -16px; box-shadow: 0 8px 20px -10px rgba(35,38,46,.4); }
+  .ld-av:first-child { margin-left: 0; }
+  .ld-av img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .ld-av-more { display: grid; place-items: center; background: linear-gradient(150deg,#0ea5e9,#0369a1); color: #fff; font-size: 15px; font-weight: 800; letter-spacing: -.02em; }
+  @media (max-width: 420px) { .ld-av { width: 50px; height: 50px; margin-left: -13px; } }
+  .ld-team-cap { font-size: 14px; font-weight: 700; color: var(--ink); }
+
+  @media (prefers-reduced-motion: reduce) { .ld-snap-orb, .ld-snap-main, .ld-snap-badge, .ld-team-orb { animation: none; } }
+</style>

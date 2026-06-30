@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 import CtaButton from '../components/CtaButton.astro'
+import Faq from '../components/Faq.astro'
+import CtaBand from '../components/CtaBand.astro'
 
 const BASE = import.meta.env.BASE_URL
 const CDN = 'https://www.biztechcs.com/wp-content/uploads'
@@ -305,7 +307,7 @@ const FAQS = [
         <!-- leadership -->
         <div class="flex flex-wrap items-end justify-between gap-6 mt-[clamp(48px,6vw,72px)] mb-[clamp(28px,3.4vw,40px)]">
           <h3 data-reveal class="text-[clamp(20px,2.4vw,28px)] font-black tracking-[-0.03em] text-ink">Meet the <span class="accent">leadership.</span></h3>
-          <a data-reveal style="--d:.06s" href="https://www.biztechcs.com/leadership-team/" target="_blank" rel="noopener" class="co-all inline-flex items-center gap-2 text-[14.5px] font-bold text-ink whitespace-nowrap">View full team <i class="fi fi-rr-arrow-right"></i></a>
+          <a data-reveal style="--d:.06s" href={`${BASE}/leadership`} class="co-all inline-flex items-center gap-2 text-[14.5px] font-bold text-ink whitespace-nowrap">View full team <i class="fi fi-rr-arrow-right"></i></a>
         </div>
         <div class="grid grid-cols-6 gap-[16px] max-[900px]:grid-cols-3 max-[520px]:grid-cols-2">
           {LEADERS.map((p, i) => (
@@ -411,50 +413,25 @@ const FAQS = [
       </div>
     </section>
 
-    <!-- ───────── FAQ ───────── -->
-    <section class="surface-tint py-[var(--section-y)]">
-      <div class="wrap">
-        <div class="co-faq-grid">
-          <div class="co-faq-head">
-            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-interrogation text-teal"></i> FAQ</span>
-            <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05]">About working with us.</h2>
-            <p data-reveal style="--d:.12s" class="mt-5 text-[15px] leading-[1.65] text-muted max-w-[360px]">Still have a question? <a href="#cta" class="font-bold text-teal-dk underline underline-offset-2">Talk to our team</a> — we'll give you a straight answer.</p>
-          </div>
-          <div class="flex flex-col gap-3">
-            {FAQS.map((f, i) => (
-              <details data-reveal style={`--d:${(0.06 + i * 0.05).toFixed(2)}s`} class="co-faq rounded-2xl bg-white border border-line">
-                <summary class="flex items-center justify-between gap-4 cursor-pointer px-6 py-5">
-                  <span class="text-[16px] font-extrabold text-ink">{f.q}</span>
-                  <i class="fi fi-rr-plus-small text-teal-dk text-[20px] shrink-0"></i>
-                </summary>
-                <p class="px-6 pb-5 text-[14.5px] leading-[1.6] text-muted">{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- ───────── FAQ (shared component) ───────── -->
+    <Faq
+      items={FAQS}
+      eyebrow="FAQ"
+      heading="About working"
+      accent="with us."
+      sub="Still have a question? We'll give you a straight answer — no sales pressure."
+      ctaHref="#cta"
+      ctaLabel="Talk to our team"
+    />
 
-    <!-- ───────── CTA ───────── -->
-    <section id="cta" class="surface-dark py-[clamp(64px,8vw,110px)]">
-      <div class="wrap">
-        <div data-reveal class="cta-card relative mx-auto max-w-[1100px] rounded-[28px] px-[clamp(28px,6vw,96px)] py-[clamp(40px,5vw,72px)] text-center">
-          <span class="cta-orb" aria-hidden="true"></span>
-          <span data-reveal style="--d:.04s" class="relative inline-flex items-center gap-2 rounded-full border border-sky-300/25 bg-sky-300/10 px-3.5 py-1.5 text-[12px] font-extrabold uppercase tracking-[0.14em] text-sky-300"><span class="cta-dot"></span> Let's talk</span>
-          <h2 data-reveal style="--d:.08s" class="relative mt-5 text-[clamp(30px,4.4vw,56px)] font-black tracking-[-0.04em] leading-[1.04] text-white max-w-[760px] mx-auto">Build something that lasts <span class="accent-l">— with us.</span></h2>
-          <p data-reveal style="--d:.12s" class="relative mt-5 text-[clamp(15px,1.2vw,18px)] text-white/65 max-w-[520px] mx-auto">Book a free 30-minute call with a senior engineer — no sales pressure, just a clear plan for your project.</p>
-          <div data-reveal style="--d:.16s" class="relative mt-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-            <CtaButton href={`${BASE}/#cta`} label="Book a 30-min call" variant="light" />
-            <a href="mailto:sales@biztechcs.com" class="cta-mail inline-flex items-center gap-2 text-[14px] font-bold text-white/75 transition-colors hover:text-white"><i class="fi fi-rr-envelope text-sky-300"></i> or email us</a>
-          </div>
-          <ul data-reveal style="--d:.22s" class="relative mt-9 flex flex-wrap items-center justify-center gap-2.5 list-none p-0">
-            {[['fi-rr-gift', '100% free'], ['fi-rr-comment-check', 'No sales pressure'], ['fi-rr-shield-check', 'IP you fully own']].map(([ic, label]) => (
-              <li class="cta-chip inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[12.5px] font-bold text-white/80"><i class={`fi ${ic} text-sky-300 text-[13px]`}></i> {label}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
+    <!-- ───────── CTA (shared component) ───────── -->
+    <CtaBand
+      badge="Let's talk"
+      heading="Build something that lasts"
+      accent="— with us."
+      sub="Book a free 30-minute call with a senior engineer — no sales pressure, just a clear plan for your project."
+      chips={[['fi-rr-gift', '100% free'], ['fi-rr-comment-check', 'No sales pressure'], ['fi-rr-shield-check', 'IP you fully own']]}
+    />
 
   </div>
   <Footer />
@@ -649,25 +626,7 @@ const FAQS = [
   .co-tq-by b { display: block; font-size: 14.5px; font-weight: 800; color: var(--ink); line-height: 1.2; }
   .co-tq-by em { display: block; font-style: normal; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
 
-  /* faq */
-  .co-faq-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.4fr); gap: clamp(32px,5vw,72px); align-items: start; }
-  .co-faq-head { position: sticky; top: 110px; }
-  @media (max-width: 860px) { .co-faq-grid { grid-template-columns: 1fr; gap: clamp(28px,5vw,40px); } .co-faq-head { position: static; } }
-  .co-faq summary { list-style: none; } .co-faq summary::-webkit-details-marker { display: none; }
-  .co-faq summary i { transition: transform .3s; } .co-faq[open] summary i { transform: rotate(45deg); }
-  .co-faq[open] { box-shadow: 0 14px 36px -26px rgba(35,38,46,.24); }
 
-  /* final CTA — glow panel (matches other pages) */
-  #cta.surface-dark { background: linear-gradient(180deg, #0B1220, #0F172A 55%, #0B1220); }
-  .cta-card { isolation: isolate; background: linear-gradient(165deg, rgba(125,211,252,.10), rgba(15,23,42,.30) 55%, rgba(11,18,32,.20)); border: 1px solid rgba(125,211,252,.18); box-shadow: 0 40px 90px -50px rgba(2,8,23,.9), inset 0 1px 0 rgba(255,255,255,.06); overflow: hidden; }
-  .cta-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; background-image: linear-gradient(rgba(125,211,252,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(125,211,252,.05) 1px, transparent 1px); background-size: 38px 38px; -webkit-mask-image: radial-gradient(120% 90% at 50% 0%, #000 35%, transparent 75%); mask-image: radial-gradient(120% 90% at 50% 0%, #000 35%, transparent 75%); }
-  .cta-card::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; z-index: 1; background: linear-gradient(90deg, transparent, rgba(125,211,252,.65), transparent); }
-  .cta-orb { position: absolute; z-index: 0; left: 50%; top: -40%; width: 620px; max-width: 120%; aspect-ratio: 1; transform: translateX(-50%); pointer-events: none; background: radial-gradient(circle, rgba(14,165,233,.30), rgba(56,189,248,.10) 45%, transparent 70%); filter: blur(8px); animation: ctaGlow 7s ease-in-out infinite; }
-  .cta-dot { width: 7px; height: 7px; border-radius: 999px; background: #7dd3fc; box-shadow: 0 0 0 0 rgba(125,211,252,.6); animation: ctaPulse 2s ease-out infinite; }
-  .cta-chip { background: rgba(255,255,255,.05); border: 1px solid rgba(125,211,252,.16); backdrop-filter: blur(6px); transition: border-color .25s, background .25s, transform .25s; }
-  .cta-chip:hover { border-color: rgba(125,211,252,.4); background: rgba(125,211,252,.10); transform: translateY(-2px); }
-  @keyframes ctaPulse { 0% { box-shadow: 0 0 0 0 rgba(125,211,252,.55); } 70% { box-shadow: 0 0 0 9px rgba(125,211,252,0); } 100% { box-shadow: 0 0 0 0 rgba(125,211,252,0); } }
-  @keyframes ctaGlow { 0%, 100% { opacity: .85; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.08); } }
   @media (prefers-reduced-motion: reduce) { .co-snap-main, .co-badge, .co-tx-row, .cta-orb, .cta-dot, .co-life-ring { animation: none; } }
 </style>
 

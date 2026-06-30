@@ -46,25 +46,21 @@ i.fi::before { display: block; line-height: 1; }
 
 /* WhyBiztech tilted floating-card carousel (labs.google style) — kept global so
    Astro/Lightning-CSS scoping quirks can't drop it. */
-#why .rcarousel { overflow: hidden; padding: 26px 0 34px; }
+#why .rcarousel { overflow: visible; padding: 26px 0 34px; }
+/* all cards shown at once in a responsive grid (no carousel/swiping) */
 #why .rtrack {
-  display: flex; gap: 22px; align-items: stretch;
-  transform: translateX(var(--rx, 0px));
-  transition: transform .5s cubic-bezier(.16,1,.3,1);
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch;
 }
-/* cards fill the container: 4 per view on desktop (gap 22px), fewer on smaller screens */
 #why .rcard {
-  flex: 0 0 calc((100% - 3 * 22px) / 4);
   display: flex; flex-direction: column; padding: 30px; border-radius: 26px;
   background: #fff; border: 1px solid var(--line);
-  transform: rotate(var(--tilt, 0deg));
   box-shadow: 0 18px 44px -26px rgba(15, 23, 42, 0.28);
   transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s, border-color .3s;
 }
-@media (max-width: 1100px) { #why .rcard { flex-basis: calc((100% - 22px) / 2); } }
-@media (max-width: 680px) { #why .rcard { flex-basis: 100%; } }
+@media (max-width: 1100px) { #why .rtrack { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 680px) { #why .rtrack { grid-template-columns: 1fr; } }
 #why .rcard:hover {
-  transform: rotate(0deg) translateY(-8px) scale(1.02);
+  transform: translateY(-8px) scale(1.02);
   box-shadow: 0 34px 70px -28px rgba(14, 165, 233, 0.4);
   border-color: rgba(14, 165, 233, 0.35); z-index: 2;
 }
@@ -76,11 +72,4 @@ i.fi::before { display: block; line-height: 1; }
 }
 #why .rcard:hover .ricon { background: var(--teal); border-color: transparent; color: #fff; transform: rotate(-6deg); }
 #why .ricon i { color: inherit; }
-#why .rnav {
-  display: grid; place-items: center; width: 50px; height: 50px; border-radius: 999px;
-  background: #fff; border: 1px solid var(--line); color: var(--ink); cursor: pointer;
-  box-shadow: 0 10px 28px -16px rgba(15,23,42,.3); transition: transform .25s, background .25s, color .25s;
-}
-#why .rnav i { font-size: 16px; }
-#why .rnav:hover { background: var(--teal); color: #fff; border-color: transparent; transform: translateY(-2px); }
-@media (prefers-reduced-motion: reduce) { #why .rcard { transform: none; } #why .rtrack { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) { #why .rcard { transform: none; } }

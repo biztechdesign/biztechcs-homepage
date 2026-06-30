@@ -1,0 +1,286 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import GlobalOffices from '../components/GlobalOffices.astro'
+import Faq from '../components/Faq.astro'
+
+// ── What happens after you reach out ──
+const STEPS = [
+  { t: 'You reach out', d: 'Send the form or email us directly. A senior engineer reads it — not a bot — and replies within one business day.' },
+  { t: 'We scope it together', d: 'A free 30-minute call to align on goals, approach and fit. No sales pressure, honest answers about what will and won\'t work.' },
+  { t: 'You get a plan', d: 'A clear proposal: team, milestones, timeline and a fixed-scope or T&M estimate — plus an NDA and full IP transfer.' },
+]
+
+// ── Direct channels ──
+const CHANNELS = [
+  { ic: 'fi-rr-envelope', label: 'New projects & sales', value: 'sales@biztechcs.com', href: 'mailto:sales@biztechcs.com' },
+  { ic: 'fi-rr-briefcase', label: 'Careers & hiring', value: 'career@biztechcs.com', href: 'mailto:career@biztechcs.com' },
+]
+
+// ── Form selects ──
+const NEEDS = ['New product or project', 'Hire a dedicated team', 'AI / ML build', 'Support & maintenance', 'Partnership', 'Something else']
+const BUDGETS = ['Under $10k', '$10k – $50k', '$50k – $100k', '$100k+', 'Not sure yet']
+
+// ── Contact FAQ ──
+const FAQ = [
+  { q: 'How fast will I hear back?', a: 'Within one business day — usually the same day. The first reply comes from a senior engineer or solution lead, not an automated funnel.' },
+  { q: 'Do you sign an NDA?', a: 'Yes. We can sign your NDA or send ours before any details are shared. All work is covered by work-for-hire terms with full IP transfer to you on payment.' },
+  { q: 'What should I include in my message?', a: 'A sentence on the problem, where you are today (idea, existing product, or migration), any must-have tech, and a rough timeline or budget if you have one. Anything missing, we\'ll ask on the call.' },
+  { q: 'What engagement models do you offer?', a: 'Dedicated teams, fixed-scope projects, or staff augmentation — all with transparent estimates and Agile delivery so there are no cost-overrun surprises.' },
+  { q: 'Which time zones do you cover?', a: 'We keep daily working-hour overlap with US and European clients, with local project leads in both regions and engineering across the US, Europe and India.' },
+]
+const ctaChars = [...'Send message']
+---
+<Layout>
+  <Header />
+  <div class="page-shell">
+
+    <!-- ───────── HERO + FORM ───────── -->
+    <section class="ct-hero" id="top">
+      <span class="ct-hero-grid" aria-hidden="true"></span>
+      <span class="ct-hero-glow" aria-hidden="true"></span>
+
+      <div class="wrap relative">
+        <div class="ct-grid">
+
+          <!-- LEFT: pitch, steps, channels -->
+          <div class="ct-left">
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
+              <i class="fi fi-rr-paper-plane text-teal"></i> Contact us
+            </span>
+            <h1 data-reveal style="--d:.06s" class="mt-6 text-[clamp(34px,5vw,58px)] font-black tracking-[-0.045em] leading-[1.04] text-ink">
+              Let's talk about your <span class="accent">next build.</span>
+            </h1>
+            <p data-reveal style="--d:.12s" class="mt-6 text-[clamp(16px,1.3vw,18px)] leading-[1.65] text-muted max-w-[520px]">
+              Book a free 30-minute call with a senior engineer — no sales pressure, just a clear plan, honest scope and a timeline you can hold us to.
+            </p>
+
+            <!-- what happens next -->
+            <ol data-reveal style="--d:.18s" class="ct-steps">
+              {STEPS.map((s, i) => (
+                <li class="ct-step">
+                  <span class="ct-step-n">{i + 1}</span>
+                  <div>
+                    <b class="ct-step-t">{s.t}</b>
+                    <p class="ct-step-d">{s.d}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <!-- direct channels -->
+            <div data-reveal style="--d:.24s" class="ct-channels">
+              {CHANNELS.map((c) => (
+                <a href={c.href} class="ct-channel">
+                  <span class="ct-channel-ic"><i class={`fi ${c.ic}`}></i></span>
+                  <span class="ct-channel-txt">
+                    <span class="ct-channel-label">{c.label}</span>
+                    <span class="ct-channel-value">{c.value}</span>
+                  </span>
+                  <i class="fi fi-rr-arrow-right ct-channel-go"></i>
+                </a>
+              ))}
+            </div>
+
+            <!-- trust row -->
+            <div data-reveal style="--d:.3s" class="ct-trust">
+              <span class="inline-flex items-center gap-1.5"><i class="fi fi-sr-star text-teal"></i> 4.9/5 on Clutch</span>
+              <span class="ct-dot"></span>
+              <span>ISO 27001 &amp; 9001 certified</span>
+              <span class="ct-dot"></span>
+              <span>1,300+ projects delivered</span>
+            </div>
+          </div>
+
+          <!-- RIGHT: form -->
+          <div class="ct-right">
+            <form id="contactForm" data-reveal style="--d:.14s" class="ct-form" action="mailto:sales@biztechcs.com" method="post" enctype="text/plain">
+              <h2 class="ct-form-title">Tell us about your project</h2>
+              <p class="ct-form-sub">Fields marked <span class="ct-req">*</span> are required.</p>
+
+              <div class="ct-row">
+                <label class="ct-field">
+                  <span class="ct-label">Full name <span class="ct-req">*</span></span>
+                  <input name="name" type="text" required placeholder="Jane Doe" class="field" />
+                </label>
+                <label class="ct-field">
+                  <span class="ct-label">Work email <span class="ct-req">*</span></span>
+                  <input name="email" type="email" required placeholder="jane@company.com" class="field" />
+                </label>
+              </div>
+
+              <div class="ct-row">
+                <label class="ct-field">
+                  <span class="ct-label">Company</span>
+                  <input name="company" type="text" placeholder="Company name" class="field" />
+                </label>
+                <label class="ct-field">
+                  <span class="ct-label">Phone</span>
+                  <input name="phone" type="tel" placeholder="+1 (555) 000-0000" class="field" />
+                </label>
+              </div>
+
+              <div class="ct-row">
+                <label class="ct-field">
+                  <span class="ct-label">I'm interested in</span>
+                  <div class="ct-select">
+                    <select name="need" class="field">
+                      <option value="" disabled selected>Select an option</option>
+                      {NEEDS.map((n) => <option value={n}>{n}</option>)}
+                    </select>
+                    <i class="fi fi-rr-angle-small-down"></i>
+                  </div>
+                </label>
+                <label class="ct-field">
+                  <span class="ct-label">Budget</span>
+                  <div class="ct-select">
+                    <select name="budget" class="field">
+                      <option value="" disabled selected>Optional</option>
+                      {BUDGETS.map((b) => <option value={b}>{b}</option>)}
+                    </select>
+                    <i class="fi fi-rr-angle-small-down"></i>
+                  </div>
+                </label>
+              </div>
+
+              <label class="ct-field mt">
+                <span class="ct-label">Project details <span class="ct-req">*</span></span>
+                <textarea name="message" rows="5" required placeholder="What are you building, where are you today, and what does success look like?" class="field resize-none"></textarea>
+              </label>
+
+              <label class="ct-consent">
+                <input type="checkbox" name="consent" required />
+                <span>I agree to be contacted about my enquiry. We never share your details.</span>
+              </label>
+
+              <button type="submit" class="btn-labs w-full justify-center ct-submit">
+                <span class="lbl"><span class="roll">
+                  <span class="top">{ctaChars.map((c, i) => <span style={`--i:${i}`}>{c}</span>)}</span>
+                  <span class="bot">{ctaChars.map((c, i) => <span style={`--i:${i}`}>{c}</span>)}</span>
+                </span></span>
+                <span class="arrow"><i class="fi fi-rr-arrow-right"></i></span>
+              </button>
+              <p class="ct-form-note"><i class="fi fi-rr-shield-check"></i> We reply within one business day · NDA on request</p>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── GLOBAL OFFICES ───────── -->
+    <GlobalOffices />
+
+    <!-- ───────── CONTACT FAQ (shared component) ───────── -->
+    <Faq
+      items={FAQ}
+      eyebrow="Before you write"
+      heading="Quick answers to"
+      accent="common questions."
+      sub="Can't find your answer here? Send us a message — a senior engineer replies within one business day."
+      ctaHref="#top"
+      ctaLabel="Send us a message"
+    />
+
+  </div>
+  <Footer />
+</Layout>
+
+<style>
+  .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* ===== hero band ===== */
+  .ct-hero { position: relative; overflow: hidden; padding: clamp(116px, 13vh, 168px) 0 clamp(56px, 7vw, 92px); background: linear-gradient(180deg, #f8fafc 0%, #eef3f9 100%); }
+  .ct-hero-grid { position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(14,165,233,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,.06) 1px, transparent 1px);
+    background-size: 44px 44px; mask-image: radial-gradient(80% 60% at 50% 0%, #000 0%, transparent 75%); }
+  .ct-hero-glow { position: absolute; top: -14%; right: -8%; width: 620px; height: 620px; pointer-events: none;
+    background: radial-gradient(circle, rgba(14,165,233,.16), transparent 62%); filter: blur(8px); }
+
+  .ct-grid { display: grid; grid-template-columns: 1fr 1.02fr; gap: clamp(32px, 4.5vw, 76px); align-items: start; }
+  @media (max-width: 940px) { .ct-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  /* ===== left column ===== */
+  .ct-steps { margin-top: clamp(30px, 3.4vw, 44px); display: flex; flex-direction: column; gap: 22px; position: relative; }
+  .ct-steps::before { content: ""; position: absolute; left: 17px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(var(--teal), transparent); opacity: .25; }
+  .ct-step { display: flex; gap: 16px; position: relative; }
+  .ct-step-n { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%;
+    background: #fff; border: 1px solid rgba(14,165,233,.3); color: var(--teal-dk); font-weight: 800; font-size: 14px;
+    box-shadow: 0 6px 16px -10px rgba(14,165,233,.5); z-index: 1; }
+  .ct-step-t { display: block; font-size: 15.5px; font-weight: 800; letter-spacing: -.01em; color: var(--ink); }
+  .ct-step-d { margin-top: 4px; font-size: 14px; line-height: 1.55; color: var(--muted); max-width: 440px; }
+
+  .ct-channels { margin-top: clamp(28px, 3vw, 38px); display: flex; flex-direction: column; gap: 12px; }
+  .ct-channel { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px;
+    background: #fff; border: 1px solid var(--line); box-shadow: 0 8px 24px -20px rgba(35,38,46,.3);
+    transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s, border-color .3s; }
+  .ct-channel:hover { transform: translateY(-2px); border-color: rgba(14,165,233,.4); box-shadow: 0 16px 34px -22px rgba(14,165,233,.5); }
+  .ct-channel-ic { flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px;
+    background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.2); color: var(--teal-dk); font-size: 16px; line-height: 0;
+    transition: background .3s, color .3s, transform .35s cubic-bezier(.16,1,.3,1); }
+  .ct-channel:hover .ct-channel-ic { background: var(--teal); color: #fff; border-color: transparent; transform: rotate(-6deg); }
+  .ct-channel-txt { display: flex; flex-direction: column; }
+  .ct-channel-label { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+  .ct-channel-value { font-size: 15px; font-weight: 800; color: var(--ink); }
+  .ct-channel-go { margin-left: auto; color: var(--teal-dk); font-size: 13px; opacity: 0; transform: translateX(-6px); transition: opacity .3s, transform .3s; }
+  .ct-channel:hover .ct-channel-go { opacity: 1; transform: translateX(0); }
+
+  .ct-trust { margin-top: clamp(26px, 3vw, 34px); display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-size: 13px; font-weight: 700; color: var(--ink); }
+  .ct-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--line); }
+
+  /* ===== form card ===== */
+  .ct-form { position: relative; border-radius: 26px; background: #fff; border: 1px solid var(--line);
+    padding: clamp(24px, 2.6vw, 36px); box-shadow: 0 30px 70px -34px rgba(35,38,46,.34); }
+  .ct-form-title { font-size: clamp(20px, 2vw, 25px); font-weight: 800; letter-spacing: -.02em; color: var(--ink); }
+  .ct-form-sub { margin-top: 6px; font-size: 13.5px; color: var(--muted); }
+  .ct-req { color: #0ea5e9; }
+
+  .ct-row { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 520px) { .ct-row { grid-template-columns: 1fr; } }
+  .ct-field { display: block; }
+  .ct-field.mt { margin-top: 18px; }
+  .ct-label { display: block; font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 7px; }
+
+  .field { width: 100%; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; padding: 12px 14px; font-size: 15px; color: #0f172a; font-family: inherit; transition: border-color .25s, box-shadow .25s, background .25s; }
+  .field::placeholder { color: #94a3b8; }
+  .field:focus { outline: none; border-color: #0ea5e9; background: #fff; box-shadow: 0 0 0 3px rgba(14,165,233,.15); }
+
+  .ct-select { position: relative; }
+  .ct-select select { appearance: none; -webkit-appearance: none; cursor: pointer; padding-right: 38px; }
+  .ct-select select:invalid { color: #94a3b8; }
+  .ct-select i { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--teal-dk); font-size: 15px; line-height: 0; }
+
+  .ct-consent { display: flex; align-items: flex-start; gap: 10px; margin-top: 18px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+  .ct-consent input { margin-top: 2px; width: 16px; height: 16px; accent-color: #0ea5e9; flex: none; }
+
+  .ct-submit { margin-top: 22px; }
+  .ct-form-note { margin-top: 14px; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 12.5px; color: var(--muted); }
+  .ct-form-note i { color: var(--teal-dk); }
+
+</style>
+
+<script>
+  // Progressive enhancement: build a pre-filled mailto from the form so it works
+  // without a backend. Falls back to the form's native mailto action if JS is off.
+  const form = document.getElementById('contactForm') as HTMLFormElement | null
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault()
+    if (!form.reportValidity()) return
+    const f = new FormData(form)
+    const g = (k: string) => (f.get(k) ? String(f.get(k)) : '—')
+    const body = [
+      `Name: ${g('name')}`,
+      `Email: ${g('email')}`,
+      `Company: ${g('company')}`,
+      `Phone: ${g('phone')}`,
+      `Interested in: ${g('need')}`,
+      `Budget: ${g('budget')}`,
+      '',
+      'Project details:',
+      g('message'),
+    ].join('\n')
+    const subject = `New enquiry — ${g('name')}`
+    window.location.href = `mailto:sales@biztechcs.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  })
+</script>

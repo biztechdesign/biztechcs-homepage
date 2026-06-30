@@ -2,7 +2,7 @@
 const BASE = import.meta.env.BASE_URL
 const COMPANY = [
   ['About Us', '#about'], ['Our Ventures', '#'], ['Our Team', '#about'], ['Partnerships', '#'],
-  ['Our Engagement Model', '#engagement'], ['Success Stories', '#work'], ['Career', '#'], ['Contact Us', '#cta'],
+  ['Our Engagement Model', '#engagement'], ['Success Stories', '#work'], ['Career', `${BASE}/careers`], ['Contact Us', '#cta'],
 ]
 const SERVICES = [
   ['Software Product Engineering', '#services'], ['Application Development', '#services'], ['Ecommerce Development', '#services'],
@@ -24,7 +24,7 @@ const LEGAL = [
   ['Disclaimer', '#'], ['Intermediary Compliance', '#'], ['Terms of Use', '#'], ['Privacy Policy', '#'],
 ]
 ---
-<footer>
+<footer class="site-footer">
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-cols">

@@ -1,0 +1,232 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import CtaButton from '../components/CtaButton.astro'
+import TrustBand from '../components/TrustBand.astro'
+import Faq from '../components/Faq.astro'
+import CtaBand from '../components/CtaBand.astro'
+
+const BASE = import.meta.env.BASE_URL
+
+// hero proof stats
+const STATS = [
+  { n: '40%', label: 'Lower total cost' },
+  { n: '1,200+', label: 'Projects delivered' },
+  { n: '2-4 wk', label: 'Time to start' },
+  { n: '98%', label: 'Client retention' },
+]
+
+// the outcomes you get (static value panel in the hero)
+const OUTCOMES = [
+  { ic: 'fi-rr-coins', t: 'Lower total cost', d: 'Senior delivery at a blended global rate — typically ~40% less than an in-house or generic-vendor build.' },
+  { ic: 'fi-rr-rocket-lunch', t: 'Faster to launch', d: 'Co-engineering and reusable accelerators get you to production weeks sooner.' },
+  { ic: 'fi-rr-shield-check', t: 'No cost overruns', d: 'Transparent fixed scope and Agile delivery — no surprise invoices.' },
+]
+
+// where the value comes from
+const LEVERS = [
+  { ic: 'fi-rr-coins', t: 'Blended global rates', d: 'Senior engineering at a global blended rate — without dropping a single notch in seniority or quality.' },
+  { ic: 'fi-rr-rocket-lunch', t: 'Faster to value', d: 'Co-engineering, weekly sprints and reusable accelerators get you to production weeks sooner.' },
+  { ic: 'fi-rr-shield-check', t: 'No cost overruns', d: 'Transparent fixed estimates and Agile delivery keep scope and budget honest — no surprise invoices.' },
+  { ic: 'fi-rr-refresh', t: 'Lower run cost', d: 'Right-sized cloud, CI/CD and clean code mean less to maintain and a lower total cost of ownership.' },
+]
+
+// FAQ
+const FAQS = [
+  { q: 'How much will my project cost?', a: 'It depends on scope, complexity and your stack — so we don\'t quote a number sight-unseen. Book a free 30-minute call and a senior engineer will scope it and give you a transparent, fixed estimate.' },
+  { q: 'Where does the value actually come from?', a: 'A senior global team at a blended rate, faster delivery through co-engineering and reusable accelerators, fixed transparent estimates that avoid overruns, and a lower run/maintenance cost — not from cutting seniority or quality.' },
+  { q: 'Does lower cost mean lower quality?', a: 'No. You get senior engineers, US/EU-aligned project leads, ISO 27001 & 9001 processes and IP you fully own. The value comes from efficiency and global scale, not corner-cutting.' },
+  { q: 'How do you keep budgets predictable?', a: 'Transparent fixed estimates, Agile delivery and weekly standups keep scope, budget and timeline honest — so there are no surprise invoices at the end.' },
+]
+---
+<Layout>
+  <Header />
+  <div class="page-shell">
+
+    <!-- ───────── HERO ───────── -->
+    <section class="rc-hero relative overflow-hidden" id="top">
+      <span class="rc-hero-grid" aria-hidden="true"></span>
+      <span class="rc-hero-glow" aria-hidden="true"></span>
+      <div class="wrap relative">
+        <div class="rc-hero-cols">
+          <div>
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
+              <i class="fi fi-rr-chart-histogram text-teal"></i> The value of building with us
+            </span>
+            <h1 data-reveal style="--d:.06s" class="mt-6 text-[clamp(34px,5.2vw,58px)] font-black tracking-[-0.045em] leading-[1.04] text-ink max-w-[600px]">
+              More value, <span class="accent">less spend.</span>
+            </h1>
+            <p data-reveal style="--d:.12s" class="mt-7 text-[clamp(16px,1.3vw,18px)] leading-[1.65] text-muted max-w-[520px]">
+              Building with BiztechCS typically costs less, ships faster and stays on budget — without trading down on seniority or quality. Here's where the return comes from, and why teams keep choosing us.
+            </p>
+            <div data-reveal style="--d:.18s" class="mt-9 flex flex-wrap gap-3">
+              <CtaButton href="#cta" label="Get a scoped quote" variant="dark" />
+              <a href="#how" class="rc-ghost">Where the value comes from <i class="fi fi-rr-arrow-down"></i></a>
+            </div>
+            <div data-reveal style="--d:.26s" class="rc-stats">
+              {STATS.map((s, i) => (
+                <div class="rc-stat">
+                  <div class="rc-stat-n">{s.n}</div>
+                  <div class="rc-stat-l">{s.label}</div>
+                  {i < STATS.length - 1 && <span class="rc-stat-div" aria-hidden="true"></span>}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- value panel (static, no price) -->
+          <aside data-reveal style="--d:.16s" class="rc-value" aria-label="What you get building with BiztechCS">
+            <span class="rc-value-orb" aria-hidden="true"></span>
+            <span class="rc-value-eyebrow"><i class="fi fi-rr-bullseye-arrow"></i> What you get</span>
+            <ul class="rc-value-list">
+              {OUTCOMES.map((o) => (
+                <li>
+                  <span class="rc-value-ic"><i class={`fi ${o.ic}`}></i></span>
+                  <div><b>{o.t}</b><span>{o.d}</span></div>
+                </li>
+              ))}
+            </ul>
+            <div class="rc-value-foot">
+              <span><i class="fi fi-rr-shield-check"></i> IP you fully own · ISO 27001 &amp; 9001</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- recognized & certified (shared) -->
+    <TrustBand />
+
+    <!-- ───────── WHERE SAVINGS COME FROM ───────── -->
+    <section id="how" class="py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center mb-[clamp(36px,4vw,52px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-bulb text-teal"></i> Where the value comes from</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,48px)] font-black tracking-[-0.04em] leading-[1.05] max-w-[720px] mx-auto">Real value, <span class="accent">not corner-cutting.</span></h2>
+          <p data-reveal style="--d:.12s" class="mt-5 text-muted text-[clamp(15px,1.2vw,17px)] leading-[1.6] max-w-[600px] mx-auto">A senior global team at a blended rate, delivering faster, with fewer overruns and a lower run cost — same seniority, less spend. Here's where the return adds up.</p>
+        </div>
+        <div class="grid grid-cols-4 gap-[16px] max-[900px]:grid-cols-2 max-[480px]:grid-cols-1">
+          {LEVERS.map((l, i) => (
+            <div data-reveal style={`--d:${(0.08 + i * 0.06).toFixed(2)}s`} class="rc-lever group">
+              <span class="rc-lever-ic"><i class={`fi ${l.ic}`}></i></span>
+              <h3 class="rc-lever-t">{l.t}</h3>
+              <p class="rc-lever-d">{l.d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── BUDGET PREDICTABILITY (dark band) ───────── -->
+    <section id="predictable" class="surface-dark py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="rc-assume-grid">
+          <div>
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em]"><i class="fi fi-rr-document"></i> No surprises</span>
+            <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(28px,4vw,46px)] font-black tracking-[-0.04em] leading-[1.05] text-white">Budgets that stay <span class="accent-l">predictable.</span></h2>
+            <p data-reveal style="--d:.12s" class="mt-5 text-[clamp(15px,1.2vw,17px)] leading-[1.65] text-white/65 max-w-[520px]">
+              We don't quote a number sight-unseen — and we don't spring surprise invoices later. You get a transparent, scoped estimate up front and Agile delivery that keeps it honest. Book a call and a senior engineer will scope yours.
+            </p>
+            <div data-reveal style="--d:.2s" class="mt-8"><CtaButton href="#cta" label="Get a scoped quote" variant="light" /></div>
+          </div>
+          <ul data-reveal style="--d:.16s" class="rc-assume-list">
+            <li><i class="fi fi-rr-check"></i><div><b>Transparent estimates</b><span>Fixed, scoped pricing agreed before a line of code is written.</span></div></li>
+            <li><i class="fi fi-rr-check"></i><div><b>Agile delivery</b><span>Weekly standups and a shared backlog — you see every sprint, no black boxes.</span></div></li>
+            <li><i class="fi fi-rr-check"></i><div><b>No cost overruns</b><span>Scope and budget stay aligned, so there are no surprise invoices at the end.</span></div></li>
+            <li><i class="fi fi-rr-check"></i><div><b>Same seniority</b><span>The value comes from global scale and efficiency — not from cutting quality.</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── FAQ (shared component) ───────── -->
+    <Faq
+      items={FAQS}
+      eyebrow="Questions, answered"
+      heading="About cost"
+      accent="& value."
+      sub="Where the value comes from, how budgets stay predictable, and why lower cost doesn't mean lower quality."
+      ctaHref="#cta"
+      ctaLabel="Get a scoped quote"
+    />
+
+    <!-- ───────── CTA (shared component) ───────── -->
+    <CtaBand
+      badge="Let's talk"
+      heading="Get a transparent, scoped"
+      accent="estimate."
+      sub="Book a free 30-minute call with a senior engineer. We'll scope your project and give you a clear, fixed estimate — no sales pressure."
+      chips={[['fi-rr-gift', '100% free'], ['fi-rr-comment-check', 'No sales pressure'], ['fi-rr-shield-check', 'IP you fully own']]}
+    />
+
+  </div>
+  <Footer />
+</Layout>
+
+<style>
+  .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 0.12em; }
+  .accent-l { background: linear-gradient(100deg, #7dd3fc, #38bdf8); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 0.12em; }
+
+  /* First-paint hardening: promote shell to its own paint layer so the fixed
+     sticky-reveal footer can't bleed through transparent sections before first repaint. */
+  :global(.page-shell) { transform: translateZ(0); }
+
+  /* ===== hero ===== */
+  .rc-hero { position: relative; padding-top: clamp(118px,11vw,156px); padding-bottom: clamp(40px,5vw,64px);
+    background: radial-gradient(70% 60% at 12% -10%, rgba(117,209,249,.16), transparent 60%),
+      radial-gradient(60% 55% at 100% 0%, rgba(61,101,255,.07), transparent 58%), linear-gradient(180deg, #F4F8FD, #EEF3F9); }
+  .rc-hero-grid { position: absolute; inset: 0; pointer-events: none; opacity: .5;
+    background-image: linear-gradient(rgba(15,23,42,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,.04) 1px, transparent 1px);
+    background-size: 46px 46px; -webkit-mask-image: radial-gradient(70% 60% at 50% 30%, #000, transparent 80%); mask-image: radial-gradient(70% 60% at 50% 30%, #000, transparent 80%); }
+  .rc-hero-glow { position: absolute; right: -8%; top: -20%; width: 55%; height: 120%; border-radius: 50%; background: radial-gradient(circle, rgba(56,189,248,.16), transparent 65%); pointer-events: none; }
+  .rc-hero-cols { display: grid; grid-template-columns: 1fr 0.92fr; gap: clamp(32px,5vw,64px); align-items: center; }
+  @media (max-width: 940px) { .rc-hero-cols { grid-template-columns: 1fr; } }
+
+  .rc-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 16px 24px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); font-weight: 600; font-size: 15px; transition: border-color .25s, transform .25s, color .25s; }
+  .rc-ghost:hover { border-color: rgba(14,165,233,.5); color: var(--teal-dk); transform: translateY(-1px); } .rc-ghost i { line-height: 0; }
+
+  .rc-stats { margin-top: clamp(30px,3.4vw,42px); display: flex; flex-wrap: wrap; align-items: center; gap: 8px 0; }
+  .rc-stat { position: relative; display: flex; flex-direction: column; padding-right: clamp(18px,2.4vw,34px); }
+  .rc-stat-n { font-size: clamp(24px,2.8vw,34px); font-weight: 900; letter-spacing: -.04em; line-height: 1;
+    background: linear-gradient(120deg, #0ea5e9, #6366f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .rc-stat-l { margin-top: 7px; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+  .rc-stat-div { position: absolute; right: 0; top: 4px; bottom: 4px; width: 1px; background: var(--line); }
+  @media (max-width: 560px) { .rc-stat { flex-basis: 50%; padding: 12px 0; } .rc-stat-div { display: none; } }
+
+  /* ===== value panel (static, no price) ===== */
+  @keyframes rcGlow { 0%,100% { opacity: .7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.12); } }
+  .rc-value { position: relative; overflow: hidden; border-radius: 26px; background: #fff; border: 1px solid var(--line); box-shadow: 0 30px 70px -40px rgba(15,23,42,.4); padding: clamp(24px,2.8vw,34px); display: flex; flex-direction: column; gap: 20px; }
+  .rc-value-orb { position: absolute; right: -22%; top: -26%; width: 60%; aspect-ratio: 1; border-radius: 50%; pointer-events: none; z-index: 0; background: radial-gradient(circle, rgba(56,189,248,.2), transparent 65%); filter: blur(6px); }
+  @media (prefers-reduced-motion: no-preference) { .rc-value-orb { animation: rcGlow 7s ease-in-out infinite; } }
+  .rc-value-eyebrow { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .rc-value-eyebrow i { color: var(--teal); font-size: 14px; line-height: 0; }
+  .rc-value-list { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 16px; list-style: none; margin: 0; padding: 0; }
+  .rc-value-list li { display: flex; align-items: flex-start; gap: 14px; }
+  .rc-value-ic { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 13px; background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.2); color: var(--teal-dk); font-size: 19px; line-height: 0; }
+  .rc-value-list div b { display: block; font-size: 15.5px; font-weight: 800; letter-spacing: -.01em; color: var(--ink); }
+  .rc-value-list div span { display: block; margin-top: 3px; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+  .rc-value-foot { position: relative; z-index: 1; padding-top: 18px; border-top: 1px solid var(--line); }
+  .rc-value-foot span { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--teal-dk); }
+  .rc-value-foot i { color: var(--teal); font-size: 14px; line-height: 0; }
+
+  /* ===== savings levers ===== */
+  .rc-lever { position: relative; overflow: hidden; border-radius: 22px; background: #fff; border: 1px solid var(--line); padding: 26px; box-shadow: 0 10px 30px -22px rgba(35,38,46,.22); transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s, border-color .35s; }
+  .rc-lever:hover { transform: translateY(-4px); border-color: rgba(14,165,233,.4); box-shadow: 0 26px 56px -28px rgba(14,165,233,.32); }
+  .rc-lever-ic { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 14px; font-size: 21px; line-height: 0; background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.2); color: var(--teal-dk); transition: background .3s, color .3s, border-color .3s, transform .3s; }
+  .rc-lever:hover .rc-lever-ic { background: var(--teal); color: #fff; border-color: transparent; transform: rotate(-6deg); }
+  .rc-lever-t { margin-top: 18px; font-size: 17px; font-weight: 800; letter-spacing: -.02em; color: var(--ink); }
+  .rc-lever-d { margin-top: 9px; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+
+  /* ===== assumptions (dark) ===== */
+  .rc-assume-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(32px,5vw,64px); align-items: center; }
+  @media (max-width: 900px) { .rc-assume-grid { grid-template-columns: 1fr; } }
+  .rc-assume-list { display: flex; flex-direction: column; gap: 12px; list-style: none; margin: 0; padding: 0; }
+  .rc-assume-list li { display: flex; align-items: flex-start; gap: 13px; padding: 18px 20px; border-radius: 16px; background: rgba(255,255,255,.04); border: 1px solid rgba(125,211,252,.16); transition: border-color .3s, background .3s; }
+  .rc-assume-list li:hover { border-color: rgba(125,211,252,.4); background: rgba(125,211,252,.07); }
+  .rc-assume-list li > i { flex: none; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; background: rgba(125,211,252,.14); color: #7dd3fc; font-size: 12px; line-height: 0; margin-top: 1px; }
+  .rc-assume-list b { display: block; font-size: 14.5px; font-weight: 800; color: #fff; }
+  .rc-assume-list span { display: block; margin-top: 2px; font-size: 13px; line-height: 1.5; color: rgba(255,255,255,.6); }
+
+  @media (prefers-reduced-motion: reduce) { .rc-value-orb { animation: none; } }
+</style>

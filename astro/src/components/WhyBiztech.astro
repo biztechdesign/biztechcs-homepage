@@ -41,11 +41,11 @@ const STATS = [
       </div>
     </div>
 
-    <!-- tilted floating-card carousel (labs.google style) -->
+    <!-- tilted floating-card grid (labs.google style) -->
     <div data-reveal class="rcarousel mt-[clamp(44px,5vw,68px)]">
       <div class="rtrack" data-rtrack>
-        {REASONS.map((r, i) => (
-          <article class="rcard group" style={`--tilt:${(i % 2 === 0 ? -1 : 1) * (1.5 + (i % 3))}deg`}>
+        {REASONS.map((r) => (
+          <article class="rcard group">
             <span class="ricon grid place-items-center text-[22px]">
               <i class={`fi ${r.ic}`}></i>
             </span>
@@ -54,12 +54,6 @@ const STATS = [
           </article>
         ))}
       </div>
-    </div>
-
-    <!-- carousel controls -->
-    <div class="mt-9 flex items-center justify-center gap-3">
-      <button class="rnav" data-rprev aria-label="Previous"><i class="fi fi-rr-angle-left"></i></button>
-      <button class="rnav" data-rnext aria-label="Next"><i class="fi fi-rr-angle-right"></i></button>
     </div>
   </div>
 </section>

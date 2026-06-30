@@ -1,0 +1,330 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.astro'
+import Footer from '../../components/Footer.astro'
+import CtaButton from '../../components/CtaButton.astro'
+import CtaBand from '../../components/CtaBand.astro'
+import { caseStudies } from '../../data/caseStudies'
+
+const BASE = import.meta.env.BASE_URL
+
+export function getStaticPaths() {
+  return caseStudies.map((cs) => ({ params: { slug: cs.slug }, props: { cs } }))
+}
+
+const { cs } = Astro.props
+// other case studies for the "more work" rail
+const more = caseStudies.filter((c) => c.slug !== cs.slug).slice(0, 3)
+---
+<Layout>
+  <Header />
+  <div class="page-shell">
+
+    <!-- ───────── HERO ───────── -->
+    <section class="cd-hero relative overflow-hidden" id="top">
+      <span class="cd-hero-grid" aria-hidden="true"></span>
+      <span class="cd-hero-glow" aria-hidden="true"></span>
+      <div class="wrap relative">
+        <div class="cd-hero-cols">
+          <div>
+            <span data-reveal style="--d:.04s" class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk">
+              <i class={`fi ${cs.ic} text-teal`}></i> {cs.tag}
+            </span>
+            <h1 data-reveal style="--d:.08s" class="mt-6 text-[clamp(30px,4.6vw,54px)] font-black tracking-[-0.04em] leading-[1.06] text-ink max-w-[640px]">
+              {cs.title}
+            </h1>
+            <p data-reveal style="--d:.14s" class="mt-6 text-[clamp(16px,1.3vw,18px)] leading-[1.65] text-muted max-w-[560px]">
+              {cs.intro}
+            </p>
+            <div data-reveal style="--d:.2s" class="cd-hero-meta">
+              <div class="cd-hm"><span class="cd-hm-k">Industry</span><span class="cd-hm-v">{cs.industry}</span></div>
+              <div class="cd-hm"><span class="cd-hm-k">What we delivered</span><span class="cd-hm-v">{cs.service}</span></div>
+            </div>
+            <div data-reveal style="--d:.26s" class="mt-9 flex flex-wrap gap-3">
+              <CtaButton href="#cta" label="Start a project like this" variant="dark" />
+            </div>
+          </div>
+
+          <!-- icon cover, matching the hub card aesthetic -->
+          <div data-reveal style="--d:.18s" class="cd-cover" role="img" aria-label={`${cs.clientFull} — ${cs.industry}`}>
+            <span class="cd-cover-grid" aria-hidden="true"></span>
+            <span class="cd-cover-glow" aria-hidden="true"></span>
+            <span class="cd-cover-chip">{cs.industry}</span>
+            <span class="cd-cover-ic"><i class={`fi ${cs.ic}`}></i></span>
+            <div class="cd-cover-foot">
+              <span class="cd-cover-client">{cs.client}</span>
+              <div class="cd-cover-metric"><b>{cs.metric}</b><span>{cs.metricLabel}</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── RESULTS STRIP ───────── -->
+    <section class="pt-[clamp(8px,2vw,20px)] pb-[clamp(24px,3vw,40px)]">
+      <div class="wrap">
+        <div data-reveal class="cd-results-wrap">
+          <span class="cd-results-label"><i class="fi fi-rr-stats"></i> Outcomes that shipped</span>
+          <div class="cd-results">
+            {cs.results.map((r, i) => (
+              <div data-reveal style={`--d:${(0.04 + i * 0.05).toFixed(2)}s`} class="cd-result">
+                <div class="cd-result-n">{r.metric}</div>
+                <div class="cd-result-l">{r.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── OVERVIEW + CHALLENGE + QUICK FACTS ───────── -->
+    <section class="py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="cd-body-grid">
+          <div class="min-w-0">
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-building text-teal"></i> About the client</span>
+            <p data-reveal style="--d:.06s" class="mt-4 text-[clamp(16px,1.3vw,18px)] leading-[1.7] text-ink/90">{cs.overview}</p>
+
+            <span data-reveal class="mt-12 inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-bullseye-pointer text-teal"></i> The challenge</span>
+            <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(24px,3vw,36px)] font-black tracking-[-0.03em] leading-[1.12]">Where things were <span class="accent">breaking down.</span></h2>
+            <p data-reveal style="--d:.12s" class="mt-5 text-[clamp(15px,1.2vw,17px)] leading-[1.7] text-muted">{cs.challenge}</p>
+          </div>
+
+          <aside data-reveal style="--d:.1s" class="cd-facts">
+            <h3 class="cd-facts-h">Project at a glance</h3>
+            <dl class="cd-facts-dl">
+              <div><dt>Client</dt><dd>{cs.clientFull}</dd></div>
+              <div><dt>Industry</dt><dd>{cs.industry}</dd></div>
+              <div><dt>Delivered</dt><dd>{cs.service}</dd></div>
+            </dl>
+            <div class="cd-facts-tech">
+              <span class="cd-facts-tk">Tech & capabilities</span>
+              <div class="cd-tech-row">
+                {cs.tech.map((t) => <span class="cd-tech">{t}</span>)}
+              </div>
+            </div>
+            <CtaButton href="#cta" label="Start a project like this" variant="dark" full={true} class="mt-2" />
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── SOLUTION ───────── -->
+    <section class="surface-tint py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="text-center mb-[clamp(36px,4vw,52px)]">
+          <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-bulb text-teal"></i> The solution</span>
+          <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(26px,3.6vw,44px)] font-black tracking-[-0.04em] leading-[1.05] max-w-[680px] mx-auto">What we <span class="accent">built.</span></h2>
+        </div>
+        <div class="cd-sol-grid" id="cdSol">
+          {cs.solution.map((s, i) => (
+            <article data-reveal style={`--d:${(0.06 + (i % 3) * 0.06).toFixed(2)}s`} class="cd-scard group">
+              <span class="cd-scard-spot" aria-hidden="true"></span>
+              <span class="cd-scard-ic"><i class={`fi ${s.ic}`}></i></span>
+              <h3 class="cd-scard-title">{s.title}</h3>
+              <p class="cd-scard-desc">{s.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── OUTCOMES + TESTIMONIAL ───────── -->
+    <section class="py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="cd-out-grid">
+          <div>
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-badge-check text-teal"></i> The impact</span>
+            <h2 data-reveal style="--d:.06s" class="mt-4 text-[clamp(26px,3.4vw,40px)] font-black tracking-[-0.04em] leading-[1.08]">What changed for <span class="accent">{cs.client}.</span></h2>
+            <ul class="cd-out-list">
+              {cs.outcomes.map((o, i) => (
+                <li data-reveal style={`--d:${(0.08 + i * 0.06).toFixed(2)}s`}><i class="fi fi-rr-check"></i><span>{o}</span></li>
+              ))}
+            </ul>
+          </div>
+          <figure data-reveal style="--d:.1s" class="cd-quote">
+            <i class="fi fi-rr-quote-right cd-quote-mark" aria-hidden="true"></i>
+            <blockquote>{cs.quote.q}</blockquote>
+            <figcaption>
+              <span class="cd-quote-avatar">{cs.client.slice(0, 2).toUpperCase()}</span>
+              <span class="cd-quote-by"><b>{cs.quote.by}</b><span>{cs.quote.org}</span></span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── MORE CASE STUDIES ───────── -->
+    <section class="surface-tint py-[var(--section-y)]">
+      <div class="wrap">
+        <div class="flex flex-wrap items-end justify-between gap-5 mb-[clamp(28px,3vw,44px)]">
+          <div>
+            <span data-reveal class="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-teal-dk"><i class="fi fi-rr-apps text-teal"></i> More work</span>
+            <h2 data-reveal style="--d:.06s" class="mt-3 text-[clamp(24px,3.2vw,40px)] font-black tracking-[-0.04em] leading-[1.06]">Explore another <span class="accent">case study.</span></h2>
+          </div>
+          <a data-reveal href={`${BASE}/case-studies`} class="cd-ghost"><i class="fi fi-rr-apps"></i> View all</a>
+        </div>
+        <div class="cd-more-grid">
+          {more.map((m, i) => (
+            <a data-reveal style={`--d:${(0.06 + i * 0.06).toFixed(2)}s`} href={`${BASE}/case-studies/${m.slug}`} class="cd-more group">
+              <div class="cd-more-cover">
+                <span class="cd-cover-glow" aria-hidden="true"></span>
+                <span class="cd-more-ic"><i class={`fi ${m.ic}`}></i></span>
+                <span class="cd-more-chip">{m.tag}</span>
+                <span class="cd-more-client">{m.client}</span>
+              </div>
+              <div class="cd-more-body">
+                <div class="cd-more-metric"><b>{m.metric}</b><span>{m.metricLabel}</span></div>
+                <h3 class="cd-more-title">{m.title}</h3>
+                <span class="cd-more-read">Read the story <i class="fi fi-rr-arrow-right"></i></span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── CTA (shared component) ───────── -->
+    <CtaBand
+      badge="Your project next"
+      heading="Want results like these?"
+      accent="Let's scope it."
+      sub="Book a free 30-minute call with a senior engineer — we'll map the outcome, scope and timeline before you commit a rupee or dollar."
+      chips={[['fi-rr-gift', '100% free'], ['fi-rr-comment-check', 'No sales pressure'], ['fi-rr-shield-check', 'IP you fully own']]}
+    />
+
+  </div>
+  <Footer />
+</Layout>
+
+<style>
+  .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* ===== hero ===== */
+  .cd-hero { padding-top: clamp(108px,11vw,150px); padding-bottom: clamp(28px,3.5vw,48px);
+    background: radial-gradient(70% 60% at 12% -10%, rgba(117,209,249,.16), transparent 60%),
+      radial-gradient(60% 55% at 100% 0%, rgba(61,101,255,.07), transparent 58%), linear-gradient(180deg, #F4F8FD, #EEF3F9); }
+  .cd-hero-grid { position: absolute; inset: 0; pointer-events: none; opacity: .5;
+    background-image: linear-gradient(rgba(15,23,42,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,.04) 1px, transparent 1px);
+    background-size: 46px 46px; -webkit-mask-image: radial-gradient(70% 60% at 50% 30%, #000, transparent 80%); mask-image: radial-gradient(70% 60% at 50% 30%, #000, transparent 80%); }
+  .cd-hero-glow { position: absolute; right: -8%; top: -22%; width: 52%; height: 120%; border-radius: 50%; background: radial-gradient(circle, rgba(56,189,248,.16), transparent 65%); pointer-events: none; }
+
+  .cd-hero-cols { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(32px,5vw,72px); align-items: center; }
+  @media (max-width: 900px) { .cd-hero-cols { grid-template-columns: 1fr; } }
+
+  .cd-hero-meta { margin-top: clamp(26px,3vw,36px); display: flex; flex-wrap: wrap; gap: 12px 32px; }
+  .cd-hm { display: flex; flex-direction: column; gap: 3px; position: relative; padding-left: 14px; }
+  .cd-hm::before { content: ""; position: absolute; left: 0; top: 3px; bottom: 3px; width: 3px; border-radius: 3px; background: linear-gradient(180deg, #0ea5e9, #6366f1); }
+  .cd-hm-k { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+  .cd-hm-v { font-size: 14.5px; font-weight: 800; color: var(--ink); }
+
+  .cd-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 15px 22px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); font-weight: 700; font-size: 14.5px; transition: border-color .25s, transform .25s, color .25s; }
+  .cd-ghost:hover { border-color: rgba(14,165,233,.5); color: var(--teal-dk); transform: translateY(-1px); } .cd-ghost i { line-height: 0; }
+
+  /* ===== hero icon cover ===== */
+  .cd-cover { position: relative; aspect-ratio: 16 / 11; width: min(480px,100%); margin-inline: auto; overflow: hidden; border-radius: 26px;
+    background: radial-gradient(120% 100% at 0% 0%, rgba(56,189,248,.2), transparent 55%), radial-gradient(120% 110% at 100% 100%, rgba(99,102,241,.22), transparent 55%), linear-gradient(160deg, #0b1222, #0a1020);
+    border: 1px solid rgba(125,211,252,.18); box-shadow: 0 40px 90px -50px rgba(2,8,23,.9), inset 0 1px 0 rgba(255,255,255,.06); }
+  @media (prefers-reduced-motion: no-preference) { .cd-cover { animation: cdFloat 6s ease-in-out infinite; } }
+  @keyframes cdFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+  .cd-cover-grid { position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(125,211,252,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(125,211,252,.06) 1px, transparent 1px); background-size: 36px 36px; -webkit-mask-image: radial-gradient(110% 90% at 50% 0%, #000 35%, transparent 78%); mask-image: radial-gradient(110% 90% at 50% 0%, #000 35%, transparent 78%); }
+  .cd-cover-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(58% 58% at 50% 42%, rgba(56,189,248,.26), transparent 70%); }
+  .cd-cover-ic { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-58%); display: grid; place-items: center; width: 92px; height: 92px; border-radius: 26px;
+    background: rgba(125,211,252,.12); border: 1px solid rgba(125,211,252,.3); color: #7dd3fc; font-size: 40px; line-height: 0; box-shadow: 0 0 44px -6px rgba(56,189,248,.55); }
+  .cd-cover-chip { position: absolute; left: 18px; top: 18px; z-index: 2; font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #7dd3fc; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(125,211,252,.25); }
+  .cd-cover-foot { position: absolute; left: 18px; right: 18px; bottom: 16px; z-index: 2; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+  .cd-cover-client { font-size: clamp(22px,2.6vw,30px); font-weight: 900; letter-spacing: -.03em; color: #fff; line-height: 1; }
+  .cd-cover-metric { text-align: right; line-height: 1.05; }
+  .cd-cover-metric b { display: block; font-size: 20px; font-weight: 900; letter-spacing: -.03em; background: linear-gradient(120deg, #7dd3fc, #818cf8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .cd-cover-metric span { font-size: 11px; font-weight: 600; color: rgba(255,255,255,.6); }
+
+  /* ===== results strip ===== */
+  .cd-results-wrap { border-radius: 24px; background: #fff; border: 1px solid var(--line); box-shadow: 0 18px 48px -32px rgba(35,38,46,.28); padding: clamp(20px,2.4vw,30px) clamp(20px,2.6vw,34px); }
+  .cd-results-label { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+  .cd-results-label i { color: var(--teal); font-size: 13px; line-height: 0; }
+  .cd-results { display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(12px,1.4vw,20px); }
+  @media (max-width: 980px) { .cd-results { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 520px) { .cd-results { grid-template-columns: repeat(2, 1fr); } }
+  .cd-result { position: relative; padding: 4px 14px 4px 0; }
+  .cd-result + .cd-result::before { content: ""; position: absolute; left: -10px; top: 6px; bottom: 6px; width: 1px; background: var(--line); }
+  @media (max-width: 520px) { .cd-result + .cd-result::before { display: none; } }
+  .cd-result-n { font-size: clamp(22px,2.4vw,30px); font-weight: 900; letter-spacing: -.04em; line-height: 1; background: linear-gradient(120deg, #0ea5e9, #6366f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .cd-result-l { margin-top: 7px; font-size: 13px; font-weight: 600; line-height: 1.35; color: var(--muted); }
+
+  /* ===== body grid (overview/challenge + facts) ===== */
+  .cd-body-grid { display: grid; grid-template-columns: minmax(0,1.55fr) minmax(0,1fr); gap: clamp(32px,5vw,64px); align-items: start; }
+  @media (max-width: 900px) { .cd-body-grid { grid-template-columns: 1fr; } }
+  .cd-facts { position: sticky; top: 104px; border-radius: 24px; background: #fff; border: 1px solid var(--line); box-shadow: 0 18px 48px -34px rgba(35,38,46,.26); padding: clamp(24px,2.4vw,30px); display: flex; flex-direction: column; gap: 20px; }
+  @media (max-width: 900px) { .cd-facts { position: static; } }
+  .cd-facts-h { font-size: 13px; font-weight: 800; letter-spacing: .02em; text-transform: uppercase; color: var(--ink); }
+  .cd-facts-dl { display: flex; flex-direction: column; gap: 14px; margin: 0; }
+  .cd-facts-dl > div { display: flex; flex-direction: column; gap: 3px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .cd-facts-dl > div:last-child { border-bottom: 0; padding-bottom: 0; }
+  .cd-facts-dl dt { font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+  .cd-facts-dl dd { margin: 0; font-size: 15px; font-weight: 700; color: var(--ink); }
+  .cd-facts-tk { display: block; font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .cd-tech-row { display: flex; flex-wrap: wrap; gap: 7px; }
+  .cd-tech { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; color: var(--teal-dk); background: rgba(14,165,233,.08); border: 1px solid rgba(14,165,233,.18); }
+
+  /* ===== solution grid ===== */
+  .cd-sol-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px,1.6vw,18px); }
+  @media (max-width: 860px) { .cd-sol-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .cd-sol-grid { grid-template-columns: 1fr; } }
+  .cd-scard { --mx: 50%; --my: 50%; position: relative; overflow: hidden; border-radius: 20px; background: #fff; border: 1px solid var(--line); padding: 26px; box-shadow: 0 10px 30px -22px rgba(35,38,46,.22); transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s, border-color .35s; }
+  .cd-scard:hover { transform: translateY(-4px); border-color: rgba(14,165,233,.4); box-shadow: 0 26px 56px -28px rgba(14,165,233,.32); }
+  .cd-scard-spot { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .35s; background: radial-gradient(300px circle at var(--mx) var(--my), rgba(56,189,248,.16), transparent 60%); }
+  .cd-scard:hover .cd-scard-spot { opacity: 1; }
+  .cd-scard-ic { position: relative; z-index: 1; display: grid; place-items: center; width: 50px; height: 50px; border-radius: 14px; font-size: 21px; line-height: 0; background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.2); color: var(--teal-dk); transition: background .3s, color .3s, border-color .3s, transform .3s; }
+  .cd-scard:hover .cd-scard-ic { background: var(--teal); color: #fff; border-color: transparent; transform: rotate(-6deg); }
+  .cd-scard-title { position: relative; z-index: 1; margin-top: 18px; font-size: 17.5px; font-weight: 800; letter-spacing: -.02em; color: var(--ink); }
+  .cd-scard-desc { position: relative; z-index: 1; margin-top: 8px; font-size: 14.5px; line-height: 1.55; color: var(--muted); }
+
+  /* ===== outcomes + quote ===== */
+  .cd-out-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(28px,4vw,56px); align-items: center; }
+  @media (max-width: 860px) { .cd-out-grid { grid-template-columns: 1fr; } }
+  .cd-out-list { margin-top: clamp(22px,2.4vw,30px); display: flex; flex-direction: column; gap: 14px; list-style: none; padding: 0; }
+  .cd-out-list li { display: flex; align-items: flex-start; gap: 13px; font-size: clamp(15px,1.2vw,16.5px); line-height: 1.5; font-weight: 600; color: var(--ink); }
+  .cd-out-list i { flex: none; display: grid; place-items: center; width: 26px; height: 26px; margin-top: 1px; border-radius: 999px; background: rgba(14,165,233,.12); color: var(--teal-dk); font-size: 12px; line-height: 0; }
+  .cd-quote { position: relative; margin: 0; border-radius: 26px; background: var(--ink); color: #fff; padding: clamp(28px,3vw,40px); box-shadow: 0 30px 70px -34px rgba(15,23,42,.6); overflow: hidden; }
+  .cd-quote::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(125,211,252,.6), transparent); }
+  .cd-quote-mark { position: absolute; top: 24px; right: 26px; font-size: 30px; line-height: 0; color: rgba(125,211,252,.3); }
+  .cd-quote blockquote { margin: 0; font-size: clamp(17px,1.7vw,21px); font-weight: 600; line-height: 1.5; }
+  .cd-quote figcaption { margin-top: 24px; display: flex; align-items: center; gap: 13px; }
+  .cd-quote-avatar { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(150deg, #0ea5e9, #6366f1); color: #fff; font-size: 14px; font-weight: 900; letter-spacing: -.02em; }
+  .cd-quote-by { display: flex; flex-direction: column; line-height: 1.3; }
+  .cd-quote-by b { font-size: 14.5px; font-weight: 800; color: #fff; }
+  .cd-quote-by span { font-size: 12.5px; font-weight: 600; color: rgba(125,211,252,.85); }
+
+  /* ===== more case studies ===== */
+  .cd-more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px,1.8vw,22px); }
+  @media (max-width: 860px) { .cd-more-grid { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; } }
+  .cd-more { display: flex; flex-direction: column; border-radius: 22px; overflow: hidden; background: #fff; border: 1px solid var(--line); box-shadow: 0 10px 30px -22px rgba(35,38,46,.22); transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s, border-color .35s; }
+  .cd-more:hover { transform: translateY(-5px); border-color: rgba(14,165,233,.4); box-shadow: 0 28px 56px -28px rgba(14,165,233,.34); }
+  .cd-more-cover { position: relative; aspect-ratio: 16 / 9; overflow: hidden; display: grid; place-items: center;
+    background: radial-gradient(120% 100% at 0% 0%, rgba(56,189,248,.18), transparent 55%), radial-gradient(120% 110% at 100% 100%, rgba(99,102,241,.2), transparent 55%), linear-gradient(160deg, #0b1222, #0a1020); }
+  .cd-more-ic { position: relative; z-index: 1; display: grid; place-items: center; width: 60px; height: 60px; border-radius: 18px; background: rgba(125,211,252,.12); border: 1px solid rgba(125,211,252,.3); color: #7dd3fc; font-size: 26px; line-height: 0; box-shadow: 0 0 30px -6px rgba(56,189,248,.5); transition: transform .4s cubic-bezier(.16,1,.3,1); }
+  .cd-more:hover .cd-more-ic { transform: rotate(-6deg) scale(1.06); }
+  .cd-more-chip { position: absolute; left: 13px; top: 13px; z-index: 2; font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #7dd3fc; padding: 5px 10px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(125,211,252,.25); }
+  .cd-more-client { position: absolute; left: 15px; bottom: 12px; z-index: 2; font-size: 22px; font-weight: 900; letter-spacing: -.03em; color: #fff; }
+  .cd-more-body { display: flex; flex-direction: column; flex: 1; padding: 20px; }
+  .cd-more-metric { display: inline-flex; align-items: baseline; gap: 6px; margin-bottom: 10px; }
+  .cd-more-metric b { font-size: 20px; font-weight: 900; letter-spacing: -.03em; line-height: 1; background: linear-gradient(120deg, #0ea5e9, #6366f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .cd-more-metric span { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .cd-more-title { font-size: 17px; font-weight: 800; letter-spacing: -.02em; color: var(--ink); line-height: 1.3; }
+  .cd-more-read { margin-top: auto; padding-top: 14px; display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 800; color: var(--teal-dk); }
+  .cd-more-read i { line-height: 0; transition: transform .3s; }
+  .cd-more:hover .cd-more-read i { transform: translateX(4px); }
+</style>
+
+<script>
+  // spotlight glow follows the cursor on solution cards
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll<HTMLElement>('.cd-scard').forEach((card) => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect()
+        card.style.setProperty('--mx', `${e.clientX - r.left}px`)
+        card.style.setProperty('--my', `${e.clientY - r.top}px`)
+      })
+    })
+  }
+</script>
