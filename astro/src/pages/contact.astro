@@ -5,6 +5,8 @@ import Footer from '../components/Footer.astro'
 import GlobalOffices from '../components/GlobalOffices.astro'
 import Faq from '../components/Faq.astro'
 
+const BASE = import.meta.env.BASE_URL
+
 // ── What happens after you reach out ──
 const STEPS = [
   { t: 'You reach out', d: 'Send the form or email us directly. A senior engineer reads it — not a bot — and replies within one business day.' },
@@ -31,8 +33,16 @@ const FAQ = [
   { q: 'Which time zones do you cover?', a: 'We keep daily working-hour overlap with US and European clients, with local project leads in both regions and engineering across the US, Europe and India.' },
 ]
 const ctaChars = [...'Send message']
+
+const TITLE = 'Contact BiztechCS | Talk to a Senior Engineer'
+const DESCRIPTION = 'Contact BiztechCS to scope your software project. A senior engineer replies within one business day — NDA on request, IP you own. Start the conversation.'
+
+const JSONLD = [
+  { '@context': 'https://schema.org', '@type': 'ContactPage', name: 'Contact BiztechCS', description: 'Get in touch with BiztechCS to scope your software project — a senior engineer replies within one business day.' },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+]
 ---
-<Layout>
+<Layout title={TITLE} description={DESCRIPTION} jsonLd={JSONLD}>
   <Header />
   <div class="page-shell">
 
@@ -53,7 +63,7 @@ const ctaChars = [...'Send message']
               Let's talk about your <span class="accent">next build.</span>
             </h1>
             <p data-reveal style="--d:.12s" class="mt-6 text-[clamp(16px,1.3vw,18px)] leading-[1.65] text-muted max-w-[520px]">
-              Book a free 30-minute call with a senior engineer — no sales pressure, just a clear plan, honest scope and a timeline you can hold us to.
+              Book a free 30-minute call with a senior engineer — no sales pressure, just a clear plan, honest scope and a timeline you can hold us to. New here? See <a href={`${BASE}/case-studies`} class="ct-inline">our work</a> or <a href={`${BASE}/why-biztechcs`} class="ct-inline">why teams choose us</a>.
             </p>
 
             <!-- what happens next -->
@@ -161,7 +171,11 @@ const ctaChars = [...'Send message']
                 </span></span>
                 <span class="arrow"><i class="fi fi-rr-arrow-right"></i></span>
               </button>
+              <p class="ct-form-hint"><i class="fi fi-rr-envelope"></i> Submitting opens your email app with the details pre-filled. Prefer to email us directly? <a href="mailto:sales@biztechcs.com">sales@biztechcs.com</a></p>
               <p class="ct-form-note"><i class="fi fi-rr-shield-check"></i> We reply within one business day · NDA on request</p>
+              <p id="ctFallback" class="ct-form-fallback" hidden role="status">
+                <i class="fi fi-rr-info"></i> If your email app didn't open, just send your message to <a href="mailto:sales@biztechcs.com">sales@biztechcs.com</a> — we'll reply within one business day.
+              </p>
             </form>
           </div>
 
@@ -189,6 +203,8 @@ const ctaChars = [...'Send message']
 
 <style>
   .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .ct-inline { font-weight: 700; color: var(--teal-dk); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+  .ct-inline:hover { color: var(--teal); }
 
   /* ===== hero band ===== */
   .ct-hero { position: relative; overflow: hidden; padding: clamp(116px, 13vh, 168px) 0 clamp(56px, 7vw, 92px); background: linear-gradient(180deg, #f8fafc 0%, #eef3f9 100%); }
@@ -255,8 +271,14 @@ const ctaChars = [...'Send message']
   .ct-consent input { margin-top: 2px; width: 16px; height: 16px; accent-color: #0ea5e9; flex: none; }
 
   .ct-submit { margin-top: 22px; }
-  .ct-form-note { margin-top: 14px; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 12.5px; color: var(--muted); }
+  .ct-form-hint { margin-top: 14px; display: flex; align-items: flex-start; gap: 7px; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+  .ct-form-hint i { color: var(--teal-dk); margin-top: 2px; flex: none; }
+  .ct-form-hint a, .ct-form-fallback a { font-weight: 700; color: var(--teal-dk); }
+  .ct-form-hint a:hover, .ct-form-fallback a:hover { text-decoration: underline; }
+  .ct-form-note { margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 12.5px; color: var(--muted); }
   .ct-form-note i { color: var(--teal-dk); }
+  .ct-form-fallback { margin-top: 14px; display: flex; align-items: flex-start; gap: 8px; padding: 12px 14px; border-radius: 12px; font-size: 12.5px; line-height: 1.5; color: var(--ink); background: rgba(14,165,233,.07); border: 1px solid rgba(14,165,233,.2); }
+  .ct-form-fallback i { color: var(--teal-dk); margin-top: 2px; flex: none; }
 
 </style>
 
@@ -282,5 +304,9 @@ const ctaChars = [...'Send message']
     ].join('\n')
     const subject = `New enquiry — ${g('name')}`
     window.location.href = `mailto:sales@biztechcs.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    // Reveal the fallback so a user whose mail client didn't open still has a path
+    // to reach us (mobile / corporate webmail / no default mail app).
+    const fallback = document.getElementById('ctFallback')
+    if (fallback) { fallback.hidden = false; fallback.scrollIntoView({ behavior: 'smooth', block: 'nearest' }) }
   })
 </script>

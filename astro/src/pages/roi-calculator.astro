@@ -39,8 +39,15 @@ const FAQS = [
   { q: 'Does lower cost mean lower quality?', a: 'No. You get senior engineers, US/EU-aligned project leads, ISO 27001 & 9001 processes and IP you fully own. The value comes from efficiency and global scale, not corner-cutting.' },
   { q: 'How do you keep budgets predictable?', a: 'Transparent fixed estimates, Agile delivery and weekly standups keep scope, budget and timeline honest — so there are no surprise invoices at the end.' },
 ]
+
+const TITLE = 'Software Development Cost & Value | BiztechCS'
+const DESCRIPTION = 'Understand software development cost and where real value comes from — senior global teams, fixed transparent estimates and no overruns. Get a scoped estimate.'
+
+const JSONLD = [
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQS.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+]
 ---
-<Layout>
+<Layout title={TITLE} description={DESCRIPTION} jsonLd={JSONLD}>
   <Header />
   <div class="page-shell">
 

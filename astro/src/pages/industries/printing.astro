@@ -107,8 +107,23 @@ const FAQS = [
   { q: 'Can you build a custom product design tool?', a: 'Absolutely. We build multi-user customizers with text, image, clipart, layers, upload and live preview — plus the print-ready file generation your production team needs.' },
   { q: 'Do you provide maintenance and support?', a: 'Yes — post-launch maintenance, monitoring and 24/7 technical support, with SLAs, so your store keeps selling.' },
 ]
+
+const TITLE = 'Web-to-Print Software Development | BiztechCS'
+const DESCRIPTION = 'Web-to-print software development for the printing industry — custom design tools, storefronts and print ERP integration with print-ready output. Book a call.'
+
+const JSONLD = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Web-to-Print & Printing Industry Software',
+    provider: { '@type': 'Organization', name: 'Biztech Consulting & Solutions', url: 'https://www.biztechcs.com/' },
+    areaServed: ['US', 'GB', 'EU', 'AU', 'AE'],
+    description: 'Web-to-print and printing-industry software — custom product design tools, storefronts and print ERP/ecommerce integration with print-ready file generation.',
+  },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQS.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+]
 ---
-<Layout>
+<Layout title={TITLE} description={DESCRIPTION} jsonLd={JSONLD}>
   <Header />
   <div class="page-shell">
 
@@ -126,7 +141,7 @@ const FAQS = [
               Personalised printing, <span class="accent">made effortless.</span>
             </h1>
             <p data-reveal style="--d:.12s" class="mt-7 text-[clamp(16px,1.3vw,18px)] leading-[1.65] text-muted max-w-[540px]">
-              Web-to-print storefronts, live product design tools and print ERP — built end to end by the team behind <b>PrintXpand</b>. US &amp; EU accountability, IP you fully own.
+              Web-to-print storefronts, live product design tools and print ERP — built end to end by the team behind <b>PrintXpand</b>. US &amp; EU accountability, IP you fully own. Explore <a href={`${BASE}/case-studies`} class="prn-inline">our case studies</a> or <a href={`${BASE}/services/ai-ml-development`} class="prn-inline">AI/ML services</a>.
             </p>
             <div data-reveal style="--d:.18s" class="mt-9 flex flex-wrap gap-3">
               <CtaButton href="#cta" label="Plan your print store" variant="dark" />
@@ -390,6 +405,8 @@ const FAQS = [
 
 <style>
   .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .prn-inline { font-weight: 700; color: var(--teal-dk); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+  .prn-inline:hover { color: var(--teal); }
   .accent-l { background: linear-gradient(100deg, #7dd3fc, #38bdf8); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
   /* ===== hero ===== */

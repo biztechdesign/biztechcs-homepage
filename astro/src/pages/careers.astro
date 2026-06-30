@@ -78,8 +78,15 @@ const FAQS = [
   { q: 'What benefits do you offer?', a: 'A 5-day work week, sponsored certifications, expert-led training, enterprise-level projects, annual awards, regular leisure activities and ergonomic infrastructure — among others.' },
   { q: 'I don\'t see a role that fits. Can I still apply?', a: 'Yes — we\'re always keen to meet great people. Send us your CV through the careers portal and tell us what you\'d love to build.' },
 ]
+
+const TITLE = 'Careers at BiztechCS | Software Development Jobs'
+const DESCRIPTION = 'Careers at BiztechCS — build enterprise software on real client projects. 5-day week, sponsored certifications, senior mentorship and growth. See open roles.'
+
+const JSONLD = [
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQS.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+]
 ---
-<Layout>
+<Layout title={TITLE} description={DESCRIPTION} jsonLd={JSONLD}>
   <Header />
   <div class="page-shell">
 
@@ -97,7 +104,7 @@ const FAQS = [
               Build a career worth <span class="accent">working for.</span>
             </h1>
             <p data-reveal style="--d:.12s" class="mt-7 text-[clamp(16px,1.3vw,18px)] leading-[1.65] text-muted max-w-[540px]">
-              Join 200+ engineers, designers and PMs building enterprise software since 2006. We hire for personality and potential — then back you with senior mentorship, sponsored learning and real projects.
+              Join 200+ engineers, designers and PMs building enterprise software since 2006. We hire for personality and potential — then back you with senior mentorship, sponsored learning and real projects. Meet the <a href={`${BASE}/leadership`} class="cr-inline">leaders you'd work with</a> or see <a href={`${BASE}/why-biztechcs`} class="cr-inline">why teams choose us</a>.
             </p>
             <div data-reveal style="--d:.18s" class="mt-9 flex flex-wrap gap-3">
               <CtaButton href="#openings" label="See open roles" variant="dark" />
@@ -271,6 +278,8 @@ const FAQS = [
 
 <style>
   .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 0.12em; }
+  .cr-inline { font-weight: 700; color: var(--teal-dk); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+  .cr-inline:hover { color: var(--teal); }
   .accent-l { background: linear-gradient(100deg, #7dd3fc, #38bdf8); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 0.12em; }
 
   /* First-paint hardening: promote shell to its own paint layer so the fixed

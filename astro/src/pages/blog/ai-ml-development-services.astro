@@ -32,8 +32,24 @@ const RELATED = [
   { tag: 'AI & ML', read: '8 min read', title: 'Taking GenAI from Pilot to Production: Evals, Guardrails & Cost Controls', ic: 'fi-rr-sparkles', href: BLOG },
   { tag: 'Cloud', read: '9 min read', title: 'A Practical Guide to Cloud Migration on AWS and Azure', ic: 'fi-rr-cloud-upload-alt', href: BLOG },
 ]
+
+const TITLE = 'AI/ML Development Services: Scale Faster | BiztechCS'
+const DESCRIPTION = 'AI/ML development services that move beyond demos to leverage — where custom models actually scale a business, and how to pick the first problem to solve.'
+
+const JSONLD = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: POST.title,
+    description: POST.excerpt,
+    image: POST.cover,
+    author: { '@type': 'Person', name: POST.author.name },
+    datePublished: '2026-06-24',
+    publisher: { '@type': 'Organization', name: 'Biztech Consulting & Solutions', url: 'https://www.biztechcs.com/' },
+  },
+]
 ---
-<Layout>
+<Layout title={TITLE} description={DESCRIPTION} ogType="article" jsonLd={JSONLD}>
   <Header />
   <span class="art-progress" id="artProgress" aria-hidden="true"></span>
   <div class="page-shell" id="article">
@@ -42,11 +58,7 @@ const RELATED = [
     <section class="art-head">
       <span class="art-head-glow" aria-hidden="true"></span>
       <div class="art-wrap relative">
-        <nav class="art-crumbs" aria-label="Breadcrumb">
-          <a href={`${BASE}/`}>Home</a><i class="fi fi-rr-angle-small-right"></i>
-          <a href={`${BASE}/resources`}>Resources</a><i class="fi fi-rr-angle-small-right"></i>
-          <span class="art-crumbs-cat">{POST.category}</span>
-        </nav>
+        <a href={`${BASE}/resources`} class="art-back"><i class="fi fi-rr-arrow-left"></i> All resources</a>
 
         <div class="art-head-grid">
           <div class="art-head-text">
@@ -190,10 +202,10 @@ const RELATED = [
   /* ===== header ===== */
   .art-head { position: relative; overflow: hidden; padding: clamp(108px, 12vh, 148px) 0 clamp(40px, 5vw, 66px); background: linear-gradient(180deg, #f8fafc, #eef3f9); }
   .art-head-glow { position: absolute; top: -30%; right: -6%; width: 560px; height: 560px; pointer-events: none; background: radial-gradient(circle, rgba(14,165,233,.14), transparent 62%); filter: blur(8px); }
-  .art-crumbs { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--muted); flex-wrap: wrap; }
-  .art-crumbs a { color: var(--muted); transition: color .2s; } .art-crumbs a:hover { color: var(--teal-dk); }
-  .art-crumbs i { line-height: 0; font-size: 14px; color: #94a3b8; }
-  .art-crumbs-cat { color: var(--teal-dk); font-weight: 700; }
+  .art-back { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 700; color: var(--muted); transition: color .2s; }
+  .art-back:hover { color: var(--teal-dk); }
+  .art-back i { line-height: 0; font-size: 14px; transition: transform .25s; }
+  .art-back:hover i { transform: translateX(-3px); }
   .art-cat { display: inline-flex; font-size: 11.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-dk); padding: 7px 13px; border-radius: 999px; background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.2); }
   .art-title { margin-top: 18px; font-size: clamp(32px, 3.4vw, 50px); font-weight: 900; letter-spacing: -.04em; line-height: 1.07; color: var(--ink); }
   .art-excerpt { margin-top: 18px; font-size: clamp(16px, 1.3vw, 18px); line-height: 1.6; color: var(--muted); max-width: 520px; }

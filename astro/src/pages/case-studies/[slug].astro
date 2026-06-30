@@ -15,8 +15,29 @@ export function getStaticPaths() {
 const { cs } = Astro.props
 // other case studies for the "more work" rail
 const more = caseStudies.filter((c) => c.slug !== cs.slug).slice(0, 3)
+
+// SEO: title <=60ch ending in " | BiztechCS"; description 150-160ch from the case-study intro.
+const SUFFIX = ' | BiztechCS'
+const titleBase = `${cs.clientFull} Case Study`            // concise, keyword-led
+const TITLE = (titleBase + SUFFIX).length <= 60
+  ? titleBase + SUFFIX
+  : `${cs.client} Case Study${SUFFIX}`
+const DESCRIPTION = cs.intro.length > 160
+  ? cs.intro.slice(0, 157).replace(/\s+\S*$/, '') + '…'
+  : cs.intro
+
+const JSONLD = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: cs.title,
+    description: DESCRIPTION,
+    author: { '@type': 'Organization', name: 'Biztech Consulting & Solutions', url: 'https://www.biztechcs.com/' },
+    publisher: { '@type': 'Organization', name: 'Biztech Consulting & Solutions', url: 'https://www.biztechcs.com/' },
+  },
+]
 ---
-<Layout>
+<Layout title={TITLE} description={DESCRIPTION} ogType="article" jsonLd={JSONLD}>
   <Header />
   <div class="page-shell">
 

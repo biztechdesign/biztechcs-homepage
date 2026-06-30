@@ -1,27 +1,28 @@
 ---
 const BASE = import.meta.env.BASE_URL
+const SITE = 'https://www.biztechcs.com'
 const COMPANY = [
-  ['About Us', '#about'], ['Our Ventures', '#'], ['Our Team', '#about'], ['Partnerships', '#'],
-  ['Our Engagement Model', '#engagement'], ['Success Stories', '#work'], ['Career', `${BASE}/careers`], ['Contact Us', '#cta'],
+  ['About Us', `${BASE}/company`], ['Our Ventures', `${BASE}/company#ventures`], ['Our Team', `${BASE}/leadership`], ['Partnerships', `${BASE}/contact`],
+  ['Our Engagement Model', `${BASE}/why-biztechcs#approach`], ['Success Stories', `${BASE}/case-studies`], ['Career', `${BASE}/careers`], ['Contact Us', `${BASE}/contact`],
 ]
 const SERVICES = [
-  ['Software Product Engineering', '#services'], ['Application Development', '#services'], ['Ecommerce Development', '#services'],
-  ['AI/ML Development', `${BASE}/services/ai-ml-development`], ['DevOps Automation', '#services'], ['Odoo Development', '#services'],
-  ['ERP Services', '#services'], ['CRM Services', '#services'],
+  ['Software Product Engineering', `${BASE}/contact`], ['Application Development', `${BASE}/contact`], ['Ecommerce Development', `${BASE}/contact`],
+  ['AI/ML Development', `${BASE}/services/ai-ml-development`], ['DevOps Automation', `${BASE}/contact`], ['Odoo Development', `${BASE}/contact`],
+  ['ERP Services', `${BASE}/contact`], ['CRM Services', `${BASE}/contact`],
 ]
 const SOLUTIONS = [
-  ['Web To Print', `${BASE}/industries/printing`], ['Portal', '#services'],
+  ['Web To Print', `${BASE}/industries/printing`], ['Portal', `${BASE}/contact`],
 ]
 const HIRE = [
-  ['Hire Magento Developers', '#'], ['Hire Shopify Developers', '#'], ['Hire Javascript Developers', '#'],
-  ['Hire iOS App Developers', '#'], ['Hire Android Developers', '#'], ['Hire Flutter Developers', '#'],
-  ['Hire ReactJS Developers', '#'], ['Hire AngularJS Developers', '#'], ['Hire Vue.JS Developers', '#'],
-  ['Hire Node.JS Developer', '#'], ['Hire Laravel Developers', '#'], ['Hire .Net Developers', '#'],
-  ['Hire PHP Developers', '#'], ['Hire CakePHP developers', '#'], ['Hire Salesforce Developers', '#'],
-  ['Hire Odoo Developers', '#'],
+  ['Hire Magento Developers', `${BASE}/contact`], ['Hire Shopify Developers', `${BASE}/contact`], ['Hire Javascript Developers', `${BASE}/contact`],
+  ['Hire iOS App Developers', `${BASE}/contact`], ['Hire Android Developers', `${BASE}/contact`], ['Hire Flutter Developers', `${BASE}/contact`],
+  ['Hire ReactJS Developers', `${BASE}/contact`], ['Hire AngularJS Developers', `${BASE}/contact`], ['Hire Vue.JS Developers', `${BASE}/contact`],
+  ['Hire Node.JS Developer', `${BASE}/contact`], ['Hire Laravel Developers', `${BASE}/contact`], ['Hire .Net Developers', `${BASE}/contact`],
+  ['Hire PHP Developers', `${BASE}/contact`], ['Hire CakePHP developers', `${BASE}/contact`], ['Hire Salesforce Developers', `${BASE}/contact`],
+  ['Hire Odoo Developers', `${BASE}/contact`],
 ]
 const LEGAL = [
-  ['Disclaimer', '#'], ['Intermediary Compliance', '#'], ['Terms of Use', '#'], ['Privacy Policy', '#'],
+  ['Disclaimer', `${SITE}/disclaimer/`], ['Intermediary Compliance', `${SITE}/intermediary-compliance/`], ['Terms of Use', `${SITE}/terms-of-use/`], ['Privacy Policy', `${SITE}/privacy-policy/`],
 ]
 ---
 <footer class="site-footer">

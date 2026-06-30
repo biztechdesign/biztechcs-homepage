@@ -34,8 +34,15 @@ const QUOTES = [
   { q: 'Our field teams finally run on one app — scheduling, routes and check-ins — instead of an expensive CRM nobody fully used.', by: 'Field Operations Head', org: 'Agrochemicals' },
   { q: 'Scheduling, billing, notes and insurance claims used to live in separate tools. Now it\'s a single system the whole clinic trusts.', by: 'Operations Manager', org: 'Healthcare' },
 ]
+
+const TITLE = 'Software Development Case Studies | BiztechCS'
+const DESCRIPTION = 'BiztechCS software development case studies across finance, healthcare, manufacturing and education — real builds, real metrics. Explore our client work.'
+
+const JSONLD = [
+  { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'BiztechCS Software Development Case Studies', description: 'Real client software builds across finance, healthcare, manufacturing and education — with measurable outcomes.' },
+]
 ---
-<Layout>
+<Layout title={TITLE} description={DESCRIPTION} jsonLd={JSONLD}>
   <Header />
   <div class="page-shell" id="cshub">
 

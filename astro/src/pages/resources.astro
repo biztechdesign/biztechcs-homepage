@@ -37,8 +37,15 @@ const POSTS = [
   { cats: 'cloud', tag: 'DevOps', read: '6 min read', ic: 'fi-rr-settings', title: 'DevOps Done Right: CI/CD Pipelines That Actually Ship Faster', href: BLOG },
 ]
 const newsChars = [...'Subscribe']
+
+const TITLE = 'Software Development Blog & Resources | BiztechCS'
+const DESCRIPTION = 'The BiztechCS software development blog — practical guides on AI/ML, ERP, ecommerce and cloud from senior engineers who ship in production. Read the latest.'
+
+const JSONLD = [
+  { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'BiztechCS Resources & Blog', description: 'Practical software development guides on AI/ML, ERP, ecommerce and cloud from BiztechCS senior engineers.' },
+]
 ---
-<Layout>
+<Layout title={TITLE} description={DESCRIPTION} jsonLd={JSONLD}>
   <Header />
   <div class="page-shell" id="blhub">
 
@@ -140,6 +147,7 @@ const newsChars = [...'Subscribe']
               <span class="arrow"><i class="fi fi-rr-arrow-right"></i></span>
             </button>
           </form>
+          <p class="bl-news-hint" id="newsHint"><i class="fi fi-rr-envelope"></i> Subscribing opens your email app — or just email <a href="mailto:sales@biztechcs.com?subject=Newsletter%20signup">sales@biztechcs.com</a>.</p>
         </div>
       </div>
     </section>
@@ -253,6 +261,10 @@ const newsChars = [...'Subscribe']
   .bl-news-input::placeholder { color: rgba(255,255,255,.45); }
   .bl-news-input:focus { outline: none; border-color: #38bdf8; background: rgba(255,255,255,.1); box-shadow: 0 0 0 3px rgba(56,189,248,.18); }
   .bl-news-btn { flex: none; }
+  .bl-news-hint { position: relative; z-index: 1; margin-top: 12px; display: flex; align-items: center; gap: 7px; font-size: 12px; color: rgba(255,255,255,.55); }
+  .bl-news-hint i { color: #7dd3fc; line-height: 0; flex: none; }
+  .bl-news-hint a { color: #7dd3fc; font-weight: 700; }
+  .bl-news-hint a:hover { text-decoration: underline; }
   @media (max-width: 480px) { .bl-news-form { flex-direction: column; } }
 </style>
 

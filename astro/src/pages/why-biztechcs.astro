@@ -57,8 +57,25 @@ const PROOF = [
   { n: '1,200+', label: 'Projects delivered' },
   { n: '40+', label: 'Countries served' },
 ]
+
+const TITLE = 'Why Choose BiztechCS | US & EU Accountability'
+const DESCRIPTION = 'Why choose BiztechCS — US & EU software accountability, IP you fully own, ISO 27001/9001, no cost overruns and 98% client retention. See what sets us apart.'
+
+const JSONLD = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: 'How do you handle time-zone differences?', acceptedAnswer: { '@type': 'Answer', text: 'We maintain daily working-hour overlap with US and European clients and have local offices in both regions — real-time collaboration during your day, plus progress overnight.' } },
+      { '@type': 'Question', name: 'Who owns the intellectual property?', acceptedAnswer: { '@type': 'Answer', text: 'You do. We use US-style work-for-hire agreements with full IP transfer on payment, backed by NDAs and clear code ownership from day one.' } },
+      { '@type': 'Question', name: 'How do you protect our data and stay compliant?', acceptedAnswer: { '@type': 'Answer', text: "We're ISO 27001 and 9001 certified, with encryption, strict access controls, and GDPR-aligned data handling built into our processes." } },
+      { '@type': 'Question', name: 'What engagement models do you offer?', acceptedAnswer: { '@type': 'Answer', text: 'Dedicated teams, fixed-scope projects, or staff augmentation — all with transparent estimates and Agile delivery to avoid cost overruns.' } },
+      { '@type': 'Question', name: 'How quickly can we get started?', acceptedAnswer: { '@type': 'Answer', text: "Most engagements begin within 1–2 weeks of a scoping call. Book a free 30-minute call and we'll outline a plan." } },
+    ],
+  },
+]
 ---
-<Layout>
+<Layout title={TITLE} description={DESCRIPTION} jsonLd={JSONLD}>
   <Header />
   <div class="page-shell">
 
@@ -76,7 +93,7 @@ const PROOF = [
               Enterprise software, delivered with <span class="accent">US &amp; EU accountability.</span>
             </h1>
             <p data-reveal style="--d:.12s" class="mt-7 text-[clamp(16px,1.3vw,18px)] leading-[1.65] text-muted max-w-[540px]">
-              Since 2006 we've shipped <b class="text-ink">1,200+ projects</b> for companies in 40+ countries — senior-led, security-certified, and built so you own every line. Here's why 200+ companies keep choosing us.
+              Since 2006 we've shipped <b class="text-ink">1,200+ projects</b> for companies in 40+ countries — senior-led, security-certified, and built so you own every line. See <a href={`${BASE}/case-studies`} class="wb-inline">the proof</a> or <a href={`${BASE}/leadership`} class="wb-inline">meet the team</a>.
             </p>
             <div data-reveal style="--d:.18s" class="mt-9 flex flex-wrap gap-3">
               <CtaButton href="#cta" label="Book a 30-min call" variant="dark" />
@@ -230,6 +247,8 @@ const PROOF = [
 <style>
   /* padding-bottom extends the clipped gradient down so descenders (y, g, p) aren't cut off */
   .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 0.12em; }
+  .wb-inline { font-weight: 700; color: var(--teal-dk); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+  .wb-inline:hover { color: var(--teal); }
   .accent-l { background: linear-gradient(100deg, #7dd3fc, #38bdf8); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 0.12em; }
 
   /* First-paint hardening (this page only): promote the shell to its own paint layer

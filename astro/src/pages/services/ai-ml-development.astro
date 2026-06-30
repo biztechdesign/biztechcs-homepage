@@ -145,8 +145,23 @@ const FAQS = [
   { q: 'Who owns the models and IP?', a: 'You do. Work-for-hire with full IP transfer on payment, backed by NDAs — including model weights, prompts, pipelines and code.' },
   { q: 'Which models and clouds do you work with?', a: 'OpenAI, Anthropic Claude, Google Gemini, open-source Llama/Mistral, and managed platforms like AWS Bedrock, Azure AI and Vertex AI — we pick what fits your accuracy, cost and compliance needs.' },
 ]
+
+const TITLE = 'AI/ML Development Services Company | BiztechCS'
+const DESCRIPTION = 'AI/ML development services that ship to production — GenAI, RAG and custom ML with evals, guardrails and IP you own. Take your pilot live. Book a call.'
+
+const JSONLD = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'AI & Machine Learning Development',
+    provider: { '@type': 'Organization', name: 'Biztech Consulting & Solutions', url: 'https://www.biztechcs.com/' },
+    areaServed: ['US', 'GB', 'EU', 'AU', 'AE'],
+    description: 'Custom AI and machine-learning development — GenAI, RAG and bespoke ML taken from pilot to production with evaluations, guardrails, observability and full IP transfer.',
+  },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQS.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+]
 ---
-<Layout>
+<Layout title={TITLE} description={DESCRIPTION} jsonLd={JSONLD}>
   <Header />
   <div class="page-shell">
 
@@ -164,7 +179,7 @@ const FAQS = [
               Build AI systems that <span class="accent">do the work</span> — not just demos.
             </h1>
             <p data-reveal style="--d:.12s" class="mt-7 text-[clamp(16px,1.3vw,18px)] leading-[1.65] text-muted max-w-[540px]">
-              From GenAI pilots to production-grade autonomous agents. We design, evaluate and run AI you can trust in front of customers — with US &amp; EU accountability and IP you fully own.
+              From GenAI pilots to production-grade autonomous agents. We design, evaluate and run AI you can trust in front of customers — with US &amp; EU accountability and IP you fully own. See <a href={`${BASE}/case-studies`} class="svc-inline">our work</a> or <a href={`${BASE}/why-biztechcs`} class="svc-inline">why teams choose us</a>.
             </p>
             <div data-reveal style="--d:.18s" class="mt-9 flex flex-wrap gap-3">
               <CtaButton href="#cta" label="Scope an AI build" variant="dark" />
@@ -524,6 +539,8 @@ const FAQS = [
 
 <style>
   .accent { background: linear-gradient(100deg, #0ea5e9, #0369a1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .svc-inline { font-weight: 700; color: var(--teal-dk); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+  .svc-inline:hover { color: var(--teal); }
   .accent-l { background: linear-gradient(100deg, #7dd3fc, #38bdf8); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
 

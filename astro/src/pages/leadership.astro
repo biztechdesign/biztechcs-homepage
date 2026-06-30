@@ -71,8 +71,15 @@ const FAQS = [
   { q: 'How experienced is your leadership?', a: 'Our leaders have run software delivery since 2006 across 1,200+ projects in 40+ countries — most are senior engineers or operators who came up through the work, not around it.' },
   { q: 'Can I speak with a leader before committing?', a: 'Absolutely. Book a free 30-minute call and you\'ll speak with a senior leader who can scope your project honestly — no sales pressure.' },
 ]
+
+const TITLE = 'BiztechCS Leadership Team | Meet Our Leaders'
+const DESCRIPTION = 'Meet the BiztechCS leadership team — senior operators running software delivery since 2006 across 1,200+ projects. One accountable lead owns every engagement.'
+
+const JSONLD = [
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQS.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+]
 ---
-<Layout>
+<Layout title={TITLE} description={DESCRIPTION} jsonLd={JSONLD}>
   <Header />
   <div class="page-shell">
 
